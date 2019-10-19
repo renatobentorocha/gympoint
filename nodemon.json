@@ -1,0 +1,7 @@
+{
+  "watch": ["src"],
+  "execMap": {
+    "js": "node -r sucrase/register"
+  },
+  "ext": "js"
+}
