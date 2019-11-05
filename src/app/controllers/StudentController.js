@@ -1,7 +1,42 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Student from '../models/Student';
+import Enrollment from '../models/Enrollment';
 
 class StudentController {
+  async index(req, res) {
+    const { q } = req.query;
+
+    let students = null;
+
+    if (q) {
+      students = await Student.findAll({
+        where: {
+          name: { [Op.like]: `%${q}%` },
+        },
+        include: [
+          {
+            model: Enrollment,
+            as: 'enrollment',
+            attributes: ['start_date', 'end_date', 'price', 'active'],
+          },
+        ],
+      });
+    } else {
+      students = await Student.findAll({
+        include: [
+          {
+            model: Enrollment,
+            as: 'enrollment',
+            attributes: ['start_date', 'end_date', 'price', 'active'],
+          },
+        ],
+      });
+    }
+
+    return res.status(200).json(students);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
