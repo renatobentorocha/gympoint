@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   data: null,
 };
 
-export default function user(state = INITIAL_STATE, action) {
+export default function student(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
       case '@student/LOAD_STUDENT_REQUEST': {

@@ -1,11 +1,12 @@
 import React, { useEffect, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MdAdd, MdCheckCircle } from 'react-icons/md';
 
 import { loadStudentRequest } from '~/store/modules/student/actions';
 import { Container, SearchIcon, Content } from './styles';
 
 export default function Students() {
+  const students = useSelector(state => state.student.data);
   const dispatch = useDispatch();
 
   const loadStudent = useCallback(
@@ -45,78 +46,24 @@ export default function Students() {
           </thead>
           <tfoot />
           <tbody>
-            <tr>
-              <td>Cha Ji-Hun</td>
-              <td>example@rocketseat.com.br</td>
-              <td>20</td>
-              <td>
-                <MdCheckCircle size={20} color="#42cb59" />
-              </td>
-              <td>
-                <a href="/">editar</a>
-                <a href="/">apagar</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Cha Ji-Hun</td>
-              <td>example@rocketseat.com.br</td>
-              <td>20</td>
-              <td>
-                <MdCheckCircle size={20} color="#42cb59" />
-              </td>
-              <td>
-                <a href="/">editar</a>
-                <a href="/">apagar</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Cha Ji-Hun</td>
-              <td>example@rocketseat.com.br</td>
-              <td>20</td>
-              <td>
-                <MdCheckCircle size={20} color="#ddd" />
-              </td>
-              <td>
-                <a href="/">editar</a>
-                <a href="/">apagar</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Cha Ji-Hun</td>
-              <td>example@rocketseat.com.br</td>
-              <td>20</td>
-              <td>
-                <MdCheckCircle size={20} color="#42cb59" />
-              </td>
-              <td>
-                <a href="/">editar</a>
-                <a href="/">apagar</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Cha Ji-Hun</td>
-              <td>example@rocketseat.com.br</td>
-              <td>20</td>
-              <td>
-                <MdCheckCircle size={20} color="#ddd" />
-              </td>
-              <td>
-                <a href="/">editar</a>
-                <a href="/">apagar</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Cha Ji-Hun</td>
-              <td>example@rocketseat.com.br</td>
-              <td>20</td>
-              <td>
-                <MdCheckCircle size={20} color="#42cb59" />
-              </td>
-              <td>
-                <a href="/">editar</a>
-                <a href="/">apagar</a>
-              </td>
-            </tr>
+            {students &&
+              students.map(student => (
+                <tr>
+                  <td>{student.name}</td>
+                  <td>{student.email}</td>
+                  <td>{student.age}</td>
+                  <td>
+                    <MdCheckCircle
+                      size={20}
+                      color={student.enrollment_active ? '#42cb59' : '#ddd'}
+                    />
+                  </td>
+                  <td>
+                    <a href="/">editar</a>
+                    <a href="/">apagar</a>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </Content>

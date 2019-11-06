@@ -79,7 +79,7 @@ export const CheckIcon = styled(MdCheckCircle).attrs({
 export const Content = styled.section`
   background-color: #fff;
   padding: 30px;
-
+  margin-bottom: 30px;
   table {
     width: 100%;
     border-collapse: collapse;
