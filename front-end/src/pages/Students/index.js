@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdAdd, MdCheckCircle } from 'react-icons/md';
 
@@ -6,17 +6,21 @@ import { loadStudentRequest } from '~/store/modules/student/actions';
 import { Container, SearchIcon, Content } from './styles';
 
 export default function Students() {
+  const [filter, setFilter] = useState('');
   const students = useSelector(state => state.student.data);
   const dispatch = useDispatch();
 
-  const loadStudent = useCallback(
-    filter => dispatch(loadStudentRequest(filter)),
-    [dispatch]
-  );
+  const loadStudent = useCallback(f => dispatch(loadStudentRequest(f)), [
+    dispatch,
+  ]);
 
   useEffect(() => {
-    loadStudent();
-  }, [loadStudent]);
+    loadStudent(filter);
+  }, [loadStudent, filter]);
+
+  function handleFilter(e) {
+    setFilter(e.target.value);
+  }
 
   return (
     <Container>
@@ -28,7 +32,11 @@ export default function Students() {
             CADASTRAR
           </button>
           <div>
-            <input placeholder="Buscar aluno" />
+            <input
+              value={filter}
+              placeholder="Buscar aluno"
+              onChange={handleFilter}
+            />
             <SearchIcon />
           </div>
         </div>
@@ -48,7 +56,7 @@ export default function Students() {
           <tbody>
             {students &&
               students.map(student => (
-                <tr>
+                <tr key={student.id}>
                   <td>{student.name}</td>
                   <td>{student.email}</td>
                   <td>{student.age}</td>

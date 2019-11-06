@@ -12,7 +12,7 @@ class StudentController {
     if (q) {
       students = await Student.findAll({
         where: {
-          name: { [Op.like]: `%${q}%` },
+          name: { [Op.iLike]: `%${q}%` },
         },
         include: [
           {

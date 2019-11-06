@@ -6,9 +6,18 @@ import { loadStudentSuccess, studentFailure } from './actions';
 
 export function* loadStudent({ payload }) {
   try {
-    const response = yield call(api.get, 'students');
+    const { filter } = payload;
 
-    console.tron.log(response.data);
+    let resource = null;
+
+    if (filter) {
+      resource = `students?q=${filter}`;
+    } else {
+      resource = `students`;
+    }
+
+    console.tron.log(resource);
+    const response = yield call(api.get, resource);
     yield put(loadStudentSuccess(response.data));
   } catch (err) {
     yield put(studentFailure());
