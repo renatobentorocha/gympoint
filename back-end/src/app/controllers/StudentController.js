@@ -34,7 +34,25 @@ class StudentController {
       });
     }
 
-    return res.status(200).json(students);
+    const teste = await Promise.all(
+      await students.map(async s => {
+        const { id, name, email, age, weight, height, enrollment } = s;
+        const enrollment_active = await s.getEnrollmentActive();
+
+        return {
+          id,
+          name,
+          email,
+          age,
+          weight,
+          height,
+          enrollment,
+          enrollment_active,
+        };
+      })
+    );
+
+    return res.status(200).json(teste);
   }
 
   async store(req, res) {

@@ -62,6 +62,10 @@ export const Container = styled.div`
     padding-left: 15px;
   }
 
+  input::placeholder {
+    color: #999999;
+  }
+
   button {
     width: 300px;
     height: 44px;
