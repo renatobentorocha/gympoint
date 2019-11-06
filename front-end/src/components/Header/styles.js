@@ -14,22 +14,7 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
 
-  nav ul li:last-child {
-    padding-right: 30px;
-    float: right;
-  }
-
-  nav ul li:last-child a {
-    color: #ee4d64;
-    transition: color 1s;
-  }
-
-  nav ul li:last-child :hover {
-    color: ${darken(0.2, '#ee4d64')};
-  }
-
   nav {
-    width: 100%;
     padding-left: 30px;
 
     ul > li {
@@ -55,6 +40,32 @@ export const Content = styled.div`
         color: #444444;
       }
     }
+  }
+
+  > nav + a {
+    justify-self: flex-end;
+    margin-left: auto;
+    padding-right: 30px;
+
+    strong {
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
+      color: #666666;
+    }
+
+    span {
+      margin-top: 4px;
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
+      color: #de3b3b;
+      display: block;
+      text-align: right;
+      transition: color 1s;
+    }
+  }
+
+  > nav + a > span:hover {
+    color: ${darken(0.2, '#de3b3b')};
   }
 `;
 
