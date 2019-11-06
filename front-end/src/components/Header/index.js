@@ -23,13 +23,25 @@ export default function Header() {
           <span>GYMPOINT</span>
         </Logo>
         <nav>
-          <Link to="/">ALUNOS</Link>
-          <Link to="/">PLANOS</Link>
-          <Link to="/">MATRÍCULAS</Link>
-          <Link to="/">PEDIDOS DE AUXÍLIO</Link>
-          <Link className="sign_out" to="/" onClick={handleSignout}>
-            SAIR
-          </Link>
+          <ul>
+            <li>
+              <Link to="/">ALUNOS</Link>
+            </li>
+            <li>
+              <Link to="/">PLANOS</Link>
+            </li>
+            <li>
+              <Link to="/">MATRÍCULAS</Link>
+            </li>
+            <li>
+              <Link to="/">PEDIDOS DE AUXÍLIO</Link>
+            </li>
+            <li>
+              <Link className="sign_out" to="/" onClick={handleSignout}>
+                SAIR
+              </Link>
+            </li>
+          </ul>
         </nav>
       </Content>
     </Container>

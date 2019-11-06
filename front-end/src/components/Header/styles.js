@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { darken } from 'polished';
 
-export const Container = styled.div`
-  min-width: 710px;
+export const Container = styled.header`
+  min-width: 770px;
   background-color: #fff;
 `;
 
@@ -14,34 +14,46 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
 
+  nav ul li:last-child {
+    padding-right: 30px;
+    float: right;
+  }
+
+  nav ul li:last-child a {
+    color: #ee4d64;
+    transition: color 1s;
+  }
+
+  nav ul li:last-child :hover {
+    color: ${darken(0.2, '#ee4d64')};
+  }
+
   nav {
     width: 100%;
     padding-left: 30px;
 
-    a + a {
-      margin-left: 30px;
+    ul > li {
+      display: inline-block;
     }
 
-    a {
-      font-family: Roboto;
-      font-size: 15px;
-      color: #999999;
-      text-align: left;
-      font-weight: bold;
-    }
+    ul {
+      width: 100%;
 
-    a:hover {
-      color: #444444;
-    }
-    .sign_out {
-      color: #ee4d64;
-      float: right;
-      margin-right: 30px;
-      transition: color 1s;
-    }
+      li + li {
+        margin-left: 30px;
+      }
 
-    .sign_out:hover {
-      color: ${darken(0.2, '#ee4d64')};
+      li > a {
+        font-family: Roboto;
+        font-size: 15px;
+        color: #999999;
+        font-weight: bold;
+        transition: color 1s;
+      }
+
+      li > a:hover {
+        color: #444444;
+      }
     }
   }
 `;
