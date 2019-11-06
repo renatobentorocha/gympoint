@@ -39,7 +39,6 @@ export function setToken({ payload }) {
 }
 
 export function signOut() {
-  console.tron.log('signOut');
   history.push('/');
 }
 

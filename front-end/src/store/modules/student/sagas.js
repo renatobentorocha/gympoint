@@ -16,7 +16,6 @@ export function* loadStudent({ payload }) {
       resource = `students`;
     }
 
-    console.tron.log(resource);
     const response = yield call(api.get, resource);
     yield put(loadStudentSuccess(response.data));
   } catch (err) {
