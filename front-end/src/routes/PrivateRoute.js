@@ -2,43 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
+import { store } from '~/store';
+
 import DefaultLayout from '~/pages/_layouts/default';
 
-export default function RouteWrapper({
+export default function PrivateRoute({
   component: Component,
   isPrivate,
   ...rest
 }) {
-  const signed = true;
-
-  if (!signed && isPrivate) {
-    return <Redirect to="/" />;
-  }
-
-  if (signed && !isPrivate) {
-    return <Redirect to="/alunos" />;
-  }
-
-  const Layout = signed ? DefaultLayout : null;
+  const { signed } = store.getState().auth;
 
   return (
     <Route
       {...rest}
-      render={props => (
-        <Layout>
-          <Component {...props} />
-        </Layout>
-      )}
+      render={props =>
+        signed ? (
+          <DefaultLayout>
+            <Component {...props} />
+          </DefaultLayout>
+        ) : (
+          <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+        )
+      }
     />
   );
 }
 
-RouteWrapper.propTypes = {
+PrivateRoute.propTypes = {
   isPrivate: PropTypes.bool,
   component: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
     .isRequired,
 };
 
-RouteWrapper.defaultProps = {
+PrivateRoute.defaultProps = {
   isPrivate: false,
 };

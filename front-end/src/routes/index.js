@@ -1,6 +1,6 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
-import Route from './Route';
+import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
 
 import SignIn from '~/pages/SignIn';
 import Students from '~/pages/Students';
@@ -9,7 +9,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={SignIn} />
-      <Route path="/alunos" component={Students} isPrivate />
+      <PrivateRoute path="/alunos" component={Students} isPrivate />
     </Switch>
   );
 }

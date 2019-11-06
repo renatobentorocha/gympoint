@@ -9,7 +9,7 @@ export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
 
-    const response = yield call(api.post, 'sessions', {
+    const response = yield call(api.post, '/session', {
       email,
       password,
     });
@@ -20,8 +20,9 @@ export function* signIn({ payload }) {
 
     yield put(signInSuccess(token, user));
 
-    history.push('/dashboard');
+    history.push('/alunos');
   } catch (err) {
+    console.tron.log(err);
     yield put(signFailure());
   }
 }
@@ -37,6 +38,7 @@ export function setToken({ payload }) {
 }
 
 export function signOut() {
+  console.tron.log('signOut');
   history.push('/');
 }
 

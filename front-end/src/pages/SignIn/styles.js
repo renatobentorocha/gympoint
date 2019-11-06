@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { MdRotateRight } from 'react-icons/md';
 
 export const Container = styled.div`
   height: 100%;
@@ -35,6 +36,12 @@ export const Container = styled.div`
     color: #444444;
     font-family: Roboto, sans-serif;
     font-weight: bold;
+
+    input + span {
+      display: block;
+      color: #ee4d64;
+      margin-bottom: 15px;
+    }
   }
 
   input {
@@ -67,4 +74,21 @@ export const Container = styled.div`
     background-color: #ee4d64;
     border-radius: 4px;
   }
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Spinner = styled(MdRotateRight).attrs({
+  size: 30,
+  color: '#fff',
+})`
+  animation: ${rotate} 2s linear infinite;
 `;
