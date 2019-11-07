@@ -1,11 +1,14 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
+import history from '~/services/history';
 
 import api from '~/services/api';
 
 import {
-  loadStudentSuccess,
+  loadStudentsSuccess,
+  showStudentSuccess,
   studentFailure,
   addStudentSuccess,
+  editStudentSuccess,
 } from './actions';
 
 export function* loadStudent({ payload }) {
@@ -21,7 +24,18 @@ export function* loadStudent({ payload }) {
     }
 
     const response = yield call(api.get, resource);
-    yield put(loadStudentSuccess(response.data));
+    yield put(loadStudentsSuccess(response.data));
+  } catch (err) {
+    yield put(studentFailure());
+  }
+}
+
+export function* showStudent({ payload }) {
+  try {
+    const { id } = payload;
+
+    const response = yield call(api.get, `/students/${id}`);
+    yield put(showStudentSuccess(response.data));
   } catch (err) {
     yield put(studentFailure());
   }
@@ -34,12 +48,30 @@ export function* addStudent({ payload }) {
     const response = yield call(api.post, 'students', data);
 
     yield put(addStudentSuccess(response.data));
+
+    history.push('/alunos');
+  } catch (err) {
+    yield put(studentFailure());
+  }
+}
+
+export function* editStudent({ payload }) {
+  try {
+    const { data } = payload;
+
+    const response = yield call(api.put, `/students/${data.id}`, data);
+
+    yield put(editStudentSuccess(response.data));
+
+    history.push('/alunos');
   } catch (err) {
     yield put(studentFailure());
   }
 }
 
 export default all([
-  takeLatest('@student/LOAD_STUDENT_REQUEST', loadStudent),
+  takeLatest('@student/LOAD_STUDENTS_REQUEST', loadStudent),
+  takeLatest('@student/SHOW_STUDENT_REQUEST', showStudent),
   takeLatest('@student/ADD_STUDENT_REQUEST', addStudent),
+  takeLatest('@student/EDIT_STUDENT_REQUEST', editStudent),
 ]);

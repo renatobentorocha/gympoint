@@ -34,7 +34,7 @@ class StudentController {
       });
     }
 
-    const teste = await Promise.all(
+    const studentsFiltered = await Promise.all(
       await students.map(async s => {
         const { id, name, email, age, weight, height, enrollment } = s;
         const enrollment_active = await s.getEnrollmentActive();
@@ -52,7 +52,18 @@ class StudentController {
       })
     );
 
-    return res.status(200).json(teste);
+    return res.status(200).json(studentsFiltered);
+  }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    const student = await Student.findOne({
+      attributes: ['id', 'name', 'email', 'age', 'weight', 'height'],
+      where: { id },
+    });
+
+    return res.status(200).json(student);
   }
 
   async store(req, res) {

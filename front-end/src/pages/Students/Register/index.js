@@ -1,17 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 import { MdCheck, MdChevronLeft } from 'react-icons/md';
 
-import { addStudentRequest } from '~/store/modules/student/actions';
+import {
+  showStudentRequest,
+  addStudentRequest,
+  editStudentRequest,
+} from '~/store/modules/student/actions';
 import { Container, Spinner } from './styles';
 
-export default function Register({ history }) {
+export default function Register({ match, history }) {
   const dispatch = useDispatch();
 
-  const loading = useSelector(state => state.student.loading);
+  useEffect(() => {
+    function showStudent() {
+      const { params } = match;
+      const { id } = params;
+
+      if (id) {
+        dispatch(showStudentRequest(id));
+      }
+    }
+
+    showStudent();
+  }, [dispatch, match]);
+
+  const { loading, editing_data } = useSelector(state => ({
+    loading: state.student.loading,
+    editing_data: state.student.editing_data,
+  }));
+
+  const [age, setAge] = useState('');
+  const [weight, setWeight] = useState('');
+  const [height, setHeight] = useState('');
+
+  useEffect(() => {
+    function fillStudentProperties() {
+      setAge(editing_data.age);
+      setWeight(editing_data.weight);
+      setHeight(editing_data.height);
+    }
+
+    if (editing_data) {
+      fillStudentProperties();
+    }
+  }, [editing_data]);
 
   const schema = Yup.object().shape({
     name: Yup.string().required('O nome é obrigatório'),
@@ -24,10 +60,6 @@ export default function Register({ history }) {
     weight: Yup.string().required('O peso é obrigatório'),
     height: Yup.string().required('A altura é obrigatória'),
   });
-
-  const [age, setAge] = useState('');
-  const [weight, setWeight] = useState('');
-  const [height, setHeight] = useState('');
 
   function handleAge(e) {
     setAge(e.target.value.replace(/[^0-9]/g, ''));
@@ -88,7 +120,11 @@ export default function Register({ history }) {
       weight: data.weight.replace(/kg/g, ''),
     };
 
-    dispatch(addStudentRequest(student));
+    if (editing_data) {
+      dispatch(editStudentRequest({ id: editing_data.id, ...student }));
+    } else {
+      dispatch(addStudentRequest(student));
+    }
 
     resetForm();
   }
@@ -117,7 +153,12 @@ export default function Register({ history }) {
           </button>
         </div>
       </header>
-      <Form schema={schema} onSubmit={handleSubmit} id="student_form">
+      <Form
+        initialData={editing_data}
+        schema={schema}
+        onSubmit={handleSubmit}
+        id="student_form"
+      >
         <label htmlFor="name">
           NOME COMPLETO
           <Input name="name" type="text" placeholder="Jhon Doe" />

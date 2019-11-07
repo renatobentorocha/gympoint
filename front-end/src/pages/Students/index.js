@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { MdAdd, MdCheckCircle } from 'react-icons/md';
 
-import { loadStudentRequest } from '~/store/modules/student/actions';
+import { loadStudentsRequest } from '~/store/modules/student/actions';
 import { Container, SearchIcon, Content } from './styles';
 
 export default function Students({ history }) {
@@ -10,7 +11,7 @@ export default function Students({ history }) {
   const students = useSelector(state => state.student.data);
   const dispatch = useDispatch();
 
-  const loadStudent = useCallback(f => dispatch(loadStudentRequest(f)), [
+  const loadStudent = useCallback(f => dispatch(loadStudentsRequest(f)), [
     dispatch,
   ]);
 
@@ -71,8 +72,10 @@ export default function Students({ history }) {
                     />
                   </td>
                   <td>
-                    <a href="/">editar</a>
-                    <a href="/">apagar</a>
+                    <Link to={{ pathname: `/alunos/${student.id}` }}>
+                      editar
+                    </Link>
+                    <Link to="/">apagar</Link>
                   </td>
                 </tr>
               ))}

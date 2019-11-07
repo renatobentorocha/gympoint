@@ -20,6 +20,7 @@ routes.post('/users', UserController.store);
 routes.put('/users', UserController.update);
 
 routes.get('/students', StudentController.index);
+routes.get('/students/:id', StudentController.show);
 routes.post('/students', StudentController.store);
 routes.put('/students/:student_id', StudentController.update);
 routes.get('/students/:student_id/checkins', CheckinController.index);

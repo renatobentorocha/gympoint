@@ -12,6 +12,7 @@ export default function Routes() {
       <Route path="/" exact component={SignIn} />
       <PrivateRoute path="/alunos" exact component={Students} isPrivate />
       <PrivateRoute path="/alunos/novo" component={Register} isPrivate />
+      <PrivateRoute path="/alunos/:id" component={Register} isPrivate />
     </Switch>
   );
 }
