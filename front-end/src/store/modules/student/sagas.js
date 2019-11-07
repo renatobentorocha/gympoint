@@ -2,7 +2,11 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import api from '~/services/api';
 
-import { loadStudentSuccess, studentFailure } from './actions';
+import {
+  loadStudentSuccess,
+  studentFailure,
+  addStudentSuccess,
+} from './actions';
 
 export function* loadStudent({ payload }) {
   try {
@@ -23,4 +27,19 @@ export function* loadStudent({ payload }) {
   }
 }
 
-export default all([takeLatest('@student/LOAD_STUDENT_REQUEST', loadStudent)]);
+export function* addStudent({ payload }) {
+  try {
+    const { data } = payload;
+
+    const response = yield call(api.post, 'students', data);
+
+    yield put(addStudentSuccess(response.data));
+  } catch (err) {
+    yield put(studentFailure());
+  }
+}
+
+export default all([
+  takeLatest('@student/LOAD_STUDENT_REQUEST', loadStudent),
+  takeLatest('@student/ADD_STUDENT_REQUEST', addStudent),
+]);

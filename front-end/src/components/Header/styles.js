@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { darken } from 'polished';
 
 export const Container = styled.header`
-  min-width: 770px;
   background-color: #fff;
 `;
 
@@ -15,6 +14,7 @@ export const Content = styled.div`
   align-items: center;
 
   nav {
+    min-width: 700px;
     padding-left: 30px;
 
     ul > li {
@@ -61,6 +61,7 @@ export const Content = styled.div`
       display: block;
       text-align: right;
       transition: color 1s;
+      white-space: pre;
     }
   }
 

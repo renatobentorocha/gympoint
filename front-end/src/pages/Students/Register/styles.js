@@ -1,9 +1,8 @@
-import styled from 'styled-components';
-import { MdCheckCircle, MdSearch } from 'react-icons/md';
+import styled, { keyframes } from 'styled-components';
+import { MdRotateRight } from 'react-icons/md';
+import { darken } from 'polished';
 
 export const Container = styled.div`
-  width: 100%;
-
   margin-top: 30px;
   padding: 0 270px;
 
@@ -12,6 +11,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
+    min-width: 600px;
 
     strong {
       font-family: Roboto, sans-serif;
@@ -32,7 +32,8 @@ export const Container = styled.div`
       height: 35px;
       width: 110px;
       border-radius: 4px;
-      background-color: #ee4d64;
+      background-color: #ccc;
+      transition: background-color 1s;
 
       font-family: Roboto, sans-serif;
       font-size: 14px;
@@ -44,6 +45,11 @@ export const Container = styled.div`
       }
     }
 
+    button:hover {
+        background-color: ${darken(0.1, '#ccc')};
+      }
+    }
+
     button + button {
       margin-left: 15px;
 
@@ -51,7 +57,16 @@ export const Container = styled.div`
       font-size: 14px;
       color: #ffffff;
       font-weight: bold;
-      background-color: #ccc;
+      background-color: #ee4d64;
+    }
+
+    button + button:hover {
+        background-color: ${darken(0.1, '#ee4d64')};
+      }
+    }
+
+    strong + button:hover {
+      background-color: ${darken(0.3, '#ccc')};
     }
 
     input::placeholder {
@@ -60,13 +75,12 @@ export const Container = styled.div`
   }
 
   form {
+    min-width: 600px;
     padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    width: 100%;
 
     text-align: center;
     background-color: #fff;
@@ -120,4 +134,21 @@ export const Container = styled.div`
   input::placeholder {
     color: #999999;
   }
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Spinner = styled(MdRotateRight).attrs({
+  size: 20,
+  color: '#fff',
+})`
+  animation: ${rotate} 2s linear infinite;
 `;

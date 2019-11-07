@@ -91,7 +91,7 @@ const rotate = keyframes`
 `;
 
 export const Spinner = styled(MdRotateRight).attrs({
-  size: 30,
+  size: 25,
   color: '#fff',
 })`
   animation: ${rotate} 2s linear infinite;
