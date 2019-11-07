@@ -26,16 +26,24 @@ export default function Header() {
         <nav>
           <ul>
             <li>
-              <Link to="/">ALUNOS</Link>
+              <Link tabindex="-1" to="/alunos">
+                ALUNOS
+              </Link>
             </li>
             <li>
-              <Link to="/">PLANOS</Link>
+              <Link tabindex="-2" to="/alunos">
+                PLANOS
+              </Link>
             </li>
             <li>
-              <Link to="/">MATRÍCULAS</Link>
+              <Link tabindex="-3" to="/">
+                MATRÍCULAS
+              </Link>
             </li>
             <li>
-              <Link to="/">PEDIDOS DE AUXÍLIO</Link>
+              <Link tabindex="-4" to="/">
+                PEDIDOS DE AUXÍLIO
+              </Link>
             </li>
           </ul>
         </nav>

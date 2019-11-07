@@ -37,6 +37,10 @@ export const Content = styled.div`
       }
 
       li > a:hover {
+        color: ${darken(0.1, '#999999')};
+      }
+
+      a[tabindex]:focus {
         color: #444444;
       }
     }
