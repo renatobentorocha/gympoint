@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -33,22 +33,6 @@ export default function Register({ match, history }) {
     editing_data: state.student.editing_data,
   }));
 
-  const [age, setAge] = useState('');
-  const [weight, setWeight] = useState('');
-  const [height, setHeight] = useState('');
-
-  useEffect(() => {
-    function fillStudentProperties() {
-      setAge(editing_data.age);
-      setWeight(editing_data.weight);
-      setHeight(editing_data.height);
-    }
-
-    if (editing_data) {
-      fillStudentProperties();
-    }
-  }, [editing_data]);
-
   const schema = Yup.object().shape({
     name: Yup.string().required('O nome é obrigatório'),
     email: Yup.string()
@@ -62,32 +46,15 @@ export default function Register({ match, history }) {
   });
 
   function handleAge(e) {
-    setAge(e.target.value.replace(/[^0-9]/g, ''));
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
   }
 
-  function handleSignWeight(focus, sign) {
-    if (focus) {
+  function handleSign(e, focus, sign) {
+    if (e.target.value && focus) {
       const regex = new RegExp(sign, 'g');
-      setWeight(weight.replace(regex, ''));
+      e.target.value = e.target.value.replace(regex, '');
     } else {
-      setWeight(weight ? `${weight}${sign}` : '');
-    }
-  }
-
-  function handleSignHeight(focus, sign) {
-    if (focus) {
-      const regex = new RegExp(sign, 'g');
-      setHeight(height.replace(regex, ''));
-    } else {
-      setHeight(height ? `${height}${sign}` : '');
-    }
-  }
-
-  function handleSign(focus, sign) {
-    if (sign === 'kg') {
-      handleSignWeight(focus, sign);
-    } else {
-      handleSignHeight(focus, sign);
+      e.target.value = e.target.value !== '' ? `${e.target.value}${sign}` : '';
     }
   }
 
@@ -106,11 +73,11 @@ export default function Register({ match, history }) {
   }
 
   function handleWeight(e) {
-    setWeight(decimalFormat(e));
+    e.target.value = decimalFormat(e);
   }
 
   function handleHeight(e) {
-    setHeight(decimalFormat(e));
+    e.target.value = decimalFormat(e);
   }
 
   function handleSubmit(data, { resetForm }) {
@@ -172,17 +139,16 @@ export default function Register({ match, history }) {
         <div>
           <label htmlFor="age">
             IDADE
-            <Input name="age" type="text" onChange={handleAge} value={age} />
+            <Input name="age" type="text" onChange={handleAge} />
           </label>
           <label htmlFor="weight">
             PESO (em kg)
             <Input
               name="weight"
               type="text"
-              onBlur={() => handleSign(false, 'kg')}
-              onFocus={() => handleSign(true, 'kg')}
+              onBlur={e => handleSign(e, false, 'kg')}
+              onFocus={e => handleSign(e, true, 'kg')}
               onChange={handleWeight}
-              value={weight}
             />
           </label>
           <label htmlFor="height">
@@ -190,10 +156,9 @@ export default function Register({ match, history }) {
             <Input
               name="height"
               type="text"
-              onBlur={() => handleSign(false, 'm')}
-              onFocus={() => handleSign(true, 'm')}
+              onBlur={e => handleSign(e, false, 'm')}
+              onFocus={e => handleSign(e, true, 'm')}
               onChange={handleHeight}
-              value={height}
             />
           </label>
         </div>

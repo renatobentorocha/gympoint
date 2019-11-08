@@ -27,6 +27,12 @@ export default function Students({ history }) {
     setFilter(e.target.value);
   }
 
+  function deleteConfirm(e) {
+    if (!window.confirm('Deseja continuar')) {
+      e.preventDefault();
+    }
+  }
+
   return (
     <Container>
       <header>
@@ -75,7 +81,9 @@ export default function Students({ history }) {
                     <Link to={{ pathname: `/alunos/${student.id}` }}>
                       editar
                     </Link>
-                    <Link to="/">apagar</Link>
+                    <Link to="/alunos/novo" onClick={deleteConfirm}>
+                      apagar
+                    </Link>
                   </td>
                 </tr>
               ))}
