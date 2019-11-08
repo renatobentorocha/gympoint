@@ -31,7 +31,7 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link tabIndex="-2" to="/alunos">
+              <Link tabIndex="-2" to="/planos">
                 PLANOS
               </Link>
             </li>
