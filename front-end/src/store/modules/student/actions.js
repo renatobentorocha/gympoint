@@ -54,6 +54,20 @@ export function editStudentSuccess(data) {
   };
 }
 
+export function deleteStudentRequest(data) {
+  return {
+    type: '@student/DELETE_STUDENT_REQUEST',
+    payload: { data },
+  };
+}
+
+export function deleteStudentSuccess(data) {
+  return {
+    type: '@student/DELETE_STUDENT_SUCCESS',
+    payload: { data },
+  };
+}
+
 export function studentFailure() {
   return {
     type: '@student/FAILURE',

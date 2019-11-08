@@ -66,7 +66,7 @@ class PlanController {
 
       await plan.destroy();
 
-      return res.json();
+      return res.status(204).json();
     } catch (error) {
       return res.status(500).json(error);
     }

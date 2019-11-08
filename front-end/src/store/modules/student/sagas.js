@@ -9,6 +9,7 @@ import {
   studentFailure,
   addStudentSuccess,
   editStudentSuccess,
+  deleteStudentSuccess,
 } from './actions';
 
 export function* loadStudent({ payload }) {
@@ -69,9 +70,22 @@ export function* editStudent({ payload }) {
   }
 }
 
+export function* deleteStudent({ payload }) {
+  try {
+    const { data } = payload;
+
+    yield call(api.delete, `/students/${data}`);
+
+    yield put(deleteStudentSuccess(data));
+  } catch (err) {
+    yield put(studentFailure());
+  }
+}
+
 export default all([
   takeLatest('@student/LOAD_STUDENTS_REQUEST', loadStudent),
   takeLatest('@student/SHOW_STUDENT_REQUEST', showStudent),
   takeLatest('@student/ADD_STUDENT_REQUEST', addStudent),
   takeLatest('@student/EDIT_STUDENT_REQUEST', editStudent),
+  takeLatest('@student/DELETE_STUDENT_REQUEST', deleteStudent),
 ]);

@@ -44,6 +44,17 @@ export default function student(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+      case '@student/DELETE_STUDENT_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+      case '@student/DELETE_STUDENT_SUCCESS': {
+        const { data } = action.payload;
+        const index = draft.data.findIndex(s => s.id === data.id);
+        draft.data.splice(index, 1);
+        draft.loading = false;
+        break;
+      }
       case '@student/FAILURE': {
         draft.loading = false;
         break;

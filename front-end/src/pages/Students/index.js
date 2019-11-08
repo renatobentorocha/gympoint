@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdAdd, MdCheckCircle } from 'react-icons/md';
 
-import { loadStudentsRequest } from '~/store/modules/student/actions';
+import {
+  loadStudentsRequest,
+  deleteStudentRequest,
+} from '~/store/modules/student/actions';
 import { Container, SearchIcon, Content } from './styles';
 
 export default function Students({ history }) {
@@ -17,7 +20,7 @@ export default function Students({ history }) {
 
   useEffect(() => {
     loadStudent(filter);
-  }, [loadStudent, filter]);
+  }, [students, loadStudent, filter]);
 
   function handleRegister() {
     history.push('/alunos/novo');
@@ -27,9 +30,11 @@ export default function Students({ history }) {
     setFilter(e.target.value);
   }
 
-  function deleteConfirm(e) {
-    if (!window.confirm('Deseja continuar')) {
-      e.preventDefault();
+  function deleteConfirm(e, id) {
+    e.preventDefault();
+
+    if (window.confirm('Deseja continuar')) {
+      dispatch(deleteStudentRequest(id));
     }
   }
 
@@ -81,7 +86,10 @@ export default function Students({ history }) {
                     <Link to={{ pathname: `/alunos/${student.id}` }}>
                       editar
                     </Link>
-                    <Link to="/alunos/novo" onClick={deleteConfirm}>
+                    <Link
+                      to="/alunos"
+                      onClick={e => deleteConfirm(e, student.id)}
+                    >
                       apagar
                     </Link>
                   </td>
