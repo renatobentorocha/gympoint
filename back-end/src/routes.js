@@ -37,9 +37,10 @@ routes.post(
 );
 
 routes.get('/plans', PlanController.index);
+routes.get('/plans/:id', PlanController.show);
 routes.post('/plans', PlanController.store);
-routes.put('/plans/:plan_id', PlanController.update);
-routes.delete('/plans/:plan_id', PlanController.destroy);
+routes.put('/plans/:id', PlanController.update);
+routes.delete('/plans/:id', PlanController.destroy);
 
 routes.get('/enrollments', EnrollmentController.index);
 routes.post('/enrollments', EnrollmentController.store);
