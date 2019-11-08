@@ -5,57 +5,57 @@ const INITIAL_STATE = {
   editing_data: {},
 };
 
-export default function plan(state = INITIAL_STATE, action) {
+export default function enrollment(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
-      case '@plan/LOAD_PLANS_REQUEST':
-      case '@plan/SHOW_PLAN_REQUEST': {
+      case '@enrollment/LOAD_ENROLLMENTS_REQUEST':
+      case '@enrollment/SHOW_ENROLLMENT_REQUEST': {
         draft.loading = true;
         break;
       }
-      case '@plan/LOAD_PLANS_SUCCESS': {
+      case '@enrollment/LOAD_ENROLLMENTS_SUCCESS': {
         draft.data = action.payload.data;
         draft.editing_data = null;
         draft.loading = false;
         break;
       }
-      case '@plan/SHOW_PLAN_SUCCESS': {
+      case '@enrollment/SHOW_ENROLLMENT_SUCCESS': {
         draft.editing_data = action.payload.data;
         draft.loading = false;
         break;
       }
-      case '@plan/ADD_PLAN_REQUEST': {
+      case '@enrollment/ADD_ENROLLMENT_REQUEST': {
         draft.loading = true;
         break;
       }
-      case '@plan/ADD_PLAN_SUCCESS': {
+      case '@enrollment/ADD_ENROLLMENT_SUCCESS': {
         draft.data.push(action.payload.data);
         draft.loading = false;
         break;
       }
-      case '@plan/EDIT_PLAN_REQUEST': {
+      case '@enrollment/EDIT_ENROLLMENT_REQUEST': {
         draft.loading = true;
         break;
       }
-      case '@plan/EDIT_PLAN_SUCCESS': {
+      case '@enrollment/EDIT_ENROLLMENT_SUCCESS': {
         const { data } = action.payload;
         const index = draft.data.findIndex(s => s.id === data.id);
         draft.data[index] = data;
         draft.loading = false;
         break;
       }
-      case '@plan/DELETE_PLAN_REQUEST': {
+      case '@enrollment/DELETE_ENROLLMENT_REQUEST': {
         draft.loading = true;
         break;
       }
-      case '@plan/DELETE_PLAN_SUCCESS': {
+      case '@enrollment/DELETE_ENROLLMENT_SUCCESS': {
         const { data } = action.payload;
         const index = draft.data.findIndex(p => p.id === data.id);
         draft.data.splice(index, 1);
         draft.loading = false;
         break;
       }
-      case '@plan/FAILURE': {
+      case '@enrollment/FAILURE': {
         draft.loading = false;
         break;
       }

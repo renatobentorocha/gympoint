@@ -53,6 +53,20 @@ export function editPlanSuccess(data) {
   };
 }
 
+export function deletePlanRequest(data) {
+  return {
+    type: '@plan/DELETE_PLAN_REQUEST',
+    payload: { data },
+  };
+}
+
+export function deletePlanSuccess(data) {
+  return {
+    type: '@plan/DELETE_PLAN_SUCCESS',
+    payload: { data },
+  };
+}
+
 export function planFailure() {
   return {
     type: '@plan/FAILURE',

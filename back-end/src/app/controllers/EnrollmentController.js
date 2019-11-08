@@ -10,10 +10,18 @@ import Mail from '../../lib/Mail';
 class EnrollmentController {
   async index(req, res) {
     const enrollments = await Enrollment.findAll({
-      include: [{ model: Plan, as: 'plan' }],
+      include: [{ model: Plan, as: 'plan' }, { model: Student, as: 'student' }],
     });
 
     return res.json(enrollments);
+  }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    const plan = await Enrollment.findOne({ where: { id } });
+
+    return res.json(plan);
   }
 
   async store(req, res) {
@@ -100,9 +108,9 @@ class EnrollmentController {
       return res.status(400).json({ error: 'Plan not found. ' });
     }
 
-    const { enrollment_id } = req.params;
+    const { id } = req.params;
 
-    const enrollment = await Enrollment.findByPk(enrollment_id, {
+    const enrollment = await Enrollment.findByPk(id, {
       include: [{ model: Plan, as: 'plan' }],
     });
 
@@ -132,7 +140,7 @@ class EnrollmentController {
 
   async destroy(req, res) {
     try {
-      const enrollment = await Enrollment.findByPk(req.params.enrollment_id);
+      const enrollment = await Enrollment.findByPk(req.params.id);
 
       if (!enrollment) {
         return res.status(400).json({ error: 'Enrollment not found. ' });
@@ -140,7 +148,7 @@ class EnrollmentController {
 
       await enrollment.destroy();
 
-      return res.json();
+      return res.status(204).json();
     } catch (error) {
       return res.status(500).json(error);
     }

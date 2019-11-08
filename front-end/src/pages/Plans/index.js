@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdAdd } from 'react-icons/md';
 
-import { loadPlansRequest } from '~/store/modules/plan/actions';
+import {
+  loadPlansRequest,
+  deletePlanRequest,
+} from '~/store/modules/plan/actions';
 import { Container, Content } from './styles';
 
 export default function Plans({ history }) {
@@ -17,7 +20,15 @@ export default function Plans({ history }) {
   }, []);
 
   function handleRegister() {
-    history.push('/alunos/novo');
+    history.push('/planos/novo');
+  }
+
+  function deleteConfirm(e, id) {
+    e.preventDefault();
+
+    if (window.confirm('Deseja continuar')) {
+      dispatch(deletePlanRequest(id));
+    }
   }
 
   return (
@@ -51,7 +62,9 @@ export default function Plans({ history }) {
                   <td>{plan.price}</td>
                   <td>
                     <Link to={{ pathname: `/planos/${plan.id}` }}>editar</Link>
-                    <Link to="/">apagar</Link>
+                    <Link to="/planos" onClick={e => deleteConfirm(e, plan.id)}>
+                      apagar
+                    </Link>
                   </td>
                 </tr>
               ))}

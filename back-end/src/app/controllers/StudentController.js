@@ -28,7 +28,7 @@ class StudentController {
           {
             model: Enrollment,
             as: 'enrollment',
-            attributes: ['start_date', 'end_date', 'price', 'active'],
+            attributes: ['id', 'start_date', 'end_date', 'price', 'active'],
           },
         ],
       });
