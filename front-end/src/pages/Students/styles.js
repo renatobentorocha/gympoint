@@ -109,6 +109,7 @@ export const Content = styled.section`
       font-size: 16px;
       color: #666666;
       line-height: 20px;
+      vertical-align: top;
     }
 
     tr {

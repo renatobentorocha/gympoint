@@ -1,12 +1,12 @@
 export function loadEnrollmentsRequest() {
   return {
-    type: '@enrollment/LOAD_ENROLLMENT_REQUEST',
+    type: '@enrollment/LOAD_ENROLLMENTS_REQUEST',
   };
 }
 
 export function loadEnrollmentsSuccess(data) {
   return {
-    type: '@enrollment/LOAD_ENROLLMENT_SUCCESS',
+    type: '@enrollment/LOAD_ENROLLMENTS_SUCCESS',
     payload: { data },
   };
 }

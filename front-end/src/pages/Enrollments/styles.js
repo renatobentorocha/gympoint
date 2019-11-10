@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { MdCheckCircle, MdSearch } from 'react-icons/md';
 
 export const Container = styled.div`
-  min-width: 800px;
-  margin: 30px 120px 0 120px;
+  min-width: 1100px;
+  margin: 30px 30px 0 30px;
 
   header {
     display: flex;
@@ -85,7 +85,7 @@ export const Content = styled.section`
     border-collapse: collapse;
 
     th {
-      text-align: left;
+      text-align: center;
       font-family: Roboto, sans-serif;
       font-size: 16px;
       color: #444444;
@@ -95,12 +95,12 @@ export const Content = styled.section`
       border-bottom: 0;
     }
 
-    th:nth-last-child(-n + 3) {
-      text-align: center;
+    th:first-child {
+      text-align: left;
     }
 
-    tr td:nth-last-child(-n + 3) {
-      text-align: center;
+    tr td:first-child {
+      text-align: left;
     }
 
     tr td {
@@ -109,6 +109,7 @@ export const Content = styled.section`
       font-size: 16px;
       color: #666666;
       line-height: 20px;
+      text-align: center;
       vertical-align: top;
     }
 

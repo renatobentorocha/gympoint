@@ -15,9 +15,7 @@ export default function Plans({ history }) {
 
   useEffect(() => {
     dispatch(loadPlansRequest());
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   function handleRegister() {
     history.push('/planos/novo');

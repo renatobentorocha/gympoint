@@ -1,6 +1,8 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
+import parseISO from 'date-fns/parseISO';
+import pt from 'date-fns/locale/pt';
+import { format } from 'date-fns';
 import history from '~/services/history';
-import { CurrencyFormat } from '~/util/formatters/number';
 
 import api from '~/services/api';
 
@@ -17,7 +19,17 @@ export function* loadEnrollments() {
   try {
     const response = yield call(api.get, 'enrollments');
 
-    yield put(loadEnrollmentsSuccess(response.data));
+    const data = response.data.map(e => ({
+      ...e,
+      start_date: format(parseISO(e.start_date), "dd 'de' MMMM 'de' yyyy", {
+        locale: pt,
+      }),
+      end_date: format(parseISO(e.end_date), "dd 'de' MMMM 'de' yyyy", {
+        locale: pt,
+      }),
+    }));
+
+    yield put(loadEnrollmentsSuccess(data));
   } catch (err) {
     yield put(enrollmentFailure());
   }
@@ -76,9 +88,9 @@ export function* deleteEnrollment({ payload }) {
 }
 
 export default all([
-  takeLatest('@plan/LOAD_PLANS_REQUEST', loadEnrollments),
-  takeLatest('@plan/SHOW_PLAN_REQUEST', showEnrollment),
-  takeLatest('@plan/ADD_PLAN_REQUEST', addEnrollment),
-  takeLatest('@plan/EDIT_PLAN_REQUEST', editEnrollment),
-  takeLatest('@plan/DELETE_PLAN_REQUEST', deleteEnrollment),
+  takeLatest('@enrollment/LOAD_ENROLLMENTS_REQUEST', loadEnrollments),
+  takeLatest('@enrollment/SHOW_ENROLLMENT_REQUEST', showEnrollment),
+  takeLatest('@enrollment/ADD_ENROLLMENT_REQUEST', addEnrollment),
+  takeLatest('@enrollment/EDIT_ENROLLMENT_REQUEST', editEnrollment),
+  takeLatest('@enrollment/DELETE_ENROLLMENT_REQUEST', deleteEnrollment),
 ]);

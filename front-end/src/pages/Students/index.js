@@ -20,7 +20,7 @@ export default function Students({ history }) {
 
   useEffect(() => {
     loadStudent(filter);
-  }, [students, loadStudent, filter]);
+  }, [loadStudent, filter]);
 
   function handleRegister() {
     history.push('/alunos/novo');
