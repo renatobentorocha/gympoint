@@ -10,6 +10,7 @@ class StudentController {
     let students = null;
 
     if (q) {
+      console.log(q);
       students = await Student.findAll({
         where: {
           name: { [Op.iLike]: `%${q}%` },

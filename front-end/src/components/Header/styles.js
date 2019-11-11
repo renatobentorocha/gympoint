@@ -14,7 +14,7 @@ export const Content = styled.div`
   align-items: center;
 
   nav {
-    min-width: 700px;
+    min-width: 900px;
     padding-left: 30px;
 
     ul > li {

@@ -2,83 +2,43 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-
 import { MdCheck, MdChevronLeft } from 'react-icons/md';
 
+import { DropdownIndicator } from '~/components/ReactSelect/DropdownIndicator';
+import { loadPlansRequest } from '~/store/modules/plan/actions';
+
+import api from '~/services/api';
+
 import {
-  showStudentRequest,
-  addStudentRequest,
-  editStudentRequest,
-} from '~/store/modules/student/actions';
-import { Container, Spinner } from './styles';
+  Container,
+  Spinner,
+  FormWrapper,
+  TAsyncSelect,
+  TReactSelect,
+  TDatePicker,
+  TMdArrowDropDown,
+} from './styles';
 
 export default function Register({ match, history }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    function showStudent() {
-      const { params } = match;
-      const { id } = params;
-
-      if (id) {
-        dispatch(showStudentRequest(id));
-      }
+    function loadPlans() {
+      dispatch(loadPlansRequest());
     }
 
-    showStudent();
-  }, [dispatch, match]);
+    loadPlans();
+  }, [dispatch]);
 
-  const { loading, editing_data } = useSelector(state => ({
+  const { loading, plans } = useSelector(state => ({
     loading: state.student.loading,
-    editing_data: state.student.editing_data,
+    plans: state.plan.data.map(plan => ({ value: plan.id, label: plan.title })),
   }));
 
   const schema = Yup.object().shape({
-    name: Yup.string().required('O nome é obrigatório'),
-    email: Yup.string()
-      .email('Insira um e-mail válido')
-      .required('O e-mail é obrigatório'),
-    age: Yup.string('Deve ser uma idade valida').required(
-      'A idade é obrigatória'
-    ),
-    weight: Yup.string().required('O peso é obrigatório'),
-    height: Yup.string().required('A altura é obrigatória'),
+    plan: Yup.string().required('O nome é obrigatório'),
+    start_date: Yup.string().required('O peso é obrigatório'),
   });
-
-  function handleAge(e) {
-    e.target.value = e.target.value.replace(/[^0-9]/g, '');
-  }
-
-  function handleSign(e, focus, sign) {
-    if (e.target.value && focus) {
-      const regex = new RegExp(sign, 'g');
-      e.target.value = e.target.value.replace(regex, '');
-    } else {
-      e.target.value = e.target.value !== '' ? `${e.target.value}${sign}` : '';
-    }
-  }
-
-  function decimalFormat(e) {
-    const weightOnlyNumber = e.target.value.replace(/[^0-9]/g, '');
-    let value = weightOnlyNumber;
-
-    if (weightOnlyNumber.length >= 3) {
-      const decimal = weightOnlyNumber.substr(weightOnlyNumber.length - 2);
-      const integer = weightOnlyNumber.substr(0, weightOnlyNumber.length - 2);
-
-      value = (parseFloat(integer) + Number(decimal) / 100).toFixed(2);
-    }
-
-    return value;
-  }
-
-  function handleWeight(e) {
-    e.target.value = decimalFormat(e);
-  }
-
-  function handleHeight(e) {
-    e.target.value = decimalFormat(e);
-  }
 
   function handleSubmit(data, { resetForm }) {
     const student = {
@@ -87,11 +47,11 @@ export default function Register({ match, history }) {
       weight: data.weight.replace(/kg/g, ''),
     };
 
-    if (editing_data) {
-      dispatch(editStudentRequest({ id: editing_data.id, ...student }));
-    } else {
-      dispatch(addStudentRequest(student));
-    }
+    // if (editing_data) {
+    //   dispatch(editStudentRequest({ id: editing_data.id, ...student }));
+    // } else {
+    //   dispatch(addStudentRequest(student));
+    // }
 
     resetForm();
   }
@@ -100,16 +60,31 @@ export default function Register({ match, history }) {
     history.push('/alunos');
   }
 
+  async function loadOptions(input) {
+    const response = await api.get(`/students?q=${input}`);
+
+    const options = response.data.map(student => ({
+      value: student.id,
+      label: student.name,
+    }));
+
+    return options;
+  }
+
+  const handleInputChange = newValue => {
+    console.tron.log(newValue);
+  };
+
   return (
     <Container>
       <header>
-        <strong>Cadastro de aluno</strong>
+        <strong>Cadastro de matrícula</strong>
         <div>
           <button type="button" onClick={() => handleBack()}>
             <MdChevronLeft size={20} />
             VOLTAR
           </button>
-          <button type="submit" form="student_form">
+          <button type="submit" form="enrollment_form">
             {loading ? (
               <Spinner />
             ) : (
@@ -120,49 +95,44 @@ export default function Register({ match, history }) {
           </button>
         </div>
       </header>
-      <Form
-        initialData={editing_data}
-        schema={schema}
-        onSubmit={handleSubmit}
-        id="student_form"
-      >
-        <label htmlFor="name">
-          NOME COMPLETO
-          <Input name="name" type="text" placeholder="Jhon Doe" />
-        </label>
+      <FormWrapper>
+        <TAsyncSelect
+          components={{ DropdownIndicator }}
+          loadOptions={loadOptions}
+          defaultOptions
+          onChange={handleInputChange}
+          placeholder="Buscar aluno"
+        />
+        <Form schema={schema} onSubmit={handleSubmit} id="enrollment_form">
+          <label htmlFor="plan">
+            PLANO
+            <TReactSelect
+              components={{ DropdownIndicator }}
+              placeholder="Selecione o plano"
+              options={plans}
+              name="techs"
+            />
+          </label>
 
-        <label htmlFor="email">
-          ENDEREÇO DE E-MAIL
-          <Input name="email" type="email" placeholder="exemplo@email.com" />
-        </label>
+          <label htmlFor="email">
+            DATA DE INÍCIO
+            <TDatePicker name="begin_date" placeholderText="Escolha a data" />
+            <div data-picker-arrow>
+              <TMdArrowDropDown />
+            </div>
+          </label>
 
-        <div>
           <label htmlFor="age">
-            IDADE
-            <Input name="age" type="text" onChange={handleAge} />
+            DATA DE TÉRMINO
+            <Input name="age" type="text" disabled />
           </label>
+
           <label htmlFor="weight">
-            PESO (em kg)
-            <Input
-              name="weight"
-              type="text"
-              onBlur={e => handleSign(e, false, 'kg')}
-              onFocus={e => handleSign(e, true, 'kg')}
-              onChange={handleWeight}
-            />
+            VALOR FINAL
+            <Input name="weight" type="text" disabled />
           </label>
-          <label htmlFor="height">
-            ALTURA
-            <Input
-              name="height"
-              type="text"
-              onBlur={e => handleSign(e, false, 'm')}
-              onFocus={e => handleSign(e, true, 'm')}
-              onChange={handleHeight}
-            />
-          </label>
-        </div>
-      </Form>
+        </Form>
+      </FormWrapper>
     </Container>
   );
 }

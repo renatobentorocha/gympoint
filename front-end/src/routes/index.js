@@ -8,6 +8,7 @@ import Register from '~/pages/Students/Register';
 import Plans from '~/pages/Plans';
 import RegisterPlan from '~/pages/Plans/Register';
 import Enrollments from '~/pages/Enrollments';
+import RegisterEnrollment from '~/pages/Enrollments/Register';
 
 export default function Routes() {
   return (
@@ -19,7 +20,17 @@ export default function Routes() {
       <PrivateRoute path="/planos" exact component={Plans} isPrivate />
       <PrivateRoute path="/planos/novo" component={RegisterPlan} isPrivate />
       <PrivateRoute path="/planos/:id" component={RegisterPlan} isPrivate />
-      <PrivateRoute path="/matriculas" component={Enrollments} isPrivate />
+      <PrivateRoute
+        path="/matriculas"
+        exact
+        component={Enrollments}
+        isPrivate
+      />
+      <PrivateRoute
+        path="/matriculas/nova"
+        component={RegisterEnrollment}
+        isPrivate
+      />
     </Switch>
   );
 }
