@@ -1,6 +1,7 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
+  plans: [],
   data: [],
   editing_data: {},
 };
@@ -19,6 +20,17 @@ export default function enrollment(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+
+      case '@enrollment/LOAD_PLANS_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+      case '@enrollment/LOAD_PLANS_SUCCESS': {
+        draft.plans = action.payload.data;
+        draft.loading = false;
+        break;
+      }
+
       case '@enrollment/SHOW_ENROLLMENT_SUCCESS': {
         draft.editing_data = action.payload.data;
         draft.loading = false;

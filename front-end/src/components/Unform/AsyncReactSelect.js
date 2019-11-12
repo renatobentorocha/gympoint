@@ -1,27 +1,18 @@
 import React, { useRef, useEffect } from 'react';
-import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 
 import { useField } from '@rocketseat/unform';
 
 import { customStyles } from '~/styles/ReactSelect';
 
-export default function ReactSelect({
-  name,
-  label,
-  options,
-  multiple,
-  ...rest
-}) {
+export default function AsyncReactSelect({ name, ...rest }) {
   const ref = useRef(null);
-  const { fieldName, registerField, defaultValue, error } = useField(name);
+  const { fieldName, registerField, error } = useField(name);
 
   function parseSelectValue(selectRef) {
     const selectValue = selectRef.state.value;
-    if (!multiple) {
-      return selectValue ? selectValue.id : '';
-    }
 
-    return selectValue ? selectValue.map(option => option.id) : [];
+    return selectValue ? selectValue.id : '';
   }
 
   useEffect(() => {
@@ -35,27 +26,12 @@ export default function ReactSelect({
     });
   }, [ref.current, fieldName]); // eslint-disable-line
 
-  function getDefaultValue() {
-    if (!defaultValue) return null;
-
-    if (!multiple) {
-      return options.find(option => option.id === defaultValue);
-    }
-
-    return options.filter(option => defaultValue.includes(option.id));
-  }
-
   return (
     <>
-      {label && <label htmlFor={fieldName}>{label}</label>}
-
-      <Select
+      <AsyncSelect
         styles={customStyles}
         name={fieldName}
         aria-label={fieldName}
-        options={options}
-        isMulti={multiple}
-        defaultValue={getDefaultValue()}
         ref={ref}
         {...rest}
       />

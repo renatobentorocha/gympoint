@@ -8,6 +8,7 @@ import api from '~/services/api';
 
 import {
   loadEnrollmentsSuccess,
+  loadPlansSuccess,
   showEnrollmentSuccess,
   enrollmentFailure,
   addEnrollmentsSuccess,
@@ -30,6 +31,16 @@ export function* loadEnrollments() {
     }));
 
     yield put(loadEnrollmentsSuccess(data));
+  } catch (err) {
+    yield put(enrollmentFailure());
+  }
+}
+
+export function* loadPlans() {
+  try {
+    const response = yield call(api.get, 'plans');
+
+    yield put(loadPlansSuccess(response.data));
   } catch (err) {
     yield put(enrollmentFailure());
   }
@@ -89,6 +100,7 @@ export function* deleteEnrollment({ payload }) {
 
 export default all([
   takeLatest('@enrollment/LOAD_ENROLLMENTS_REQUEST', loadEnrollments),
+  takeLatest('@enrollment/LOAD_PLANS_REQUEST', loadPlans),
   takeLatest('@enrollment/SHOW_ENROLLMENT_REQUEST', showEnrollment),
   takeLatest('@enrollment/ADD_ENROLLMENT_REQUEST', addEnrollment),
   takeLatest('@enrollment/EDIT_ENROLLMENT_REQUEST', editEnrollment),

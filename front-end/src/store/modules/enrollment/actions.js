@@ -11,6 +11,19 @@ export function loadEnrollmentsSuccess(data) {
   };
 }
 
+export function loadPlansRequest() {
+  return {
+    type: '@enrollment/LOAD_PLANS_REQUEST',
+  };
+}
+
+export function loadPlansSuccess(data) {
+  return {
+    type: '@enrollment/LOAD_PLANS_SUCCESS',
+    payload: { data },
+  };
+}
+
 export function showEnrollmentRequest(id) {
   return {
     type: '@enrollment/SHOW_ENROLLMENT_REQUEST',

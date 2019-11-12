@@ -7,8 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 export default function DatePicker({ name, ...rest }) {
   const ref = useRef(null);
-  const { fieldName, registerField, defaultValue, error } = useField(name);
-  const [selected, setSelected] = useState(defaultValue);
+  const { fieldName, registerField, error } = useField(name);
 
   useEffect(() => {
     registerField({
@@ -23,14 +22,8 @@ export default function DatePicker({ name, ...rest }) {
 
   return (
     <>
-      <ReactDatePicker
-        name={fieldName}
-        selected={selected}
-        onChange={date => setSelected(date)}
-        ref={ref}
-        {...rest}
-      />
-      {error && <span>{error}</span>}
+      <ReactDatePicker name={fieldName} ref={ref} {...rest} />
+      {error && <span className="error">{error}</span>}
     </>
   );
 }
