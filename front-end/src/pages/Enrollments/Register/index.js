@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { parseISO, format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 import pt from 'date-fns/locale/pt';
 import isDate from 'date-fns/isDate';
@@ -13,11 +13,12 @@ import { DropdownIndicator } from '~/components/ReactSelect/DropdownIndicator';
 import {
   loadPlansRequest,
   addEnrollmentRequest,
+  editEnrollmentRequest,
 } from '~/store/modules/enrollment/actions';
 
 import api from '~/services/api';
 
-import { CurrencyFormat } from '~/util/formatters/number';
+import { CurrencyFormat, ToDecimal } from '~/util/formatters/number';
 
 import {
   Container,
@@ -33,10 +34,76 @@ export default function Register({ match, history }) {
   const priceRef = useRef(null);
   const endDateRef = useRef(null);
 
+  const [edting, setEdting] = useState('');
+  const [title, setTitle] = useState('');
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [duration, setDuration] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
+
+  useEffect(() => {
+    async function showStudent() {
+      const { id } = match.params;
+
+      const response = await api.get(`/students/${id}`);
+
+      setSelectedStudent({
+        value: response.data.id,
+        label: response.data.name,
+        enrollment: response.data.enrollment,
+      });
+    }
+
+    showStudent();
+  }, [dispatch, match]);
+
+  const updateEndDate = useCallback(() => {
+    if (selectedPlan && isDate(selectedDate)) {
+      endDateRef.current.value = format(
+        addMonths(selectedDate, selectedPlan.duration),
+        'dd/MM/yyyy'
+      );
+    }
+  }, [selectedDate, selectedPlan]);
+
+  useEffect(() => {
+    updateEndDate();
+  }, [updateEndDate]);
+
+  useEffect(() => {
+    function setPrice() {
+      priceRef.current.value =
+        selectedPlan &&
+        CurrencyFormat(selectedPlan.duration * selectedPlan.price);
+    }
+
+    setPrice();
+    updateEndDate();
+  }, [selectedPlan, updateEndDate]);
+
+  useEffect(() => {
+    function fillToEdit() {
+      if (selectedStudent && selectedStudent.enrollment.length > 0) {
+        setEdting(true);
+        setTitle('Edição de matrícula');
+
+        setSelectedPlan({
+          value: selectedStudent.enrollment[0].plan.id,
+          label: selectedStudent.enrollment[0].plan.title,
+          duration: selectedStudent.enrollment[0].plan.duration,
+          price: selectedStudent.enrollment[0].plan.price,
+        });
+
+        const { start_date } = selectedStudent.enrollment[0];
+
+        setSelectedDate(parseISO(start_date));
+      } else {
+        setTitle('Cadastro de matrícula');
+        setEdting(false);
+      }
+    }
+
+    fillToEdit();
+  }, [selectedStudent]);
 
   useEffect(() => {
     function loadPlans() {
@@ -47,7 +114,7 @@ export default function Register({ match, history }) {
   }, [dispatch]);
 
   const { loading, plans } = useSelector(state => ({
-    loading: state.student.loading,
+    loading: state.enrollment.loading,
     plans: state.enrollment.plans.map(plan => ({
       value: plan.id,
       label: plan.title,
@@ -74,21 +141,27 @@ export default function Register({ match, history }) {
       .required('A data de início é obrigatória'),
   });
 
-  function handleSubmit(data, { resetForm }) {
+  function handleSubmit() {
     const end_date = endDateRef.current.value.split('/');
 
     const enrollment = {
       student_id: selectedStudent.value,
       plan_id: selectedPlan.value,
-      start_date: format(selectedDate, 'yyyy-MM-dd'),
-      end_date: format(
-        new Date(end_date[2], end_date[1] - 1, end_date[0]),
-        'yyyy-MM-dd'
-      ),
-      price: priceRef.current.value,
+      start_date: selectedDate,
+      end_date: new Date(end_date[2], end_date[1] - 1, end_date[0]),
+      price: ToDecimal(priceRef.current.value),
     };
 
-    dispatch(addEnrollmentRequest(enrollment));
+    if (edting) {
+      dispatch(
+        editEnrollmentRequest({
+          id: selectedStudent.enrollment[0].id,
+          ...enrollment,
+        })
+      );
+    } else {
+      dispatch(addEnrollmentRequest(enrollment));
+    }
   }
 
   function handleBack() {
@@ -101,51 +174,28 @@ export default function Register({ match, history }) {
     const options = response.data.map(student => ({
       value: student.id,
       label: student.name,
+      enrollment: student.enrollment,
     }));
 
     return options;
   }
 
-  function setEndDate(date, plan_duration) {
-    const parsedDate = date
-      ? parseISO(`${format(date, 'yyyy-MM-dd')}T11:00:00`)
-      : null;
-
-    if (parsedDate && plan_duration && isDate(parsedDate)) {
-      endDateRef.current.value = format(
-        addMonths(
-          new Date(
-            parsedDate.getFullYear(),
-            parsedDate.getMonth(),
-            parsedDate.getDay()
-          ),
-          plan_duration
-        ),
-        'dd/MM/yyyy'
-      );
-    }
-  }
-
-  function setPrice(plan_duration, price) {
-    priceRef.current.value = CurrencyFormat(plan_duration * price);
-  }
-
   function handleChangePlan(plan) {
     setSelectedPlan(plan);
-    setDuration(plan.duration);
-    setEndDate(selectedDate, plan.duration);
-    setPrice(plan.duration, plan.price);
   }
 
   function handleEndDateChange(date) {
     setSelectedDate(date);
-    setEndDate(date, duration);
+  }
+
+  function handleChangeSelectStudent(data) {
+    setSelectedStudent(data);
   }
 
   return (
     <Container>
       <header>
-        <strong>Cadastro de matrícula</strong>
+        <strong>{title}</strong>
         <div>
           <button type="button" onClick={() => handleBack()}>
             <MdChevronLeft size={20} />
@@ -172,7 +222,7 @@ export default function Register({ match, history }) {
             loadOptions={loadOptions}
             defaultOptions
             placeholder="Buscar aluno"
-            onChange={data => setSelectedStudent(data)}
+            onChange={data => handleChangeSelectStudent(data)}
           />
         </div>
         <div>

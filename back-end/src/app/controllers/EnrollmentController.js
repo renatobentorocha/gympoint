@@ -19,9 +19,12 @@ class EnrollmentController {
   async show(req, res) {
     const { id } = req.params;
 
-    const plan = await Enrollment.findOne({ where: { id } });
+    const enrollment = await Enrollment.findOne({
+      include: [{ model: Plan, as: 'plan' }, { model: Student, as: 'student' }],
+      where: { id },
+    });
 
-    return res.json(plan);
+    return res.json(enrollment);
   }
 
   async store(req, res) {
@@ -35,7 +38,7 @@ class EnrollmentController {
       return res.status(400).json({ error: 'Validate fails' });
     }
 
-    const { student_id, plan_id, start_date } = req.body;
+    const { student_id, plan_id, start_date, end_date, price } = req.body;
 
     const student = await Student.findByPk(student_id);
 
@@ -49,15 +52,10 @@ class EnrollmentController {
       return res.status(400).json({ error: 'Plan not found. ' });
     }
 
-    const startDateParsed = parseISO(start_date);
-    const end_date = addMonths(startDateParsed, plan.duration);
-
-    const price = plan.duration * plan.price;
-
-    const enrollment = await Enrollment.create({
+    await Enrollment.create({
       student_id,
       plan_id,
-      start_date: startDateParsed,
+      start_date,
       end_date,
       price,
     });
@@ -69,16 +67,27 @@ class EnrollmentController {
       context: {
         student: student.name,
         plan: plan.title,
-        start_date: format(startDateParsed, "'dia' dd 'de' MMMM 'de' yyyy", {
-          locale: pt,
-        }),
-        end_date: format(end_date, "'dia' dd 'de' MMMM 'de' yyyy", {
+        start_date: format(
+          parseISO(start_date),
+          "'dia' dd 'de' MMMM 'de' yyyy",
+          {
+            locale: pt,
+          }
+        ),
+        end_date: format(parseISO(end_date), "'dia' dd 'de' MMMM 'de' yyyy", {
           locale: pt,
         }),
       },
     });
 
-    return res.json(enrollment);
+    return res.status(200).json({
+      id: plan_id,
+      student,
+      plan,
+      start_date,
+      end_date,
+      active: true,
+    });
   }
 
   async update(req, res) {
@@ -135,7 +144,12 @@ class EnrollmentController {
 
     await enrollment.save();
 
-    return res.json(await enrollment.reload());
+    const enrollmentUpdated = await Enrollment.findOne({
+      include: [{ model: Plan, as: 'plan' }, { model: Student, as: 'student' }],
+      where: { id },
+    });
+
+    return res.json(enrollmentUpdated);
   }
 
   async destroy(req, res) {

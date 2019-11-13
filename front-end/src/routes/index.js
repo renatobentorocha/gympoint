@@ -31,6 +31,11 @@ export default function Routes() {
         component={RegisterEnrollment}
         isPrivate
       />
+      <PrivateRoute
+        path="/matriculas/:id"
+        component={RegisterEnrollment}
+        isPrivate
+      />
     </Switch>
   );
 }

@@ -76,7 +76,7 @@ export function* editEnrollment({ payload }) {
   try {
     const { data } = payload;
 
-    const response = yield call(api.put, `/enrollment/${data.id}`, data);
+    const response = yield call(api.put, `/enrollments/${data.id}`, data);
 
     yield put(editEnrollmentSuccess(response.data));
 

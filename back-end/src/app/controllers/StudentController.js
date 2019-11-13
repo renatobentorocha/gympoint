@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import { Op } from 'sequelize';
 import Student from '../models/Student';
 import Enrollment from '../models/Enrollment';
+import Plan from '../models/Plan';
 
 class StudentController {
   async index(req, res) {
@@ -10,7 +11,6 @@ class StudentController {
     let students = null;
 
     if (q) {
-      console.log(q);
       students = await Student.findAll({
         where: {
           name: { [Op.iLike]: `%${q}%` },
@@ -30,30 +30,13 @@ class StudentController {
             model: Enrollment,
             as: 'enrollment',
             attributes: ['id', 'start_date', 'end_date', 'price', 'active'],
+            include: [{ model: Plan, as: 'plan' }],
           },
         ],
       });
     }
 
-    const studentsFiltered = await Promise.all(
-      await students.map(async s => {
-        const { id, name, email, age, weight, height, enrollment } = s;
-        const enrollment_active = await s.getEnrollmentActive();
-
-        return {
-          id,
-          name,
-          email,
-          age,
-          weight,
-          height,
-          enrollment,
-          enrollment_active,
-        };
-      })
-    );
-
-    return res.status(200).json(studentsFiltered);
+    return res.status(200).json(students);
   }
 
   async show(req, res) {
@@ -61,6 +44,14 @@ class StudentController {
 
     const student = await Student.findOne({
       attributes: ['id', 'name', 'email', 'age', 'weight', 'height'],
+      include: [
+        {
+          model: Enrollment,
+          as: 'enrollment',
+          attributes: ['id', 'start_date', 'end_date', 'price', 'active'],
+          include: [{ model: Plan, as: 'plan' }],
+        },
+      ],
       where: { id },
     });
 
