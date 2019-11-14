@@ -27,12 +27,12 @@ routes.put('/students/:student_id', StudentController.update);
 routes.get('/students/:student_id/checkins', CheckinController.index);
 routes.post('/students/:student_id/checkins', CheckinController.store);
 
-routes.get('/students/:student_id/help-orders', HelpOrderController.index);
-routes.post('/students/:student_id/help-orders', HelpOrderController.store);
+routes.get('/students/:student_id/help_orders', HelpOrderController.index);
+routes.post('/students/:student_id/help_orders', HelpOrderController.store);
 
-routes.get('/help-orders', GymHelpOrderController.index);
+routes.get('/help_orders', GymHelpOrderController.index);
 routes.post(
-  '/help-orders/:help_orders_id/answer',
+  '/help_orders/:help_orders_id/answer',
   GymHelpOrderController.store
 );
 
