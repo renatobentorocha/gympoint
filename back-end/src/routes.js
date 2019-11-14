@@ -31,10 +31,8 @@ routes.get('/students/:student_id/help_orders', HelpOrderController.index);
 routes.post('/students/:student_id/help_orders', HelpOrderController.store);
 
 routes.get('/help_orders', GymHelpOrderController.index);
-routes.post(
-  '/help_orders/:help_orders_id/answer',
-  GymHelpOrderController.store
-);
+routes.get('/help_orders/:id', GymHelpOrderController.show);
+routes.post('/help_orders', GymHelpOrderController.store);
 
 routes.get('/plans', PlanController.index);
 routes.get('/plans/:id', PlanController.show);

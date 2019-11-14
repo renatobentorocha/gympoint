@@ -25,44 +25,22 @@ export function showHelpOrderSuccess(data) {
   };
 }
 
-export function addHelpOrderRequest(data) {
+export function cancelHelpOrderEditRequest() {
   return {
-    type: '@help_order/ADD_HELP_ORDER_REQUEST',
+    type: '@help_order/CANCEL_HELP_ORDER_EDIT_REQUEST',
+  };
+}
+
+export function answerHelpOrderRequest(data) {
+  return {
+    type: '@help_order/ANSWER_HELP_ORDER_REQUEST',
     payload: { data },
   };
 }
 
-export function addHelpOrderSuccess(data) {
+export function answerHelpOrderSuccess(data) {
   return {
-    type: '@help_order/ADD_HELP_ORDER_SUCCESS',
-    payload: { data },
-  };
-}
-
-export function editHelpOrderRequest(data) {
-  return {
-    type: '@help_order/EDIT_HELP_ORDER_REQUEST',
-    payload: { data },
-  };
-}
-
-export function editHelpOrderSuccess(data) {
-  return {
-    type: '@help_order/EDIT_HELP_ORDER_SUCCESS',
-    payload: { data },
-  };
-}
-
-export function deleteHelpOrderRequest(data) {
-  return {
-    type: '@help_order/DELETE_HELP_ORDER_REQUEST',
-    payload: { data },
-  };
-}
-
-export function deleteHelpOrderSuccess(data) {
-  return {
-    type: '@help_order/DELETE_HELP_ORDER_SUCCESS',
+    type: '@help_order/ANSWER_HELP_ORDER_SUCCESS',
     payload: { data },
   };
 }

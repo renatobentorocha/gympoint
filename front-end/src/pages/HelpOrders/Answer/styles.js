@@ -15,7 +15,7 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  max-width: 450px;
+  min-width: 450px;
   border-radius: 4px;
   padding: 30px;
 
@@ -68,6 +68,17 @@ export const Wrapper = styled.div`
       font-weight: bold;
       font-size: 16px;
       color: #ffffff;
+      transition: background-color 1s;
+    }
+
+    button:hover {
+      background-color: ${darken(0.1, '#ee4d64')};
+    }
+
+    textarea + span {
+      display: block;
+      color: #ee4d64;
+      margin-bottom: 15px;
     }
   }
 `;

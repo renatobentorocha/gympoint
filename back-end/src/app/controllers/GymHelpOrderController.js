@@ -14,10 +14,25 @@ class GymHelpOrderController {
     return res.json(help_order);
   }
 
-  async store(req, res) {
-    const { help_orders_id } = req.params;
+  async show(req, res) {
+    const { id } = req.params;
 
-    const help_order = await HelpOrder.findByPk(help_orders_id, {
+    const help_order = await HelpOrder.findOne({
+      where: { id },
+      include: [{ model: Student, as: 'student' }],
+    });
+
+    if (!help_order) {
+      return res.status(400).json({ error: 'Help order not found. ' });
+    }
+
+    return res.status(200).json(help_order);
+  }
+
+  async store(req, res) {
+    const { id } = req.body;
+
+    const help_order = await HelpOrder.findByPk(id, {
       include: [{ model: Student, as: 'student' }],
     });
 

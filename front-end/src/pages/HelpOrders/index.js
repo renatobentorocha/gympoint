@@ -3,19 +3,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Answer from '~/pages/HelpOrders/Answer';
 
-import { loadHelpOrderRequest } from '~/store/modules/help_order/actions';
+import {
+  loadHelpOrderRequest,
+  showHelpOrderRequest,
+} from '~/store/modules/help_order/actions';
 import { Container, Content } from './styles';
 
 export default function HelpOrders({ history }) {
-  const orders = useSelector(state => state.help_order.data);
+  const { orders, help_order } = useSelector(state => ({
+    orders: state.help_order.data,
+    help_order: state.help_order.order,
+  }));
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(loadHelpOrderRequest());
   }, [dispatch]);
 
-  function handleRegister() {
-    history.push('/planos/novo');
+  function handleAnswer(id, e) {
+    e.preventDefault();
+
+    dispatch(showHelpOrderRequest(id));
   }
 
   return (
@@ -39,7 +48,10 @@ export default function HelpOrders({ history }) {
                   <td>{order.student.name}</td>
 
                   <td>
-                    <Link to={{ pathname: `/auxilios/${order.id}` }}>
+                    <Link
+                      to="/auxilios"
+                      onClick={e => handleAnswer(order.id, e)}
+                    >
                       responder
                     </Link>
                   </td>
@@ -48,7 +60,7 @@ export default function HelpOrders({ history }) {
           </tbody>
         </table>
       </Content>
-      <Answer />
+      {help_order && <Answer />}
     </Container>
   );
 }
