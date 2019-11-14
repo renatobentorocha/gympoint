@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MdAdd } from 'react-icons/md';
+import Answer from '~/pages/HelpOrders/Answer';
 
 import { loadHelpOrderRequest } from '~/store/modules/help_order/actions';
 import { Container, Content } from './styles';
@@ -39,7 +39,7 @@ export default function HelpOrders({ history }) {
                   <td>{order.student.name}</td>
 
                   <td>
-                    <Link to={{ pathname: `/planos/${order.id}` }}>
+                    <Link to={{ pathname: `/auxilios/${order.id}` }}>
                       responder
                     </Link>
                   </td>
@@ -48,6 +48,7 @@ export default function HelpOrders({ history }) {
           </tbody>
         </table>
       </Content>
+      <Answer />
     </Container>
   );
 }
