@@ -3,15 +3,15 @@ import { MdRotateRight } from 'react-icons/md';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-  margin-top: 30px;
-  padding: 0 270px;
+  min-width: 900px;
+  max-width: 900px;
+  margin: 30px auto 0 auto;
 
   header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
-    min-width: 600px;
 
     strong {
       font-family: Roboto, sans-serif;
@@ -46,8 +46,7 @@ export const Container = styled.div`
     }
 
     button:hover {
-        background-color: ${darken(0.1, '#ccc')};
-      }
+      background-color: ${darken(0.1, '#ccc')};
     }
 
     button + button {
@@ -61,8 +60,7 @@ export const Container = styled.div`
     }
 
     button + button:hover {
-        background-color: ${darken(0.1, '#ee4d64')};
-      }
+      background-color: ${darken(0.1, '#ee4d64')};
     }
 
     strong + button:hover {
@@ -75,7 +73,6 @@ export const Container = styled.div`
   }
 
   form {
-    min-width: 600px;
     padding: 30px;
     display: flex;
     flex-direction: column;

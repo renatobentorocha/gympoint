@@ -46,15 +46,15 @@ export const TMdArrowDropDown = styled(MdKeyboardArrowDown).attrs({
 `;
 
 export const Container = styled.div`
-  margin-top: 30px;
-  padding: 0 170px;
+  min-width: 900px;
+  max-width: 900px;
+  margin: 30px auto 0 auto;
 
   header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
-    min-width: 900px;
 
     strong {
       display: block;
@@ -104,7 +104,6 @@ export const Container = styled.div`
   }
 
   form {
-    min-width: 900px;
     padding: 30px;
     display: flex;
     flex-direction: column;

@@ -3,7 +3,8 @@ import { MdCheckCircle, MdSearch } from 'react-icons/md';
 
 export const Container = styled.div`
   min-width: 1100px;
-  margin: 30px 30px 0 30px;
+  max-width: 1291px;
+  margin: 30px auto 0 auto;
 
   header {
     display: flex;

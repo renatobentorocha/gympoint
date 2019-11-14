@@ -7,14 +7,14 @@ export const Container = styled.header`
 `;
 
 export const Content = styled.div`
-  padding-left: 30px;
+  max-width: 1291px;
+  min-width: 900px;
+  margin: 0 auto;
   height: 65px;
-
   display: flex;
   align-items: center;
 
   nav {
-    min-width: 900px;
     padding-left: 30px;
 
     ul > li {
@@ -49,7 +49,6 @@ export const Content = styled.div`
   > nav + a {
     justify-self: flex-end;
     margin-left: auto;
-    padding-right: 30px;
 
     strong {
       font-family: Roboto, sans-serif;

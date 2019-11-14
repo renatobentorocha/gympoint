@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  min-width: 800px;
-  margin: 30px 120px 0 120px;
+  min-width: 700px;
+  max-width: 700px;
+  margin: 30px auto 0 auto;
 
   header {
     max-width: 700px;
@@ -18,10 +19,9 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.section`
+  border-radius: 4px;
   background-color: #fff;
   padding: 30px;
-  max-width: 700px;
-  margin: 0 auto 30px auto;
 
   table {
     width: 100%;

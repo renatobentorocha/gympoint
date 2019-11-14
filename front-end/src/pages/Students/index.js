@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdAdd, MdCheckCircle } from 'react-icons/md';
@@ -101,3 +102,9 @@ export default function Students({ history }) {
     </Container>
   );
 }
+
+Students.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};

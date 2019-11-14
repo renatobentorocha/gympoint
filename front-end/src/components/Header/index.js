@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { signOut } from '~/store/modules/auth/actions';
 
 import logo_header from '~/assets/logo_header.png';
-import { Container, Content, Logo } from './styles';
+import { Wrapper, Container, Content, Logo } from './styles';
 
 export default function Header({ location }) {
   const profile = useSelector(state => state.user.profile);
