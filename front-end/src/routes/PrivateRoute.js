@@ -13,6 +13,14 @@ export default function PrivateRoute({
 }) {
   const { signed } = store.getState().auth;
 
+  if (!signed && isPrivate) {
+    return <Redirect to="/" />;
+  }
+
+  if (signed && !isPrivate) {
+    return <Redirect to="/alunos" />;
+  }
+
   return (
     <Route
       {...rest}
@@ -22,7 +30,7 @@ export default function PrivateRoute({
             <Component {...props} />
           </DefaultLayout>
         ) : (
-          <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+          <Component {...props} />
         )
       }
     />
