@@ -18,7 +18,7 @@ export default function PrivateRoute({
       {...rest}
       render={props =>
         signed ? (
-          <DefaultLayout>
+          <DefaultLayout {...props}>
             <Component {...props} />
           </DefaultLayout>
         ) : (

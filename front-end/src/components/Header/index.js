@@ -7,15 +7,19 @@ import { signOut } from '~/store/modules/auth/actions';
 import logo_header from '~/assets/logo_header.png';
 import { Container, Content, Logo } from './styles';
 
-export default function Header() {
+export default function Header({ location }) {
   const profile = useSelector(state => state.user.profile);
   const dispatch = useDispatch();
+
   function handleSignout(e) {
     e.preventDefault();
 
     dispatch(signOut());
   }
 
+  function marker(resource) {
+    return location.pathname.includes(resource) ? { color: '#444' } : null;
+  }
   return (
     <Container>
       <Content>
@@ -26,22 +30,22 @@ export default function Header() {
         <nav>
           <ul>
             <li>
-              <Link tabIndex="-1" to="/alunos">
+              <Link to="/alunos" style={marker('alunos')}>
                 ALUNOS
               </Link>
             </li>
             <li>
-              <Link tabIndex="-2" to="/planos">
+              <Link to="/planos" style={marker('planos')}>
                 PLANOS
               </Link>
             </li>
             <li>
-              <Link tabIndex="-3" to="/matriculas">
+              <Link to="/matriculas" style={marker('matriculas')}>
                 MATRÍCULAS
               </Link>
             </li>
             <li>
-              <Link tabIndex="-4" to="/">
+              <Link to="/auxilios" style={marker('auxilios')}>
                 PEDIDOS DE AUXÍLIO
               </Link>
             </li>
