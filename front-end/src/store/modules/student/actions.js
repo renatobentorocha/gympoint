@@ -1,7 +1,7 @@
-export function loadStudentsRequest(filter) {
+export function loadStudentsRequest(filter, pagination) {
   return {
     type: '@student/LOAD_STUDENTS_REQUEST',
-    payload: { filter },
+    payload: { filter, pagination },
   };
 }
 

@@ -39,10 +39,8 @@ Student.prototype.getEnrollmentActive = async function() {
       { raw: true }
     );
 
-    // console.log(res.length > 0);
     return res.length > 0;
   } catch (error) {
-    // console.log(error);
     return null;
   }
 };

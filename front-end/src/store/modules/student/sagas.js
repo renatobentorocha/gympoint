@@ -14,17 +14,30 @@ import {
 
 export function* loadStudent({ payload }) {
   try {
-    const { filter } = payload;
+    const { filter, pagination } = payload;
+
+    const filter_query = filter ? `q=${filter}` : null;
+
+    const pagination_query = pagination
+      ? `page=${pagination.page}&page_size=${pagination.pageSize}`
+      : null;
 
     let resource = null;
 
     if (filter) {
-      resource = `students?q=${filter}`;
+      if (pagination) {
+        resource = `students?${filter_query}&${pagination_query}`;
+      } else {
+        resource = `students?q=${filter}`;
+      }
+    } else if (pagination) {
+      resource = `students?${pagination_query}`;
     } else {
       resource = `students`;
     }
 
     const response = yield call(api.get, resource);
+
     yield put(loadStudentsSuccess(response.data));
   } catch (err) {
     yield put(studentFailure());

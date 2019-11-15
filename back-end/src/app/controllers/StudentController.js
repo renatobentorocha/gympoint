@@ -3,40 +3,64 @@ import { Op } from 'sequelize';
 import Student from '../models/Student';
 import Enrollment from '../models/Enrollment';
 import Plan from '../models/Plan';
+import paginate from '../util/paginate';
 
 class StudentController {
   async index(req, res) {
-    const { q } = req.query;
+    const { q, page = 1, page_size = 5 } = req.query;
 
-    let students = null;
+    let query = null;
 
     if (q) {
-      students = await Student.findAll({
-        where: {
-          name: { [Op.iLike]: `%${q}%` },
+      query = paginate(
+        {
+          where: {
+            name: { [Op.iLike]: `%${q}%` },
+          },
+          include: [
+            {
+              model: Enrollment,
+              as: 'enrollment',
+              attributes: ['start_date', 'end_date', 'price', 'active'],
+            },
+          ],
         },
-        include: [
-          {
-            model: Enrollment,
-            as: 'enrollment',
-            attributes: ['start_date', 'end_date', 'price', 'active'],
-          },
-        ],
-      });
+        { page, page_size }
+      );
     } else {
-      students = await Student.findAll({
-        include: [
-          {
-            model: Enrollment,
-            as: 'enrollment',
-            attributes: ['id', 'start_date', 'end_date', 'price', 'active'],
-            include: [{ model: Plan, as: 'plan' }],
-          },
-        ],
-      });
+      query = paginate(
+        {
+          include: [
+            {
+              model: Enrollment,
+              as: 'enrollment',
+              attributes: ['id', 'start_date', 'end_date', 'price', 'active'],
+              include: [{ model: Plan, as: 'plan' }],
+            },
+          ],
+        },
+        { page, page_size }
+      );
     }
 
-    return res.status(200).json(students);
+    const students = await Student.findAll(query);
+    const total = await Student.count();
+
+    let page_count = 0;
+
+    if (Number(page_size) === 1) {
+      page_count = total;
+    } else {
+      page_count = Math.ceil(total / students.length);
+      page_count = page_count === total ? page : page_count;
+    }
+
+    return res.status(200).json({
+      students,
+      total,
+      page,
+      page_count,
+    });
   }
 
   async show(req, res) {

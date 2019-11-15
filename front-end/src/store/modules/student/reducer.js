@@ -1,7 +1,7 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
-  data: [],
+  data: null,
   editing_data: {},
 };
 
