@@ -3,15 +3,32 @@ import pt from 'date-fns/locale/pt';
 import Student from '../models/Student';
 import HelpOrder from '../models/HelpOrder';
 import Mail from '../../lib/Mail';
+import paginate from '../util/paginate';
 
 class GymHelpOrderController {
   async index(req, res) {
-    const help_order = await HelpOrder.findAll({
-      where: { answer_at: null },
-      include: [{ model: Student, as: 'student' }],
-    });
+    const { page = 1, page_size = 5 } = req.query;
 
-    return res.json(help_order);
+    const help_orders = await HelpOrder.findAll(
+      paginate(
+        {
+          where: { answer_at: null },
+          include: [{ model: Student, as: 'student' }],
+        },
+        { page, page_size }
+      )
+    );
+
+    const total = await HelpOrder.count({ where: { answer_at: null } });
+
+    return res.json({
+      help_orders,
+      total,
+      page,
+      page_count: Math.ceil(
+        total / (Number(page_size) > 0 ? Number(page_size) : 5)
+      ),
+    });
   }
 
   async show(req, res) {

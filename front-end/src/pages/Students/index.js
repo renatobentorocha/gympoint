@@ -2,14 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ReactPaginate from 'react-paginate';
 import { MdAdd, MdCheckCircle } from 'react-icons/md';
 
 import {
   loadStudentsRequest,
   deleteStudentRequest,
 } from '~/store/modules/student/actions';
-import { Container, SearchIcon, Content, PaginateWrapper } from './styles';
+
+import Paginate from '~/components/Paginate';
+
+import { Container, SearchIcon, Content } from './styles';
 
 export default function Students({ history }) {
   const [filter, setFilter] = useState('');
@@ -26,7 +28,7 @@ export default function Students({ history }) {
 
   useEffect(() => {
     loadStudent(filter, { page, pageSize });
-  }, [loadStudent, filter, page, pageSize]);
+  }, [filter, loadStudent, page, pageSize]);
 
   function handleRegister() {
     history.push('/alunos/novo');
@@ -92,7 +94,11 @@ export default function Students({ history }) {
                   <td>
                     <MdCheckCircle
                       size={20}
-                      color={student.enrollment_active ? '#42cb59' : '#ddd'}
+                      color={
+                        student.enrollment[0] && student.enrollment[0].active
+                          ? '#42cb59'
+                          : '#ddd'
+                      }
                     />
                   </td>
                   <td>
@@ -111,27 +117,13 @@ export default function Students({ history }) {
           </tbody>
         </table>
         {data && (
-          <PaginateWrapper>
-            <ReactPaginate
-              pageCount={data.page_count}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={0}
-              forcePage={data.page - 1}
-              onPageChange={({ selected }) => setPage(selected + 1)}
-              previousLabel="Anterior"
-              nextLabel="Próximo"
-              breakLabel="..."
-              breakClassName="break-me"
-              containerClassName="pagination"
-              subContainerClassName="pages pagination"
-              activeClassName="active_page"
-            />
-
-            <div>
-              <span>Registros por página:</span>
-              <input value={pageSize} onChange={handleRegistriesNumberChange} />
-            </div>
-          </PaginateWrapper>
+          <Paginate
+            pageCount={data.page_count}
+            forcePage={data.page - 1}
+            onPageChange={({ selected }) => setPage(selected + 1)}
+            pageSize={pageSize}
+            handlePageSize={handleRegistriesNumberChange}
+          />
         )}
       </Content>
     </Container>

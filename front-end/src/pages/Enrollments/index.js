@@ -7,20 +7,26 @@ import {
   loadEnrollmentsRequest,
   deleteEnrollmentRequest,
 } from '~/store/modules/enrollment/actions';
-import { Container, SearchIcon, Content } from './styles';
+
+import Paginate from '~/components/Paginate';
+
+import { Container, Content } from './styles';
 
 export default function Enrollments({ history }) {
-  const enrollments = useSelector(state => state.enrollment.data);
+  const [pageSize, setPageSize] = useState(5);
+  const [page, setPage] = useState(1);
+
+  const data = useSelector(state => state.enrollment.data);
   const dispatch = useDispatch();
 
   const loadEnrollments = useCallback(
-    e => dispatch(loadEnrollmentsRequest(e)),
+    pagination => dispatch(loadEnrollmentsRequest(pagination)),
     [dispatch]
   );
 
   useEffect(() => {
-    loadEnrollments();
-  }, [loadEnrollments]);
+    loadEnrollments({ page, pageSize });
+  }, [dispatch, loadEnrollments, page, pageSize]);
 
   function handleRegister() {
     history.push('/matriculas/nova');
@@ -32,6 +38,13 @@ export default function Enrollments({ history }) {
     if (window.confirm('Deseja continuar')) {
       dispatch(deleteEnrollmentRequest(id));
     }
+  }
+
+  function handleRegistriesNumberChange(e) {
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+    setPage(1);
+    setPageSize(e.target.value);
   }
 
   return (
@@ -58,8 +71,8 @@ export default function Enrollments({ history }) {
           </thead>
           <tfoot />
           <tbody>
-            {enrollments &&
-              enrollments.map(enrollment => (
+            {data.enrollments &&
+              data.enrollments.map(enrollment => (
                 <tr key={enrollment.id}>
                   <td>{enrollment.student.name}</td>
                   <td>{enrollment.plan.title}</td>
@@ -88,6 +101,15 @@ export default function Enrollments({ history }) {
               ))}
           </tbody>
         </table>
+        {data.enrollments && (
+          <Paginate
+            pageCount={data.page_count}
+            forcePage={data.page - 1}
+            onPageChange={({ selected }) => setPage(selected + 1)}
+            pageSize={pageSize}
+            handlePageSize={handleRegistriesNumberChange}
+          />
+        )}
       </Content>
     </Container>
   );

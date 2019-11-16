@@ -1,6 +1,7 @@
-export function loadPlansRequest() {
+export function loadPlansRequest(pagination) {
   return {
     type: '@plan/LOAD_PLANS_REQUEST',
+    payload: { pagination },
   };
 }
 

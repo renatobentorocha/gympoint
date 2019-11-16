@@ -1,6 +1,7 @@
-export function loadEnrollmentsRequest() {
+export function loadEnrollmentsRequest(pagination) {
   return {
     type: '@enrollment/LOAD_ENROLLMENTS_REQUEST',
+    payload: { pagination },
   };
 }
 

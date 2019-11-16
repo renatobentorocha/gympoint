@@ -16,11 +16,21 @@ import {
   deleteEnrollmentSuccess,
 } from './actions';
 
-export function* loadEnrollments() {
+export function* loadEnrollments({ payload }) {
   try {
-    const response = yield call(api.get, 'enrollments');
+    const { pagination } = payload;
 
-    const data = response.data.map(e => ({
+    let resource = null;
+
+    if (pagination) {
+      resource = `enrollments?page=${pagination.page}&page_size=${pagination.pageSize}`;
+    } else {
+      resource = `enrollments`;
+    }
+
+    const response = yield call(api.get, resource);
+
+    const enrollments = response.data.enrollments.map(e => ({
       ...e,
       start_date: format(parseISO(e.start_date), "dd 'de' MMMM 'de' yyyy", {
         locale: pt,
@@ -30,7 +40,9 @@ export function* loadEnrollments() {
       }),
     }));
 
-    yield put(loadEnrollmentsSuccess(data));
+    const { total, page, page_count } = response.data;
+
+    yield put(loadEnrollmentsSuccess({ enrollments, total, page, page_count }));
   } catch (err) {
     yield put(enrollmentFailure());
   }
@@ -40,7 +52,7 @@ export function* loadPlans() {
   try {
     const response = yield call(api.get, 'plans');
 
-    yield put(loadPlansSuccess(response.data));
+    yield put(loadPlansSuccess(response.data.plans));
   } catch (err) {
     yield put(enrollmentFailure());
   }

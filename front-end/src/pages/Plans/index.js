@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdAdd } from 'react-icons/md';
@@ -7,15 +7,25 @@ import {
   loadPlansRequest,
   deletePlanRequest,
 } from '~/store/modules/plan/actions';
+
+import Paginate from '~/components/Paginate';
+
 import { Container, Content } from './styles';
 
 export default function Plans({ history }) {
-  const plans = useSelector(state => state.plan.data);
+  const data = useSelector(state => state.plan.data);
   const dispatch = useDispatch();
+  const [pageSize, setPageSize] = useState(5);
+  const [page, setPage] = useState(1);
+
+  const loadPlans = useCallback(
+    pagination => dispatch(loadPlansRequest(pagination)),
+    [dispatch]
+  );
 
   useEffect(() => {
-    dispatch(loadPlansRequest());
-  }, [dispatch]);
+    loadPlans({ page, pageSize });
+  }, [loadPlans, page, pageSize]);
 
   function handleRegister() {
     history.push('/planos/novo');
@@ -27,6 +37,13 @@ export default function Plans({ history }) {
     if (window.confirm('Deseja continuar')) {
       dispatch(deletePlanRequest(id));
     }
+  }
+
+  function handleRegistriesNumberChange(e) {
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+    setPage(1);
+    setPageSize(e.target.value);
   }
 
   return (
@@ -52,8 +69,8 @@ export default function Plans({ history }) {
           </thead>
           <tfoot />
           <tbody>
-            {plans &&
-              plans.map(plan => (
+            {data.plans &&
+              data.plans.map(plan => (
                 <tr key={plan.id}>
                   <td>{plan.title}</td>
                   <td>{plan.duration}</td>
@@ -68,6 +85,15 @@ export default function Plans({ history }) {
               ))}
           </tbody>
         </table>
+        {data && (
+          <Paginate
+            pageCount={data.page_count}
+            forcePage={data.page - 1}
+            onPageChange={({ selected }) => setPage(selected + 1)}
+            pageSize={pageSize}
+            handlePageSize={handleRegistriesNumberChange}
+          />
+        )}
       </Content>
     </Container>
   );

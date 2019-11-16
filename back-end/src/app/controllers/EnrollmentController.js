@@ -6,14 +6,34 @@ import Enrollment from '../models/Enrollment';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
 import Mail from '../../lib/Mail';
+import paginate from '../util/paginate';
 
 class EnrollmentController {
   async index(req, res) {
-    const enrollments = await Enrollment.findAll({
-      include: [{ model: Plan, as: 'plan' }, { model: Student, as: 'student' }],
-    });
+    const { page = 1, page_size = 5 } = req.query;
 
-    return res.json(enrollments);
+    const enrollments = await Enrollment.findAll(
+      paginate(
+        {
+          include: [
+            { model: Plan, as: 'plan' },
+            { model: Student, as: 'student' },
+          ],
+        },
+        { page, page_size }
+      )
+    );
+
+    const total = await Enrollment.count();
+
+    return res.json({
+      enrollments,
+      total,
+      page,
+      page_count: Math.ceil(
+        total / (Number(page_size) > 0 ? Number(page_size) : 5)
+      ),
+    });
   }
 
   async show(req, res) {

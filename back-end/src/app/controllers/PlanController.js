@@ -1,7 +1,32 @@
 import * as Yup from 'yup';
 import Plan from '../models/Plan';
+import paginate from '../util/paginate';
 
 class PlanController {
+  async index(req, res) {
+    const { page = 1, page_size = 5 } = req.query;
+
+    const plans = await Plan.findAll(paginate(null, { page, page_size }));
+    const total = await Plan.count();
+
+    return res.json({
+      plans,
+      total,
+      page,
+      page_count: Math.ceil(
+        total / (Number(page_size) > 0 ? Number(page_size) : 5)
+      ),
+    });
+  }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    const plan = await Plan.findOne({ where: { id } });
+
+    return res.json(plan);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
@@ -48,20 +73,6 @@ class PlanController {
     } catch (error) {
       return res.status(500).json(error);
     }
-  }
-
-  async index(req, res) {
-    const plans = await Plan.findAll();
-
-    return res.json(plans);
-  }
-
-  async show(req, res) {
-    const { id } = req.params;
-
-    const plan = await Plan.findOne({ where: { id } });
-
-    return res.json(plan);
   }
 
   async destroy(req, res) {

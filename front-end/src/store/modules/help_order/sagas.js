@@ -9,9 +9,19 @@ import {
   HelpOrderFailure,
 } from './actions';
 
-export function* loadHelpOrder() {
+export function* loadHelpOrder({ payload }) {
   try {
-    const response = yield call(api.get, 'help_orders');
+    const { pagination } = payload;
+
+    let resource = null;
+
+    if (pagination) {
+      resource = `help_orders?page=${pagination.page}&page_size=${pagination.pageSize}`;
+    } else {
+      resource = `help_orders`;
+    }
+
+    const response = yield call(api.get, resource);
 
     yield put(loadHelpOrderSuccess(response.data));
   } catch (err) {

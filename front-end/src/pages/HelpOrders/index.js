@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Answer from '~/pages/HelpOrders/Answer';
@@ -7,24 +7,42 @@ import {
   loadHelpOrderRequest,
   showHelpOrderRequest,
 } from '~/store/modules/help_order/actions';
+
+import Paginate from '~/components/Paginate';
+
 import { Container, Content } from './styles';
 
 export default function HelpOrders({ history }) {
-  const { orders, help_order } = useSelector(state => ({
-    orders: state.help_order.data,
+  const [pageSize, setPageSize] = useState(5);
+  const [page, setPage] = useState(1);
+
+  const { data, help_order } = useSelector(state => ({
+    data: state.help_order.data,
     help_order: state.help_order.order,
   }));
 
   const dispatch = useDispatch();
 
+  const loadHelpOrder = useCallback(
+    pagination => dispatch(loadHelpOrderRequest(pagination)),
+    [dispatch]
+  );
+
   useEffect(() => {
-    dispatch(loadHelpOrderRequest());
-  }, [dispatch]);
+    loadHelpOrder({ page, pageSize });
+  }, [loadHelpOrder, page, pageSize]);
 
   function handleAnswer(id, e) {
     e.preventDefault();
 
     dispatch(showHelpOrderRequest(id));
+  }
+
+  function handleRegistriesNumberChange(e) {
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+    setPage(1);
+    setPageSize(e.target.value);
   }
 
   return (
@@ -42,8 +60,8 @@ export default function HelpOrders({ history }) {
           </thead>
           <tfoot />
           <tbody>
-            {orders &&
-              orders.map(order => (
+            {data &&
+              data.help_orders.map(order => (
                 <tr key={order.id}>
                   <td>{order.student.name}</td>
 
@@ -59,6 +77,15 @@ export default function HelpOrders({ history }) {
               ))}
           </tbody>
         </table>
+        {data && (
+          <Paginate
+            pageCount={data.page_count}
+            forcePage={data.page - 1}
+            onPageChange={({ selected }) => setPage(selected + 1)}
+            pageSize={pageSize}
+            handlePageSize={handleRegistriesNumberChange}
+          />
+        )}
       </Content>
       {help_order && <Answer />}
     </Container>

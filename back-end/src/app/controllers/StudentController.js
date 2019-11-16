@@ -46,20 +46,13 @@ class StudentController {
     const students = await Student.findAll(query);
     const total = await Student.count();
 
-    let page_count = 0;
-
-    if (Number(page_size) === 1) {
-      page_count = total;
-    } else {
-      page_count = Math.ceil(total / students.length);
-      page_count = page_count === total ? page : page_count;
-    }
-
     return res.status(200).json({
       students,
       total,
       page,
-      page_count,
+      page_count: Math.ceil(
+        total / (Number(page_size) > 0 ? Number(page_size) : 5)
+      ),
     });
   }
 

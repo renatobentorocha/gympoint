@@ -13,11 +13,21 @@ import {
   deletePlanSuccess,
 } from './actions';
 
-export function* loadPlans() {
+export function* loadPlans({ payload }) {
   try {
-    const response = yield call(api.get, 'plans');
+    const { pagination } = payload;
 
-    const data = response.data.map(plan => {
+    let resource = null;
+
+    if (pagination) {
+      resource = `plans?page=${pagination.page}&page_size=${pagination.pageSize}`;
+    } else {
+      resource = `plans`;
+    }
+
+    const response = yield call(api.get, resource);
+
+    const plans = response.data.plans.map(plan => {
       return {
         ...plan,
         duration:
@@ -26,7 +36,8 @@ export function* loadPlans() {
       };
     });
 
-    yield put(loadPlansSuccess(data));
+    const { total, page, page_count } = response.data;
+    yield put(loadPlansSuccess({ plans, total, page, page_count }));
   } catch (err) {
     yield put(planFailure());
   }

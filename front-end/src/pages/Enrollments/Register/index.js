@@ -171,7 +171,7 @@ export default function Register({ match, history }) {
   async function loadOptions(input) {
     const response = await api.get(`/students?q=${input}`);
 
-    const options = response.data.map(student => ({
+    const options = response.data.students.map(student => ({
       value: student.id,
       label: student.name,
       enrollment: student.enrollment,
