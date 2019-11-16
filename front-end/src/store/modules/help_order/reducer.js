@@ -34,7 +34,7 @@ export default function help_order(state = INITIAL_STATE, action) {
         break;
       }
       case '@help_order/ANSWER_HELP_ORDER_SUCCESS': {
-        draft.data = draft.data.filter(
+        draft.data.help_orders = draft.data.help_orders.filter(
           order => order.id !== action.payload.data.id
         );
         draft.order = null;

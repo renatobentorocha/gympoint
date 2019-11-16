@@ -29,7 +29,7 @@ export default function plan(state = INITIAL_STATE, action) {
         break;
       }
       case '@plan/ADD_PLAN_SUCCESS': {
-        draft.data.push(action.payload.data);
+        draft.data.plans.push(action.payload.data);
         draft.loading = false;
         break;
       }
@@ -39,8 +39,8 @@ export default function plan(state = INITIAL_STATE, action) {
       }
       case '@plan/EDIT_PLAN_SUCCESS': {
         const { data } = action.payload;
-        const index = draft.data.findIndex(s => s.id === data.id);
-        draft.data[index] = data;
+        const index = draft.data.plans.findIndex(s => s.id === data.id);
+        draft.data.plans[index] = data;
         draft.loading = false;
         break;
       }
@@ -50,8 +50,7 @@ export default function plan(state = INITIAL_STATE, action) {
       }
       case '@plan/DELETE_PLAN_SUCCESS': {
         const { data } = action.payload;
-        const index = draft.data.findIndex(p => p.id === data.id);
-        draft.data.splice(index, 1);
+        draft.data.plans = draft.data.plans.filter(p => p.id !== data);
         draft.loading = false;
         break;
       }

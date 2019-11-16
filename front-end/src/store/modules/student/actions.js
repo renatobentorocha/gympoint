@@ -12,20 +12,6 @@ export function loadStudentsSuccess(data) {
   };
 }
 
-export function showStudentRequest(id) {
-  return {
-    type: '@student/SHOW_STUDENT_REQUEST',
-    payload: { id },
-  };
-}
-
-export function showStudentSuccess(data) {
-  return {
-    type: '@student/SHOW_STUDENT_SUCCESS',
-    payload: { data },
-  };
-}
-
 export function addStudentRequest(data) {
   return {
     type: '@student/ADD_STUDENT_REQUEST',

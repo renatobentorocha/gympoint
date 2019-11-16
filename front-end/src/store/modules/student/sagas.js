@@ -5,7 +5,6 @@ import api from '~/services/api';
 
 import {
   loadStudentsSuccess,
-  showStudentSuccess,
   studentFailure,
   addStudentSuccess,
   editStudentSuccess,
@@ -39,17 +38,6 @@ export function* loadStudent({ payload }) {
     const response = yield call(api.get, resource);
 
     yield put(loadStudentsSuccess(response.data));
-  } catch (err) {
-    yield put(studentFailure());
-  }
-}
-
-export function* showStudent({ payload }) {
-  try {
-    const { id } = payload;
-
-    const response = yield call(api.get, `/students/${id}`);
-    yield put(showStudentSuccess(response.data));
   } catch (err) {
     yield put(studentFailure());
   }
@@ -97,7 +85,6 @@ export function* deleteStudent({ payload }) {
 
 export default all([
   takeLatest('@student/LOAD_STUDENTS_REQUEST', loadStudent),
-  takeLatest('@student/SHOW_STUDENT_REQUEST', showStudent),
   takeLatest('@student/ADD_STUDENT_REQUEST', addStudent),
   takeLatest('@student/EDIT_STUDENT_REQUEST', editStudent),
   takeLatest('@student/DELETE_STUDENT_REQUEST', deleteStudent),

@@ -41,7 +41,7 @@ export default function enrollment(state = INITIAL_STATE, action) {
         break;
       }
       case '@enrollment/ADD_ENROLLMENT_SUCCESS': {
-        draft.data.push(action.payload.data);
+        draft.data.enrollments.push(action.payload.data);
         draft.loading = false;
         break;
       }
@@ -51,8 +51,8 @@ export default function enrollment(state = INITIAL_STATE, action) {
       }
       case '@enrollment/EDIT_ENROLLMENT_SUCCESS': {
         const { data } = action.payload;
-        const index = draft.data.findIndex(s => s.id === data.id);
-        draft.data[index] = data;
+        const index = draft.data.enrollments.findIndex(s => s.id === data.id);
+        draft.data.enrollments[index] = data;
         draft.loading = false;
         break;
       }
@@ -61,9 +61,10 @@ export default function enrollment(state = INITIAL_STATE, action) {
         break;
       }
       case '@enrollment/DELETE_ENROLLMENT_SUCCESS': {
-        const { data } = action.payload;
-        const index = draft.data.findIndex(p => p.id === data.id);
-        draft.data.splice(index, 1);
+        draft.data.enrollments = draft.data.enrollments.filter(
+          p => p.id !== action.payload.data
+        );
+
         draft.loading = false;
         break;
       }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, Input } from '@rocketseat/unform';
@@ -7,31 +7,43 @@ import * as Yup from 'yup';
 import { MdCheck, MdChevronLeft } from 'react-icons/md';
 
 import {
-  showStudentRequest,
   addStudentRequest,
   editStudentRequest,
 } from '~/store/modules/student/actions';
+
+import api from '~/services/api';
+
+import { ToDecimal, OnlyNumber } from '~/util/formatters/number';
 import { Container, Spinner } from './styles';
 
 export default function Register({ match, history }) {
+  const [student, setStudent] = useState(null);
+  const [title, setTitle] = useState('');
+  const weightRef = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    function showStudent() {
-      const { params } = match;
-      const { id } = params;
+    async function showStudent() {
+      const { id } = match.params;
 
       if (id) {
-        dispatch(showStudentRequest(id));
+        const response = await api.get(`/students/${id}`);
+
+        response.data.weight = `${response.data.weight}kg`;
+        response.data.height = `${response.data.height}m`;
+
+        setStudent(response.data);
+        setTitle('Edição de aluno');
+      } else {
+        setTitle('Cadastro de aluno');
       }
     }
 
     showStudent();
-  }, [dispatch, match]);
+  }, [dispatch, match, weightRef]);
 
-  const { loading, editing_data } = useSelector(state => ({
+  const { loading } = useSelector(state => ({
     loading: state.student.loading,
-    editing_data: state.student.editing_data,
   }));
 
   const schema = Yup.object().shape({
@@ -47,7 +59,7 @@ export default function Register({ match, history }) {
   });
 
   function handleAge(e) {
-    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    e.target.value = OnlyNumber(e.target.value);
   }
 
   function handleSign(e, focus, sign) {
@@ -59,42 +71,26 @@ export default function Register({ match, history }) {
     }
   }
 
-  function decimalFormat(e) {
-    const weightOnlyNumber = e.target.value.replace(/[^0-9]/g, '');
-    let value = weightOnlyNumber;
-
-    if (weightOnlyNumber.length >= 3) {
-      const decimal = weightOnlyNumber.substr(weightOnlyNumber.length - 2);
-      const integer = weightOnlyNumber.substr(0, weightOnlyNumber.length - 2);
-
-      value = (parseFloat(integer) + Number(decimal) / 100).toFixed(2);
-    }
-
-    return value;
-  }
-
   function handleWeight(e) {
-    e.target.value = decimalFormat(e);
+    e.target.value = ToDecimal(e.target.value);
   }
 
   function handleHeight(e) {
-    e.target.value = decimalFormat(e);
+    e.target.value = ToDecimal(e.target.value);
   }
 
-  function handleSubmit(data, { resetForm }) {
-    const student = {
+  function handleSubmit(data) {
+    const newStudent = {
       ...data,
       height: data.height.replace(/m/g, ''),
       weight: data.weight.replace(/kg/g, ''),
     };
 
-    if (editing_data) {
-      dispatch(editStudentRequest({ id: editing_data.id, ...student }));
+    if (student) {
+      dispatch(editStudentRequest({ id: student.id, ...newStudent }));
     } else {
-      dispatch(addStudentRequest(student));
+      dispatch(addStudentRequest(newStudent));
     }
-
-    resetForm();
   }
 
   function handleBack() {
@@ -104,7 +100,7 @@ export default function Register({ match, history }) {
   return (
     <Container>
       <header>
-        <strong>Cadastro de aluno</strong>
+        <strong>{title}</strong>
         <div>
           <button type="button" onClick={() => handleBack()}>
             <MdChevronLeft size={20} />
@@ -122,7 +118,7 @@ export default function Register({ match, history }) {
         </div>
       </header>
       <Form
-        initialData={editing_data}
+        initialData={student}
         schema={schema}
         onSubmit={handleSubmit}
         id="student_form"
