@@ -10,7 +10,8 @@ class Enrollment extends Model {
         active: {
           type: Sequelize.VIRTUAL,
           get() {
-            return this.end_date >= new Date();
+            const now = new Date();
+            return now >= this.start_date && now <= this.end_date;
           },
         },
       },
