@@ -1,5 +1,4 @@
-import Sequelize, { Model, Op } from 'sequelize';
-import Enrollment from './Enrollment';
+import Sequelize, { Model } from 'sequelize';
 
 class Student extends Model {
   static init(sequelize) {
@@ -26,23 +25,5 @@ class Student extends Model {
     });
   }
 }
-
-Student.prototype.getEnrollmentActive = async function() {
-  try {
-    const res = await Enrollment.findAll(
-      {
-        where: {
-          student_id: this.id,
-          end_date: { [Op.gte]: new Date() },
-        },
-      },
-      { raw: true }
-    );
-
-    return res.length > 0;
-  } catch (error) {
-    return null;
-  }
-};
 
 export default Student;

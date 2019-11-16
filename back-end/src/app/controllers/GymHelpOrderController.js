@@ -1,9 +1,8 @@
-import { format } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 import Student from '../models/Student';
 import HelpOrder from '../models/HelpOrder';
-import Mail from '../../lib/Mail';
 import paginate from '../util/paginate';
+import Queue from '../../lib/Queue';
+import AnswerHelpOrder from '../jobs/AnswerHelpOrder';
 
 class GymHelpOrderController {
   async index(req, res) {
@@ -64,22 +63,7 @@ class GymHelpOrderController {
 
     await help_order.save();
 
-    await Mail.sendmail({
-      to: `${help_order.student.name} <${help_order.student.email}>`,
-      subject: 'Reposta à sua dúvida',
-      template: 'help_order',
-      context: {
-        student: help_order.student.name,
-        answer,
-        answer_at: format(
-          help_order.answer_at,
-          "'dia' dd 'de' MMMM 'de' yyyy",
-          {
-            locale: pt,
-          }
-        ),
-      },
-    });
+    Queue.add(AnswerHelpOrder.key, { help_order, answer });
 
     return res.json(help_order);
   }
