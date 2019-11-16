@@ -42,22 +42,24 @@ export default function Register({ match, history }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
-  console.tron.log(match);
   useEffect(() => {
     async function showStudent() {
       const { id } = match.params;
 
-      const response = await api.get(`/students/${id}`);
+      if (id) {
+        const response = await api.get(`/students/${id}`);
 
-      setSelectedStudent({
-        value: response.data.id,
-        label: response.data.name,
-        enrollment: response.data.enrollment,
-      });
+        setSelectedStudent({
+          value: response.data.id,
+          label: response.data.name,
+          enrollment: response.data.enrollment,
+        });
+      }
     }
 
     showStudent();
-  }, [dispatch, match]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateEndDate = useCallback(() => {
     if (selectedPlan && isDate(selectedDate)) {
