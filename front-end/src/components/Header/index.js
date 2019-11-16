@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { signOut } from '~/store/modules/auth/actions';
 
 import logo_header from '~/assets/logo_header.png';
-import { Wrapper, Container, Content, Logo } from './styles';
+import { Container, Content, Logo } from './styles';
 
 export default function Header({ location }) {
   const profile = useSelector(state => state.user.profile);
@@ -59,3 +60,9 @@ export default function Header({ location }) {
     </Container>
   );
 }
+
+Header.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+};

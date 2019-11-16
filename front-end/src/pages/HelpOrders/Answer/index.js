@@ -9,7 +9,7 @@ import {
 
 import { Container, Wrapper, Spinner } from './styles';
 
-export default function Answer({ match, history }) {
+export default function Answer() {
   const schema = Yup.object().shape({
     id: Yup.number(),
     answer: Yup.string().required('A resposta é obrigatória'),

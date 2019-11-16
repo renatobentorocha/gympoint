@@ -12,7 +12,7 @@ import Paginate from '~/components/Paginate';
 
 import { Container, Content } from './styles';
 
-export default function HelpOrders({ history }) {
+export default function HelpOrders() {
   const [pageSize, setPageSize] = useState(5);
   const [page, setPage] = useState(1);
 

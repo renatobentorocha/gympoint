@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdAdd } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
 import {
   loadPlansRequest,
@@ -98,3 +99,9 @@ export default function Plans({ history }) {
     </Container>
   );
 }
+
+Plans.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import Select from 'react-select';
-
+import PropTypes from 'prop-types';
 import { useField } from '@rocketseat/unform';
 
 import { customStyles } from '~/styles/ReactSelect';
@@ -14,15 +14,6 @@ export default function ReactSelect({
 }) {
   const ref = useRef(null);
   const { fieldName, registerField, defaultValue, error } = useField(name);
-
-  function parseSelectValue(selectRef) {
-    const selectValue = selectRef.state.value;
-    if (!multiple) {
-      return selectValue ? selectValue.id : '';
-    }
-
-    return selectValue ? selectValue.map(option => option.id) : [];
-  }
 
   useEffect(() => {
     registerField({
@@ -64,3 +55,20 @@ export default function ReactSelect({
     </>
   );
 }
+
+ReactSelect.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  multiple: PropTypes.bool,
+};
+
+ReactSelect.defaultProps = {
+  label: null,
+  multiple: false,
+};

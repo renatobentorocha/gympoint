@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
+import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 
@@ -26,3 +27,8 @@ export default function Paginate({ pageSize, handlePageSize, ...rest }) {
     </Container>
   );
 }
+
+Paginate.propTypes = {
+  pageSize: PropTypes.number.isRequired,
+  handlePageSize: PropTypes.func.isRequired,
+};

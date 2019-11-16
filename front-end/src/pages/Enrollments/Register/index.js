@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { format, parseISO } from 'date-fns';
+import PropTypes from 'prop-types';
 
+import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import isDate from 'date-fns/isDate';
 import addMonths from 'date-fns/addMonths';
+
 import { Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { MdCheck, MdChevronLeft } from 'react-icons/md';
@@ -40,6 +42,7 @@ export default function Register({ match, history }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
+  console.tron.log(match);
   useEffect(() => {
     async function showStudent() {
       const { id } = match.params;
@@ -267,3 +270,14 @@ export default function Register({ match, history }) {
     </Container>
   );
 }
+
+Register.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
+};

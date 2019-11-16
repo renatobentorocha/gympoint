@@ -1,19 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import AsyncSelect from 'react-select/async';
-
 import { useField } from '@rocketseat/unform';
+import PropTypes from 'prop-types';
 
 import { customStyles } from '~/styles/ReactSelect';
 
 export default function AsyncReactSelect({ name, ...rest }) {
   const ref = useRef(null);
   const { fieldName, registerField, error } = useField(name);
-
-  function parseSelectValue(selectRef) {
-    const selectValue = selectRef.state.value;
-
-    return selectValue ? selectValue.id : '';
-  }
 
   useEffect(() => {
     registerField({
@@ -40,3 +34,7 @@ export default function AsyncReactSelect({ name, ...rest }) {
     </>
   );
 }
+
+AsyncReactSelect.propTypes = {
+  name: PropTypes.string.isRequired,
+};

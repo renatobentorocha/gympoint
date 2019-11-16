@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
@@ -166,3 +167,14 @@ export default function Register({ match, history }) {
     </Container>
   );
 }
+
+Register.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
+};
