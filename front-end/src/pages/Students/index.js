@@ -95,7 +95,7 @@ export default function Students({ history }) {
                     <MdCheckCircle
                       size={20}
                       color={
-                        student.enrollment[0] && student.enrollment[0].active
+                        student.enrollment && student.enrollment.active
                           ? '#42cb59'
                           : '#ddd'
                       }

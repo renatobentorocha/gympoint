@@ -87,20 +87,18 @@ export default function Register({ match, history }) {
 
   useEffect(() => {
     function fillToEdit() {
-      if (selectedStudent && selectedStudent.enrollment.length > 0) {
+      if (selectedStudent && selectedStudent.enrollment) {
         setEdting(true);
         setTitle('Edição de matrícula');
 
         setSelectedPlan({
-          value: selectedStudent.enrollment[0].plan.id,
-          label: selectedStudent.enrollment[0].plan.title,
-          duration: selectedStudent.enrollment[0].plan.duration,
-          price: selectedStudent.enrollment[0].plan.price,
+          value: selectedStudent.enrollment.plan.id,
+          label: selectedStudent.enrollment.plan.title,
+          duration: selectedStudent.enrollment.plan.duration,
+          price: selectedStudent.enrollment.plan.price,
         });
 
-        const { start_date } = selectedStudent.enrollment[0];
-
-        setSelectedDate(parseISO(start_date));
+        setSelectedDate(parseISO(selectedStudent.enrollment.start_date));
       } else {
         setTitle('Cadastro de matrícula');
         setEdting(false);
@@ -160,7 +158,7 @@ export default function Register({ match, history }) {
     if (edting) {
       dispatch(
         editEnrollmentRequest({
-          id: selectedStudent.enrollment[0].id,
+          id: selectedStudent.enrollment.id,
           ...enrollment,
         })
       );
