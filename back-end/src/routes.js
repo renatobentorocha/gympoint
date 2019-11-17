@@ -9,26 +9,31 @@ import GymHelpOrderController from './app/controllers/GymHelpOrderController';
 import PlanController from './app/controllers/PlanController';
 import EnrollmentController from './app/controllers/EnrollmentController';
 import authMiddleware from './app/middlewares/auth';
+import authAdminMiddleware from './app/middlewares/authAdmin';
 
 const routes = new Router();
 
 routes.post('/session', SessionController.store);
+routes.post('/users', UserController.store);
 
 routes.use(authMiddleware);
 
-routes.post('/users', UserController.store);
 routes.put('/users', UserController.update);
 
-routes.get('/students', StudentController.index);
 routes.get('/students/:id', StudentController.show);
-routes.post('/students', StudentController.store);
-routes.delete('/students/:id', StudentController.destroy);
-routes.put('/students/:student_id', StudentController.update);
+
 routes.get('/students/:student_id/checkins', CheckinController.index);
 routes.post('/students/:student_id/checkins', CheckinController.store);
 
 routes.get('/students/:student_id/help_orders', HelpOrderController.index);
 routes.post('/students/:student_id/help_orders', HelpOrderController.store);
+
+routes.use(authAdminMiddleware);
+
+routes.get('/students', StudentController.index);
+routes.post('/students', StudentController.store);
+routes.delete('/students/:id', StudentController.destroy);
+routes.put('/students/:student_id', StudentController.update);
 
 routes.get('/help_orders', GymHelpOrderController.index);
 routes.get('/help_orders/:id', GymHelpOrderController.show);
