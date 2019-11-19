@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
 
-import { Container, Wrapper, Title } from './styles';
+import { Container, Title } from './styles';
 
 import logoLeftHeader from '~/assets/logo_left_header.png';
 import logoRightHeader from '~/assets/logo_rigth_header.png';

@@ -1,13 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import Header from '~/components/Header';
 import SignIn from '~/pages/SignIn';
 import SignUp from '~/pages/SignUp';
 import AssistanceList from '~/pages/AssistanceList';
+import Checkins from '~/pages/Checkins';
+
+const CheckinsTabBar = ({ focused }) => (
+  <MaterialCommunity
+    name="map-marker-check"
+    size={20}
+    color={focused ? '#ee4e62' : '#999'}
+  />
+);
+
+CheckinsTabBar.propTypes = {
+  focused: PropTypes.bool.isRequired,
+};
+
+const AssistanceTabBar = ({ focused }) => (
+  <MaterialIcons
+    name="live-help"
+    size={20}
+    color={focused ? '#ee4e62' : '#999'}
+  />
+);
+
+AssistanceTabBar.propTypes = {
+  focused: PropTypes.bool.isRequired,
+};
 
 export default (isSigned = false) =>
   createAppContainer(
@@ -19,6 +48,13 @@ export default (isSigned = false) =>
         }),
         App: createBottomTabNavigator(
           {
+            Checkins: {
+              screen: Checkins,
+              navigationOptions: {
+                tabBarLabel: 'Check-ins',
+                tabBarIcon: CheckinsTabBar,
+              },
+            },
             AssistanceList: {
               screen: createStackNavigator(
                 {
@@ -30,16 +66,20 @@ export default (isSigned = false) =>
                   },
                 }
               ),
+              navigationOptions: {
+                tabBarLabel: 'Pedir ajuda',
+                tabBarIcon: AssistanceTabBar,
+              },
             },
           },
           {
             resetOnBlur: true,
             tabBarOptions: {
               keyboardHidesTabBar: true,
-              activeTintColor: '#FFF',
-              inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
+              activeTintColor: '#ef5568',
+              inactiveTintColor: '#999',
               style: {
-                backgroundColor: '#8d41a8',
+                backgroundColor: '#fff',
               },
             },
           }
