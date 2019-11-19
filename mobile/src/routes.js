@@ -49,7 +49,14 @@ export default (isSigned = false) =>
         App: createBottomTabNavigator(
           {
             Checkins: {
-              screen: Checkins,
+              screen: createStackNavigator(
+                { Checkins },
+                {
+                  defaultNavigationOptions: {
+                    headerTitle: props => <Header props={props} />,
+                  },
+                }
+              ),
               navigationOptions: {
                 tabBarLabel: 'Check-ins',
                 tabBarIcon: CheckinsTabBar,
