@@ -14,7 +14,6 @@ export const Container = styled.div`
     margin-bottom: 30px;
 
     strong {
-      font-family: Roboto, sans-serif;
       font-size: 24px;
       color: #444444;
       font-weight: bold;
@@ -34,10 +33,6 @@ export const Container = styled.div`
       border-radius: 4px;
       background-color: #ccc;
       transition: background-color 1s;
-
-      font-family: Roboto, sans-serif;
-      font-size: 14px;
-      color: #ffffff;
       font-weight: bold;
 
       svg {
@@ -51,10 +46,6 @@ export const Container = styled.div`
 
     button + button {
       margin-left: 15px;
-
-      font-family: Roboto, sans-serif;
-      font-size: 14px;
-      color: #ffffff;
       font-weight: bold;
       background-color: #ee4d64;
     }
@@ -95,7 +86,6 @@ export const Container = styled.div`
 
       border: 1px solid #ddd;
 
-      font-family: Roboto, sans-serif;
       font-size: 16px;
       color: #999999;
 
@@ -116,9 +106,7 @@ export const Container = styled.div`
   label {
     width: 100%;
     text-align: start;
-    font-size: 14px;
     color: #444444;
-    font-family: Roboto, sans-serif;
     font-weight: bold;
 
     input + span {

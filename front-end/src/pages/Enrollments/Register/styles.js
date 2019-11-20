@@ -77,8 +77,6 @@ export const Container = styled.div`
       border-radius: 4px;
       background-color: #ccc;
       transition: background-color 1s;
-
-      color: #ffffff;
       font-weight: bold;
 
       svg {
@@ -88,8 +86,6 @@ export const Container = styled.div`
 
     button + button {
       margin-left: 15px;
-      font-size: 14px;
-      color: #ffffff;
       font-weight: bold;
       background-color: #ee4d64;
     }

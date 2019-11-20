@@ -13,7 +13,6 @@ export const Container = styled.div`
     margin-bottom: 30px;
 
     strong {
-      font-family: Roboto, sans-serif;
       font-size: 24px;
       color: #444444;
       font-weight: bold;
@@ -36,10 +35,6 @@ export const Container = styled.div`
       width: 140px;
       border-radius: 4px;
       background-color: #ee4d64;
-
-      font-family: Roboto, sans-serif;
-      font-size: 14px;
-      color: #ffffff;
       font-weight: bold;
     }
 
@@ -53,8 +48,6 @@ export const Container = styled.div`
       border-radius: 4px;
       border: 1px solid #ddd;
 
-      font-family: Roboto, sans-serif;
-      font-size: 14px;
       color: #999999;
     }
 
@@ -74,20 +67,20 @@ export const SearchIcon = styled(MdSearch).attrs({
 
 export const CheckIcon = styled(MdCheckCircle).attrs({
   size: 20,
-  color: '#42cb59;',
+  color: '#42cb59',
 })``;
 
 export const Content = styled.section`
   background-color: #fff;
   padding: 30px;
   margin-bottom: 30px;
+
   table {
     width: 100%;
     border-collapse: collapse;
 
     th {
       text-align: left;
-      font-family: Roboto, sans-serif;
       font-size: 16px;
       color: #444444;
     }
@@ -106,7 +99,6 @@ export const Content = styled.section`
 
     tr td {
       padding: 20px 0 20px 0;
-      font-family: Roboto, sans-serif;
       font-size: 16px;
       color: #666666;
       line-height: 20px;
@@ -118,7 +110,6 @@ export const Content = styled.section`
     }
 
     tr td a {
-      font-family: Roboto, sans-serif;
       font-size: 15px;
       color: #4d85ee;
     }

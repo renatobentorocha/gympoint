@@ -32,9 +32,7 @@ export const Container = styled.div`
 
   label {
     text-align: start;
-    font-size: 14px;
     color: #444444;
-    font-family: Roboto, sans-serif;
     font-weight: bold;
 
     input + span {
@@ -52,10 +50,8 @@ export const Container = styled.div`
     margin-bottom: 20px;
     margin-top: 10px;
     border-radius: 4px;
-
     border: 1px solid #ddd;
 
-    font-family: Roboto, sans-serif;
     font-size: 16px;
     color: #999999;
 
@@ -70,9 +66,7 @@ export const Container = styled.div`
     width: 300px;
     height: 44px;
 
-    font-family: Roboto;
     font-size: 16px;
-    color: #ffffff;
     font-weight: bold;
 
     background-color: #ee4d64;

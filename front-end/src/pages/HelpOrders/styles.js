@@ -10,7 +10,6 @@ export const Container = styled.div`
     margin: 0 auto 30px auto;
 
     strong {
-      font-family: Roboto, sans-serif;
       font-size: 24px;
       color: #444444;
       font-weight: bold;
@@ -29,7 +28,6 @@ export const Content = styled.section`
 
     th {
       text-align: left;
-      font-family: Roboto, sans-serif;
       font-size: 16px;
       color: #444444;
     }
@@ -48,7 +46,6 @@ export const Content = styled.section`
 
     tr td {
       padding: 20px 0 20px 0;
-      font-family: Roboto, sans-serif;
       font-size: 16px;
       color: #666666;
       line-height: 20px;
@@ -60,7 +57,6 @@ export const Content = styled.section`
     }
 
     tr td a {
-      font-family: Roboto, sans-serif;
       font-size: 15px;
       color: #4d85ee;
     }

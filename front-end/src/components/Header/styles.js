@@ -29,7 +29,6 @@ export const Content = styled.div`
       }
 
       li > a {
-        font-family: Roboto;
         font-size: 15px;
         color: #999999;
         font-weight: bold;
@@ -51,15 +50,11 @@ export const Content = styled.div`
     margin-left: auto;
 
     strong {
-      font-family: Roboto, sans-serif;
-      font-size: 14px;
       color: #666666;
     }
 
     span {
       margin-top: 4px;
-      font-family: Roboto, sans-serif;
-      font-size: 14px;
       color: #de3b3b;
       display: block;
       text-align: right;
@@ -80,7 +75,6 @@ export const Logo = styled(Link)`
   padding-right: 30px;
 
   span {
-    font-family: Roboto;
     font-size: 15px;
     color: #ee4d64;
     font-weight: bold;

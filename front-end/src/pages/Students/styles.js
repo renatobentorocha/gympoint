@@ -13,7 +13,6 @@ export const Container = styled.div`
     margin-bottom: 30px;
 
     strong {
-      font-family: Roboto, sans-serif;
       font-size: 24px;
       color: #444444;
       font-weight: bold;
@@ -36,10 +35,6 @@ export const Container = styled.div`
       width: 140px;
       border-radius: 4px;
       background-color: #ee4d64;
-
-      font-family: Roboto, sans-serif;
-      font-size: 14px;
-      color: #ffffff;
       font-weight: bold;
     }
 
@@ -73,7 +68,7 @@ export const SearchIcon = styled(MdSearch).attrs({
 
 export const CheckIcon = styled(MdCheckCircle).attrs({
   size: 20,
-  color: '#42cb59;',
+  color: '#42cb59',
 })``;
 
 export const Content = styled.section`

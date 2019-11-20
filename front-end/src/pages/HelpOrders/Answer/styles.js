@@ -68,7 +68,6 @@ export const Wrapper = styled.div`
       border-radius: 4px;
       font-weight: bold;
       font-size: 16px;
-      color: #ffffff;
       transition: background-color 1s;
     }
 

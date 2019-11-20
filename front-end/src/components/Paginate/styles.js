@@ -10,7 +10,6 @@ export const Container = styled.section`
     align-items: center;
     background-color: #de3b3b;
     border-radius: 4px;
-    color: #fff;
     font-weight: bold;
     font-size: 16px;
 
@@ -53,7 +52,6 @@ export const Container = styled.section`
       width: 75px;
       border-radius: 4px;
       border: 1px solid #ddd;
-      font-size: 14px;
       color: #999999;
       text-align: center;
     }

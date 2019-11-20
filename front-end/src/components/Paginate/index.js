@@ -29,6 +29,10 @@ export default function Paginate({ pageSize, handlePageSize, ...rest }) {
 }
 
 Paginate.propTypes = {
-  pageSize: PropTypes.number.isRequired,
+  pageSize: PropTypes.number,
   handlePageSize: PropTypes.func.isRequired,
+};
+
+Paginate.defaultProps = {
+  pageSize: 5,
 };
