@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from '~/components/Button';
@@ -33,10 +34,14 @@ const DATA = [
   },
 ];
 
-export default function AssistanceList() {
+export default function AssistanceList({ navigation }) {
+  function HandleAssistanceRequest() {
+    navigation.navigate('Assistance');
+  }
+
   return (
     <Container>
-      <Button>Novo pedido de auxílio</Button>
+      <Button onPress={HandleAssistanceRequest}>Novo pedido de auxílio</Button>
       <List
         showsVerticalScrollIndicator={false}
         data={DATA}
@@ -65,3 +70,9 @@ export default function AssistanceList() {
     </Container>
   );
 }
+
+AssistanceList.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};

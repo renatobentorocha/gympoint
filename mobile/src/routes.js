@@ -12,6 +12,7 @@ import Header from '~/components/Header';
 import SignIn from '~/pages/SignIn';
 import SignUp from '~/pages/SignUp';
 import AssistanceList from '~/pages/AssistanceList';
+import Assistance from '~/pages/AssistanceList/Assistance';
 import Checkins from '~/pages/Checkins';
 
 const CheckinsTabBar = ({ focused }) => (
@@ -62,10 +63,11 @@ export default (isSigned = false) =>
                 tabBarIcon: CheckinsTabBar,
               },
             },
-            AssistanceList: {
+            Help: {
               screen: createStackNavigator(
                 {
                   AssistanceList,
+                  Assistance,
                 },
                 {
                   defaultNavigationOptions: {
