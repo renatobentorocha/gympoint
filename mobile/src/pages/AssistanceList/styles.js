@@ -9,6 +9,7 @@ export const Container = styled.View`
 
 export const List = styled.FlatList.attrs({})`
   margin-top: 20px;
+  width: 100%;
 `;
 
 export const AnswerWrapper = styled.View.attrs({})`
