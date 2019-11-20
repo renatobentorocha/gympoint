@@ -1,8 +1,55 @@
-<strong>Olá, {{student}}</strong>
-<p>Bem-vindo à GymPoint</p>
-<p>
-  <strong>Plano: </strong> {{plan}} <br />
-  <strong>Data de início: </strong> {{start_date}} <br />
-  <strong>Data de término: </strong> {{end_date}} <br />
-  <strong>Valor: </strong> {{price}} <br />
-</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      background-color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #222;
+    }
+
+    header {
+      width: 100%;
+    }
+
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 120px;
+    }
+
+    section {
+      margin: 15px;
+    }
+
+    p {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="{{logo}}" alt="" />
+  </header>
+  <section>
+    Olá, <strong>{{student}}</strong>, seja bem-vindo à GymPoint.
+    <p>
+      <strong>Plano: </strong> {{plan}} <br />
+      <strong>Data de início: </strong> {{start_date}} <br />
+      <strong>Data de término: </strong> {{end_date}} <br />
+      <strong>Valor: </strong> {{price}} <br />
+      <strong>Código para login através do nosso app: </strong> {{id}} <br />
+    </p>
+  </section>
+</body>
+
+</html>

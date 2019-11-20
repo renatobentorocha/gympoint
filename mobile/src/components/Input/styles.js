@@ -11,6 +11,6 @@ export const TInput = styled.TextInput`
   flex: 1;
   font-size: 15px;
   padding-left: 10px;
-  color: #fff;
+  color: #999;
   background-color: #fff;
 `;

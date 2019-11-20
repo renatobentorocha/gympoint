@@ -9,6 +9,7 @@ export const Container = styled.KeyboardAvoidingView.attrs({
   flex: 1;
   align-items: center;
   justify-content: center;
+  padding: 0 25px 0 25px;
 `;
 
 export const LogoWrapper = styled.View`
@@ -30,5 +31,5 @@ export const Tiltle = styled.Text`
 
 export const InputText = styled(Input)`
   border: 1px solid #ddd;
-  margin: 25px 15px 15px 15px;
+  margin: 25px 0 15px 0;
 `;

@@ -80,7 +80,13 @@ class EnrollmentController {
       price,
     });
 
-    Queue.add(EnrollmentEmail.key, { student, plan, start_date, end_date });
+    Queue.add(EnrollmentEmail.key, {
+      student,
+      plan,
+      start_date,
+      end_date,
+      price,
+    });
 
     return res.status(200).json({
       id: plan_id,

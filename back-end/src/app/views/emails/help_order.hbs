@@ -1,6 +1,52 @@
-<strong>Olá, {{student}}</strong>
-<p>Obrigado pelo contato, abaixo resposta para sua dúvida</p>
-<p>
-  <strong>Reposta: </strong> {{answer}} <br />
-  <strong>Data da reposta: </strong> {{answer_at}} <br />
-</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      background-color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #222;
+    }
+
+    header {
+      width: 100%;
+    }
+
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 120px;
+    }
+
+    section {
+      margin: 15px;
+    }
+
+    p {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="{{logo}}" alt="" />
+  </header>
+  <section>
+    Olá, <strong>{{student}}</strong>, obrigado pelo contato, abaixo resposta para sua dúvida
+    <p>
+      <strong>Reposta: </strong> {{answer}} <br />
+      <strong>Data da reposta: </strong> {{answer_at}} <br />
+    </p>
+  </section>
+</body>
+
+</html>

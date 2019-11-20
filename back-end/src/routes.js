@@ -14,22 +14,20 @@ import authAdminMiddleware from './app/middlewares/authAdmin';
 const routes = new Router();
 
 routes.post('/session', SessionController.store);
-routes.post('/users', UserController.store);
 
 routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
 
 routes.get('/students/:id', StudentController.show);
-
 routes.get('/students/:student_id/checkins', CheckinController.index);
 routes.post('/students/:student_id/checkins', CheckinController.store);
-
 routes.get('/students/:student_id/help_orders', HelpOrderController.index);
 routes.post('/students/:student_id/help_orders', HelpOrderController.store);
 
 routes.use(authAdminMiddleware);
 
+routes.post('/users', UserController.store);
 routes.get('/students', StudentController.index);
 routes.post('/students', StudentController.store);
 routes.delete('/students/:id', StudentController.destroy);
