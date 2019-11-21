@@ -1,6 +1,7 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
+import LoadIndicator from '~/components/LoadIndicator';
 
 import { Container, Buttton, Text } from './styles';
 
@@ -9,7 +10,7 @@ export default function Button({ children, loading, ...rest }) {
     <Container>
       <Buttton {...rest}>
         {loading ? (
-          <ActivityIndicator size="small" color="#FFF" />
+          <LoadIndicator size="small" color="#FFF" />
         ) : (
           <Text>{children}</Text>
         )}

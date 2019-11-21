@@ -1,3 +1,6 @@
+import { Op } from 'sequelize';
+
+import { startOfWeek, endOfWeek, parseISO } from 'date-fns';
 import Student from '../models/Student';
 import Checkin from '../models/Checkin';
 
@@ -18,6 +21,26 @@ class CheckinController {
 
     if (!student) {
       return res.status(400).json({ error: 'Student not found. ' });
+    }
+
+    const startDate = startOfWeek(new Date());
+    const endDate = endOfWeek(new Date());
+
+    const { count } = await Checkin.findAndCountAll({
+      limit: 5,
+      where: {
+        createdAt: {
+          [Op.between]: [startDate, endDate],
+        },
+      },
+    });
+
+    if (count >= 5) {
+      return res
+        .status(403)
+        .send(
+          'Only is permitted five check-ins on a interval of five sequence days'
+        );
     }
 
     const checkin = await Checkin.create({ student_id });

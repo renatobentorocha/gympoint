@@ -12,8 +12,22 @@ export function loadCheckInsSuccess(data) {
   };
 }
 
+export function checkInRequest(id) {
+  return {
+    type: '@checkin/CHECK_IN_REQUEST',
+    payload: { id },
+  };
+}
+
+export function checkInSuccess(data) {
+  return {
+    type: '@checkin/CHECK_IN_SUCCESS',
+    payload: { data },
+  };
+}
+
 export function checkInFailure() {
   return {
-    type: '@checkin/CHECK_IN_FAILURE',
+    type: '@checkin/FAILURE',
   };
 }

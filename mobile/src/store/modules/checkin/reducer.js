@@ -8,6 +8,7 @@ const INITIAL_STATE = {
 export default function checkin(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
+      case '@checkin/CHECK_IN_REQUEST':
       case '@checkin/LOAD_CHECK_IN_REQUEST': {
         draft.loading = true;
         break;
@@ -17,7 +18,12 @@ export default function checkin(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
-      case '@checkin/SIGN_FAILURE': {
+      case '@checkin/CHECK_IN_SUCCESS': {
+        draft.data.push(action.payload.data);
+        draft.loading = false;
+        break;
+      }
+      case '@checkin/FAILURE': {
         draft.loading = false;
         break;
       }
