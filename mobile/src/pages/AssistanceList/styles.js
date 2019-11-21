@@ -31,6 +31,7 @@ export const StatusWrapper = styled.View`
 `;
 
 export const Status = styled.Text`
+  margin-left: 5px;
   font-family: 'Roboto';
   font-weight: bold;
   font-size: 14px;

@@ -1,10 +1,13 @@
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import formatRelative from 'date-fns/formatRelative';
 import { parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
+import { capitalizeFirstLetter } from './capitalize';
+
 export function distanceToNow(date) {
-  return formatDistanceToNow(parseISO(date), {
-    addSuffix: true,
-    locale: pt,
-  });
+  return capitalizeFirstLetter(
+    formatRelative(parseISO(date), new Date(), {
+      locale: pt,
+    })
+  );
 }
