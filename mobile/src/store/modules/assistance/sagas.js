@@ -11,9 +11,12 @@ import {
 
 export function* loadAssistance({ payload }) {
   try {
-    const { id } = payload;
+    const { id, page } = payload;
 
-    const response = yield call(api.get, `/students/${id}/help_orders`);
+    const response = yield call(
+      api.get,
+      `/students/${id}/help_orders?page=${page}`
+    );
 
     const data = response.data.map(value => ({
       id: value.id,

@@ -14,7 +14,7 @@ export default function assistance(state = INITIAL_STATE, action) {
         break;
       }
       case '@assistance/LOAD_ASSISTANCE_SUCCESS': {
-        draft.data = action.payload.data;
+        draft.data = [...draft.data, ...action.payload.data];
         draft.loading = false;
         break;
       }

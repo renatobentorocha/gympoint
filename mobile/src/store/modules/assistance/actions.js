@@ -1,7 +1,7 @@
-export function loadAssitancesRequest(id) {
+export function loadAssitancesRequest(id, page) {
   return {
     type: '@assistance/LOAD_ASSISTANCE_REQUEST',
-    payload: { id },
+    payload: { id, page },
   };
 }
 

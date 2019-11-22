@@ -1,6 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View } from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
+import PropTypes from 'prop-types';
 
 import Button from '~/components/Button';
 import LoadIndicator from '~/components/LoadIndicator';
@@ -18,7 +20,7 @@ import {
   CheckinDate,
 } from './styles';
 
-export default function Checkins() {
+function Checkins({ isFocused }) {
   const dispatch = useDispatch();
 
   const { data, loading, student } = useSelector(state => ({
@@ -34,8 +36,10 @@ export default function Checkins() {
   }, [dispatch, student]);
 
   useEffect(() => {
-    loadCheckIns();
-  }, [loadCheckIns]);
+    if (isFocused) {
+      loadCheckIns();
+    }
+  }, [isFocused, loadCheckIns]);
 
   function handleCheckInRequest() {
     dispatch(checkInRequest(student.id));
@@ -67,3 +71,9 @@ export default function Checkins() {
     </Container>
   );
 }
+
+Checkins.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
+};
+
+export default withNavigationFocus(Checkins);

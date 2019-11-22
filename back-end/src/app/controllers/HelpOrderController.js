@@ -1,5 +1,6 @@
 import Student from '../models/Student';
 import HelpOrder from '../models/HelpOrder';
+import paginate from '../util/paginate';
 
 class HelpOrderController {
   async index(req, res) {
@@ -11,12 +12,19 @@ class HelpOrderController {
       return res.status(400).json('Student not found');
     }
 
-    const help_order = await HelpOrder.findAll({
-      where: { student_id },
-      include: [{ model: Student, as: 'student' }],
-    });
+    const { page = 1, page_size = 5 } = req.query;
 
-    return res.status(200).json(help_order);
+    const help_order = await HelpOrder.findAll(
+      paginate(
+        {
+          where: { student_id },
+          include: [{ model: Student, as: 'student' }],
+        },
+        { page, page_size }
+      )
+    );
+
+    return res.status(200).json({ help_order });
   }
 
   async show(req, res) {
