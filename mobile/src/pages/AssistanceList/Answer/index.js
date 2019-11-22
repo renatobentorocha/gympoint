@@ -1,27 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import { distanceToNow } from '~/util/dateFormat';
+import api from '~/services/api';
+import {
+  Container,
+  ScrollView,
+  QuestionHeader,
+  Text,
+  Date,
+  Content,
+} from './styles';
 
-import { Container, ScrollView, QuestionHeader, Text, Content } from './styles';
+export default function Answer({ navigation }) {
+  const [answer, setAnswer] = useState(null);
+  const student = useSelector(state => state.student.data);
 
-export default function Answer() {
-  return (
+  useEffect(() => {
+    async function loadAnswer() {
+      try {
+        const id = navigation.getParam('id', null);
+
+        const response = await api.get(
+          `students/${student.id}/help_orders/${id}`
+        );
+
+        const data = {
+          question: response.data.question,
+          createdAt: distanceToNow(response.data.createdAt),
+          answer_at: distanceToNow(response.data.answer_at),
+          value: response.data.answer,
+        };
+
+        setAnswer(data);
+      } catch (error) {
+        Alert.alert('Erro a carregar a resposta');
+      }
+    }
+
+    loadAnswer();
+  }, [navigation, student]);
+
+  return answer ? (
     <Container>
       <ScrollView>
         <QuestionHeader>
           <Text>PERGUNTA</Text>
-          <Text>Hoje às 14h</Text>
+          <Date>{answer.createdAt}</Date>
         </QuestionHeader>
-        <Content>
-          Olá pessoal da academia, gostaria de saber se quando acordar devo
-          ingerir batata doce e frango logo de primeira, preparar as marmitas e
-          lotar a geladeira? Dou um pico de insulina e jogo o hipercalórico?
-        </Content>
-        <Text>RESPOSTA</Text>
-        <Content>
-          Opa, isso aí, duas em duas horas, não deixa pra depois, um monstro
-          treina como um, come como dois. Opa, isso aí, duas em duas horas, não
-          deixa pra depois, um monstro treina como um, come como dois.
-        </Content>
+        <Content>{answer.question}</Content>
+        <QuestionHeader>
+          <Text>RESPOSTA</Text>
+          <Date>{answer.answer_at}</Date>
+        </QuestionHeader>
+        <Content>{answer.value}</Content>
       </ScrollView>
     </Container>
-  );
+  ) : null;
 }
+
+Answer.propTypes = {
+  navigation: PropTypes.shape({
+    getParam: PropTypes.func.isRequired,
+  }).isRequired,
+};

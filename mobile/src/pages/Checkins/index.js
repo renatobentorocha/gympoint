@@ -21,21 +21,24 @@ import {
 export default function Checkins() {
   const dispatch = useDispatch();
 
-  const { data, loading } = useSelector(state => ({
+  const { data, loading, student } = useSelector(state => ({
     data: state.checkin.data,
     loading: state.checkin.loading,
+    student: state.student.data,
   }));
 
   const loadCheckIns = useCallback(() => {
-    dispatch(loadCheckInsRequest(1));
-  }, [dispatch]);
+    if (student) {
+      dispatch(loadCheckInsRequest(student.id));
+    }
+  }, [dispatch, student]);
 
   useEffect(() => {
     loadCheckIns();
   }, [loadCheckIns]);
 
   function handleCheckInRequest() {
-    dispatch(checkInRequest(1));
+    dispatch(checkInRequest(student.id));
   }
 
   return (

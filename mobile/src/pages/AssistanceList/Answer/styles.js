@@ -8,14 +8,14 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const ScrollView = styled.ScrollView`
+  background-color: #fff;
   border: 1px solid #ddd;
   width: 100%;
   border-radius: 4px;
-  padding: 0 20px;
+  padding: 20px 20px;
 `;
 
 export const QuestionHeader = styled.View`
-  margin-top: 20px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -27,6 +27,13 @@ export const Text = styled.Text`
   font-size: 14px;
   text-align: left;
   color: #444444;
+`;
+
+export const Date = styled.Text`
+  font-family: 'Roboto';
+  font-size: 14px;
+  color: #666666;
+  text-align: right;
 `;
 
 export const Content = styled.Text`

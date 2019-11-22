@@ -21,16 +21,19 @@ import {
 } from './styles';
 
 export default function AssistanceList({ navigation }) {
-  const { data, loading } = useSelector(state => ({
+  const { data, loading, student } = useSelector(state => ({
     data: state.assistance.data,
     loading: state.assistance.loading,
+    student: state.student.data,
   }));
 
   const dispatch = useDispatch();
 
   const loadAssistances = useCallback(() => {
-    dispatch(loadAssitancesRequest(1));
-  }, [dispatch]);
+    if (student) {
+      dispatch(loadAssitancesRequest(student.id));
+    }
+  }, [dispatch, student]);
 
   useEffect(() => {
     loadAssistances();
@@ -69,7 +72,7 @@ export default function AssistanceList({ navigation }) {
 
   function questionWrapper(item) {
     return item.answered ? (
-      <QuestionButtonWrapper onPress={handleAnsweredQuestion}>
+      <QuestionButtonWrapper onPress={() => handleAnsweredQuestion(item.id)}>
         {questionContent(item)}
       </QuestionButtonWrapper>
     ) : (

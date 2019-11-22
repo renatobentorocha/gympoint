@@ -15,11 +15,11 @@ export function* signIn({ payload }) {
       id,
     });
 
-    const { token, user } = response.data;
+    const { token, student } = response.data;
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    yield put(signInSuccess(token, user));
+    yield put(signInSuccess(token, student));
   } catch (err) {
     Alert.alert('Falha na autenticação, verifique seus dados');
     yield put(signFailure());

@@ -10,10 +10,13 @@ export default function Assistance() {
   const dispacth = useDispatch();
   const [question, setQuestion] = useState('');
 
-  const loading = useSelector(state => state.assistance.loading);
+  const { loading, student } = useSelector(state => ({
+    loading: state.assistance.loading,
+    student: state.student.data,
+  }));
 
   function handleAssistandeRequest() {
-    dispacth(assitanceRequest(1, question));
+    dispacth(assitanceRequest(student.id, question));
   }
 
   return (

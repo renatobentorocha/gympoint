@@ -3,12 +3,35 @@ import HelpOrder from '../models/HelpOrder';
 
 class HelpOrderController {
   async index(req, res) {
+    const { student_id } = req.params;
+
+    const student = Student.findByPk(student_id);
+
+    if (!student) {
+      return res.status(400).json('Student not found');
+    }
+
     const help_order = await HelpOrder.findAll({
-      where: { student_id: req.params.student_id },
+      where: { student_id },
       include: [{ model: Student, as: 'student' }],
     });
 
-    return res.json(help_order);
+    return res.status(200).json(help_order);
+  }
+
+  async show(req, res) {
+    const { student_id, id } = req.params;
+
+    const help_order = await HelpOrder.findOne({
+      where: { student_id, id },
+      include: [{ model: Student, as: 'student' }],
+    });
+
+    if (help_order) {
+      return res.status(200).json(help_order);
+    }
+
+    return res.status(400).json('Student or Help order not found.');
   }
 
   async store(req, res) {
