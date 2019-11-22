@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { TouchableOpacity } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -12,14 +13,21 @@ export const List = styled.FlatList.attrs({})`
   width: 100%;
 `;
 
-export const AnswerWrapper = styled.View.attrs({})`
+export const QuestionWrapper = styled.View.attrs({})`
   border: 1px solid #ddd;
   margin-bottom: 10px;
   border-radius: 4px;
   padding: 20px;
 `;
 
-export const AnswerHeader = styled.View`
+export const QuestionButtonWrapper = styled(TouchableOpacity).attrs({})`
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding: 20px;
+`;
+
+export const QuestionHeader = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -45,7 +53,7 @@ export const AnswerAt = styled.Text`
   text-align: right;
 `;
 
-export const Answer = styled.Text`
+export const Question = styled.Text`
   margin-top: 16px;
   font-family: 'Roboto';
   font-size: 14px;

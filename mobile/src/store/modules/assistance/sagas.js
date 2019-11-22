@@ -34,9 +34,11 @@ export function* loadAssistance({ payload }) {
 
 export function* addAssistance({ payload }) {
   try {
-    const { id } = payload;
+    const { id, question } = payload;
 
-    const response = yield call(api.post, `/students/${id}/help_orders`);
+    const response = yield call(api.post, `/students/${id}/help_orders`, {
+      question,
+    });
 
     const data = {
       id: response.data.id,
@@ -47,7 +49,7 @@ export function* addAssistance({ payload }) {
           ? response.data.answer_at
           : response.data.createdAt
       ),
-      answer: response.data.answer,
+      question: response.data.question,
     };
 
     yield put(assitanceSuccess(data));

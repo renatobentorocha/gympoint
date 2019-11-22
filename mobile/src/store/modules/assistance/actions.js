@@ -12,10 +12,10 @@ export function loadAssitancesSuccess(data) {
   };
 }
 
-export function assitanceRequest(id) {
+export function assitanceRequest(id, question) {
   return {
     type: '@assistance/ASSISTANCE_REQUEST',
-    payload: { id },
+    payload: { id, question },
   };
 }
 

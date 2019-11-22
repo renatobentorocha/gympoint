@@ -46,7 +46,7 @@ class GymHelpOrderController {
   }
 
   async store(req, res) {
-    const { id } = req.body;
+    const { id } = req.params;
 
     const help_order = await HelpOrder.findByPk(id, {
       include: [{ model: Student, as: 'student' }],

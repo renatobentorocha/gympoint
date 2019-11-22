@@ -11,12 +11,13 @@ import { loadAssitancesRequest } from '~/store/modules/assistance/actions';
 import {
   Container,
   List,
-  AnswerWrapper,
-  AnswerHeader,
+  QuestionButtonWrapper,
+  QuestionWrapper,
+  QuestionHeader,
   StatusWrapper,
   Status,
   AnswerAt,
-  Answer,
+  Question,
 } from './styles';
 
 export default function AssistanceList({ navigation }) {
@@ -39,6 +40,43 @@ export default function AssistanceList({ navigation }) {
     navigation.navigate('Assistance');
   }
 
+  function questionContent(item) {
+    return (
+      <>
+        <QuestionHeader>
+          <StatusWrapper>
+            <Icon
+              name="check-circle"
+              size={16}
+              color={item.answered ? '#42cb59' : '#999'}
+            />
+            <Status style={{ color: item.answered ? '#42cb59' : '#999' }}>
+              {item.label}
+            </Status>
+          </StatusWrapper>
+          <AnswerAt>{item.answerAt}</AnswerAt>
+        </QuestionHeader>
+        <Question>
+          <Text>{item.question}</Text>
+        </Question>
+      </>
+    );
+  }
+
+  function handleAnsweredQuestion(id) {
+    navigation.navigate('Answer', { id });
+  }
+
+  function questionWrapper(item) {
+    return item.answered ? (
+      <QuestionButtonWrapper onPress={handleAnsweredQuestion}>
+        {questionContent(item)}
+      </QuestionButtonWrapper>
+    ) : (
+      <QuestionWrapper>{questionContent(item)}</QuestionWrapper>
+    );
+  }
+
   return (
     <Container>
       <Button onPress={HandleAssistanceRequest}>Novo pedido de auxílio</Button>
@@ -49,26 +87,7 @@ export default function AssistanceList({ navigation }) {
           showsVerticalScrollIndicator={false}
           data={data}
           keyExtractor={item => `${item.id}`}
-          renderItem={({ item }) => (
-            <AnswerWrapper>
-              <AnswerHeader>
-                <StatusWrapper>
-                  <Icon
-                    name="check-circle"
-                    size={16}
-                    color={item.answered ? '#42cb59' : '#999'}
-                  />
-                  <Status style={{ color: item.answered ? '#42cb59' : '#999' }}>
-                    {item.label}
-                  </Status>
-                </StatusWrapper>
-                <AnswerAt>{item.answerAt}</AnswerAt>
-              </AnswerHeader>
-              <Answer>
-                <Text>{item.question}</Text>
-              </Answer>
-            </AnswerWrapper>
-          )}
+          renderItem={({ item }) => (item ? questionWrapper(item) : null)}
         />
       )}
     </Container>

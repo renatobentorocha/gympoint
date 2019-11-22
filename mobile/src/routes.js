@@ -13,6 +13,7 @@ import SignIn from '~/pages/SignIn';
 import SignUp from '~/pages/SignUp';
 import AssistanceList from '~/pages/AssistanceList';
 import Assistance from '~/pages/AssistanceList/Assistance';
+import Answer from '~/pages/AssistanceList/Answer';
 import Checkins from '~/pages/Checkins';
 
 const CheckinsTabBar = ({ focused }) => (
@@ -68,6 +69,7 @@ export default (isSigned = false) =>
                 {
                   AssistanceList,
                   Assistance,
+                  Answer,
                 },
                 {
                   defaultNavigationOptions: {
