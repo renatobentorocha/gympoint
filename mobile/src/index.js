@@ -6,7 +6,10 @@ import { StatusBar } from 'react-native';
 import './config/ReactotronConfig';
 
 import { store, persistor } from './store';
+import { session } from '~/services/interceptors';
 import App from './App';
+
+session(store.dispatch);
 
 export default function Index() {
   return (

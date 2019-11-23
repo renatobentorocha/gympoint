@@ -23,6 +23,10 @@ export default function assistance(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+      case '@assistance/CLEAR_ASSISTANCE_REQUEST': {
+        draft.data = [];
+        break;
+      }
       case '@assistance/FAILURE': {
         draft.loading = false;
         break;

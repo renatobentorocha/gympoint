@@ -24,7 +24,7 @@ class HelpOrderController {
       )
     );
 
-    return res.status(200).json({ help_order });
+    return res.status(200).json(help_order);
   }
 
   async show(req, res) {

@@ -50,7 +50,7 @@ class UserController {
 
       if (email && email !== user.email) {
         if (await User.findOne({ where: { email } })) {
-          return res.status(400).json({ error: 'User already exists. ' });
+          return res.status(409).json({ error: 'User already exists. ' });
         }
       }
 

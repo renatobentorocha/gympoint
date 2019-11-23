@@ -12,6 +12,12 @@ export function loadAssitancesSuccess(data) {
   };
 }
 
+export function clearAssitanceRequest() {
+  return {
+    type: '@assistance/CLEAR_ASSISTANCE_REQUEST',
+  };
+}
+
 export function assitanceRequest(id, question) {
   return {
     type: '@assistance/ASSISTANCE_REQUEST',

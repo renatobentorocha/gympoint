@@ -23,6 +23,10 @@ export default function checkin(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+      case '@checkin/CLEAR_CHECK_IN_REQUEST': {
+        draft.data = [];
+        break;
+      }
       case '@checkin/FAILURE': {
         draft.loading = false;
         break;

@@ -11,6 +11,10 @@ export default function student(state = INITIAL_STATE, action) {
         draft.data = action.payload.student;
         break;
       }
+      case '@auth/SIGN_OUT': {
+        draft.data = null;
+        break;
+      }
       default:
     }
   });

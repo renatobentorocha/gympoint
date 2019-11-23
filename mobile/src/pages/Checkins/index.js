@@ -10,6 +10,7 @@ import LoadIndicator from '~/components/LoadIndicator';
 import {
   loadCheckInsRequest,
   checkInRequest,
+  clearCheckInRequest,
 } from '~/store/modules/checkin/actions';
 
 import {
@@ -38,8 +39,10 @@ function Checkins({ isFocused }) {
   useEffect(() => {
     if (isFocused) {
       loadCheckIns();
+    } else {
+      dispatch(clearCheckInRequest());
     }
-  }, [isFocused, loadCheckIns]);
+  }, [dispatch, isFocused, loadCheckIns]);
 
   function handleCheckInRequest() {
     dispatch(checkInRequest(student.id));

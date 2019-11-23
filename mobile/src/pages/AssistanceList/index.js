@@ -7,7 +7,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from '~/components/Button';
 import LoadIndicator from '~/components/LoadIndicator';
 
-import { loadAssitancesRequest } from '~/store/modules/assistance/actions';
+import {
+  loadAssitancesRequest,
+  clearAssitanceRequest,
+} from '~/store/modules/assistance/actions';
 
 import {
   Container,
@@ -42,8 +45,10 @@ function AssistanceList({ navigation, isFocused }) {
   useEffect(() => {
     if (isFocused) {
       loadAssistances();
+    } else {
+      dispatch(clearAssitanceRequest());
     }
-  }, [isFocused, loadAssistances, page]);
+  }, [dispatch, isFocused, loadAssistances, page]);
 
   function HandleAssistanceRequest() {
     navigation.navigate('Assistance');

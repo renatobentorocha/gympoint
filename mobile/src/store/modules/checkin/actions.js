@@ -19,6 +19,13 @@ export function checkInRequest(id) {
   };
 }
 
+export function clearCheckInRequest(id) {
+  return {
+    type: '@checkin/CLEAR_CHECK_IN_REQUEST',
+    payload: { id },
+  };
+}
+
 export function checkInSuccess(data) {
   return {
     type: '@checkin/CHECK_IN_SUCCESS',
