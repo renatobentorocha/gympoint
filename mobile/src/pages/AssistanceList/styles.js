@@ -31,6 +31,7 @@ export const QuestionHeader = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 export const StatusWrapper = styled.View`

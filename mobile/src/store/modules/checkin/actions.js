@@ -1,7 +1,7 @@
-export function loadCheckInsRequest(id) {
+export function loadCheckInsRequest(id, page) {
   return {
     type: '@checkin/LOAD_CHECK_IN_REQUEST',
-    payload: { id },
+    payload: { id, page },
   };
 }
 

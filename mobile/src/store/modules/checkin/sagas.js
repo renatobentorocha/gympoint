@@ -7,9 +7,12 @@ import { loadCheckInsSuccess, checkInSuccess, checkInFailure } from './actions';
 
 export function* loadCheckIn({ payload }) {
   try {
-    const { id } = payload;
+    const { id, page } = payload;
 
-    const response = yield call(api.get, `/students/${id}/checkins`);
+    const response = yield call(
+      api.get,
+      `/students/${id}/checkins?page=${page}`
+    );
 
     const data = response.data.map(checkin => ({
       id: checkin.id,

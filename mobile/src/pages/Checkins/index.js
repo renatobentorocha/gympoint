@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
@@ -22,19 +22,22 @@ import {
 } from './styles';
 
 function Checkins({ isFocused }) {
+  const [page, setPage] = useState(1);
+
   const dispatch = useDispatch();
 
-  const { data, loading, student } = useSelector(state => ({
+  const { data, loading, loadingAddRequest, student } = useSelector(state => ({
     data: state.checkin.data,
     loading: state.checkin.loading,
+    loadingAddRequest: state.checkin.loadingAddRequest,
     student: state.student.data,
   }));
 
   const loadCheckIns = useCallback(() => {
     if (student) {
-      dispatch(loadCheckInsRequest(student.id));
+      dispatch(loadCheckInsRequest(student.id, page));
     }
-  }, [dispatch, student]);
+  }, [dispatch, page, student]);
 
   useEffect(() => {
     if (isFocused) {
@@ -42,20 +45,24 @@ function Checkins({ isFocused }) {
     } else {
       dispatch(clearCheckInRequest());
     }
-  }, [dispatch, isFocused, loadCheckIns]);
+  }, [dispatch, isFocused, loadCheckIns, page]);
 
   function handleCheckInRequest() {
     dispatch(checkInRequest(student.id));
   }
 
+  function renderFooter() {
+    return loading ? <LoadIndicator /> : null;
+  }
+
   return (
     <Container>
-      <Button loading={loading} onPress={handleCheckInRequest}>
+      <Button loading={loadingAddRequest} onPress={handleCheckInRequest}>
         Novo check-in
       </Button>
 
-      {loading ? (
-        <LoadIndicator />
+      {data.length === 0 ? (
+        renderFooter()
       ) : (
         <List
           showsVerticalScrollIndicator={false}
@@ -69,6 +76,9 @@ function Checkins({ isFocused }) {
               <CheckinDate>{item.date}</CheckinDate>
             </CheckinWrapper>
           )}
+          onEndReached={() => setPage(page + 1)}
+          ListFooterComponent={renderFooter}
+          onEndReachedThreshold={0.5}
         />
       )}
     </Container>

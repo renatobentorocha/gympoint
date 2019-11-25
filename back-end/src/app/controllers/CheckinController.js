@@ -1,17 +1,24 @@
 import { Op } from 'sequelize';
-
-import { startOfWeek, endOfWeek, parseISO } from 'date-fns';
+import { startOfWeek, endOfWeek } from 'date-fns';
 import Student from '../models/Student';
 import Checkin from '../models/Checkin';
+import paginate from '../util/paginate';
 
 class CheckinController {
   async index(req, res) {
-    const checkins = await Checkin.findAll({
-      where: { student_id: req.params.student_id },
-      include: [{ model: Student, as: 'student' }],
-    });
+    const { page = 1, page_size = 5 } = req.query;
 
-    return res.json(checkins);
+    const checkins = await Checkin.findAll(
+      paginate(
+        {
+          where: { student_id: req.params.student_id },
+          include: [{ model: Student, as: 'student' }],
+        },
+        { page, page_size }
+      )
+    );
+
+    return res.status(200).json(checkins);
   }
 
   async store(req, res) {

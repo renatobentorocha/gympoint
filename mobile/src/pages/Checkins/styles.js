@@ -21,6 +21,7 @@ export const CheckinWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 export const CheckinId = styled.Text`
