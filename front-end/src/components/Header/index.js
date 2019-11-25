@@ -53,7 +53,7 @@ export default function Header({ location }) {
           </ul>
         </nav>
         <Link className="sign_out" to="/" onClick={handleSignout}>
-          <strong>{profile.name}</strong>
+          <strong>{profile && profile.name}</strong>
           <span>sair do sistema</span>
         </Link>
       </Content>
