@@ -24,6 +24,7 @@ class AnswerHelpOrder {
             locale: pt,
           }
         ),
+        logo: `${process.env.APP_URL}/files/logo.png`,
       },
     });
   }
