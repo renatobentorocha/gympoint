@@ -25,7 +25,7 @@ import {
 } from './styles';
 
 function AssistanceList({ navigation, isFocused }) {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   const { data, loading, student } = useSelector(state => ({
     data: state.assistance.data,
@@ -39,8 +39,11 @@ function AssistanceList({ navigation, isFocused }) {
     if (student) {
       dispatch(loadAssitancesRequest(student.id, page));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, student]);
+  }, [dispatch, page, student]);
+
+  useEffect(() => {
+    setPage(1);
+  }, []);
 
   useEffect(() => {
     if (isFocused) {
