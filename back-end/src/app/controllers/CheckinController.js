@@ -13,6 +13,7 @@ class CheckinController {
         {
           where: { student_id: req.params.student_id },
           include: [{ model: Student, as: 'student' }],
+          order: [['createdAt', 'DESC']],
         },
         { page, page_size }
       )

@@ -19,6 +19,7 @@ class HelpOrderController {
         {
           where: { student_id },
           include: [{ model: Student, as: 'student' }],
+          order: [['updatedAt', 'DESC']],
         },
         { page, page_size }
       )
