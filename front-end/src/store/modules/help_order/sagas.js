@@ -45,7 +45,7 @@ export function* answeHelpOrder({ payload }) {
   try {
     const { data } = payload;
 
-    const response = yield call(api.post, `help_orders/${data.id}`, {
+    const response = yield call(api.post, `help_orders/${data.id}/answer`, {
       answer: data.answer,
     });
 

@@ -172,7 +172,7 @@ export default function Register({ match, history }) {
   }
 
   async function loadOptions(input) {
-    const response = await api.get(`/students?q=${input}`);
+    const response = await api.get(`/students?q=${input}&page_size=10`);
 
     const options = response.data.students.map(student => ({
       value: student.id,

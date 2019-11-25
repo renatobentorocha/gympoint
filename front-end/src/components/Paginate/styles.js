@@ -40,7 +40,7 @@ export const Container = styled.section`
 
     span {
       display: inline-block;
-      font-size: 16px;
+      font-size: 13px;
       color: #666666;
       margin-right: 5px;
       font-weight: bold;
