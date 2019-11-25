@@ -33,6 +33,7 @@ export default function checkin(state = INITIAL_STATE, action) {
       }
       case '@checkin/FAILURE': {
         draft.loading = false;
+        draft.loadingAddRequest = false;
         break;
       }
       default:

@@ -25,7 +25,7 @@ import {
 } from './styles';
 
 function AssistanceList({ navigation, isFocused }) {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   const { data, loading, student } = useSelector(state => ({
     data: state.assistance.data,
@@ -42,14 +42,11 @@ function AssistanceList({ navigation, isFocused }) {
   }, [dispatch, page, student]);
 
   useEffect(() => {
-    setPage(1);
-  }, []);
-
-  useEffect(() => {
     if (isFocused) {
       loadAssistances();
     } else {
       dispatch(clearAssitanceRequest());
+      setPage(1);
     }
   }, [dispatch, isFocused, loadAssistances, page]);
 

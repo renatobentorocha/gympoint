@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import Button from '~/components/Button';
 
 import { assitanceRequest } from '~/store/modules/assistance/actions';
 
 import { Container, TextInput } from './styles';
 
-export default function Assistance() {
+export default function Assistance({ navigation }) {
   const dispacth = useDispatch();
   const [question, setQuestion] = useState('');
 
@@ -17,6 +18,7 @@ export default function Assistance() {
 
   function handleAssistandeRequest() {
     dispacth(assitanceRequest(student.id, question));
+    navigation.goBack();
   }
 
   return (
@@ -34,3 +36,9 @@ export default function Assistance() {
     </Container>
   );
 }
+
+Assistance.propTypes = {
+  navigation: PropTypes.shape({
+    goBack: PropTypes.func.isRequired,
+  }).isRequired,
+};
