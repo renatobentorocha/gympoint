@@ -5,19 +5,6 @@ export const Container = styled.div`
   min-width: 1100px;
   max-width: 1291px;
   margin: 30px auto 0 auto;
-
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-
-    strong {
-      font-size: 24px;
-      color: #444444;
-      font-weight: bold;
-    }
-  }
 `;
 
 export const SearchIcon = styled(MdSearch).attrs({

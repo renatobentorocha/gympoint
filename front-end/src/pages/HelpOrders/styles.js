@@ -4,17 +4,6 @@ export const Container = styled.div`
   min-width: 700px;
   max-width: 700px;
   margin: 30px auto 0 auto;
-
-  header {
-    max-width: 700px;
-    margin: 0 auto 30px auto;
-
-    strong {
-      font-size: 24px;
-      color: #444444;
-      font-weight: bold;
-    }
-  }
 `;
 
 export const Content = styled.section`

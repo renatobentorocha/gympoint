@@ -9,6 +9,7 @@ import {
 } from '~/store/modules/help_order/actions';
 
 import Paginate from '~/components/Paginate';
+import Header from '~/pages/Header/List';
 
 import { Container, Content } from './styles';
 
@@ -47,9 +48,7 @@ export default function HelpOrders() {
 
   return (
     <Container>
-      <header>
-        <strong>Pedidos de auxílio</strong>
-      </header>
+      <Header title="Gerenciando matrículas" />
       <Content>
         <table>
           <thead>

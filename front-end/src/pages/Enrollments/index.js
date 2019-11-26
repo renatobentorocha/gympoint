@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MdAdd, MdCheckCircle } from 'react-icons/md';
+import { MdCheckCircle } from 'react-icons/md';
 import PropTypes from 'prop-types';
 
 import {
@@ -10,7 +10,7 @@ import {
 } from '~/store/modules/enrollment/actions';
 
 import Paginate from '~/components/Paginate';
-import Button from '~/components/Button';
+import Header from '~/pages/Header/List';
 
 import { Container, Content } from './styles';
 
@@ -51,10 +51,7 @@ export default function Enrollments({ history }) {
 
   return (
     <Container>
-      <header>
-        <strong>Gerenciando matrículas</strong>
-        <Button icon="MdAdd" title="CADASTRAR" onClick={handleRegister} />
-      </header>
+      <Header title="Gerenciando matrículas" handleRegister={handleRegister} />
       <Content>
         <table>
           <thead>

@@ -9,7 +9,7 @@ import {
 } from '~/store/modules/plan/actions';
 
 import Paginate from '~/components/Paginate';
-import Button from '~/components/Button';
+import Header from '~/pages/Header/List';
 
 import { Container, Content } from './styles';
 
@@ -49,10 +49,7 @@ export default function Plans({ history }) {
 
   return (
     <Container>
-      <header>
-        <strong>Gerenciando planos</strong>
-        <Button icon="MdAdd" title="CADASTRAR" onClick={handleRegister} />
-      </header>
+      <Header title="Gerenciando planos" handleRegister={handleRegister} />
       <Content>
         <table>
           <thead>

@@ -10,7 +10,7 @@ import {
 } from '~/store/modules/student/actions';
 
 import Paginate from '~/components/Paginate';
-import Button from '~/components/Button';
+import Header from '~/pages/Header/List';
 
 import { Container, SearchIcon, Content } from './styles';
 
@@ -56,20 +56,16 @@ export default function Students({ history }) {
 
   return (
     <Container>
-      <header>
-        <strong>Gerenciando alunos</strong>
+      <Header title="Gerenciando alunos" handleRegister={handleRegister}>
         <div>
-          <Button icon="MdAdd" title="CADASTRAR" onClick={handleRegister} />
-          <div>
-            <input
-              value={filter}
-              placeholder="Buscar aluno"
-              onChange={handleFilter}
-            />
-            <SearchIcon />
-          </div>
+          <input
+            value={filter}
+            placeholder="Buscar aluno"
+            onChange={handleFilter}
+          />
+          <SearchIcon />
         </div>
-      </header>
+      </Header>
       <Content>
         <table>
           <thead>
