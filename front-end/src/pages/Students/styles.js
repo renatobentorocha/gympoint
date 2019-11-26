@@ -27,17 +27,6 @@ export const Container = styled.div`
       position: relative;
     }
 
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 35px;
-      width: 140px;
-      border-radius: 4px;
-      background-color: #ee4d64;
-      font-weight: bold;
-    }
-
     input {
       margin-left: 15px;
       padding-left: 40px;

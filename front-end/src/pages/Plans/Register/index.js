@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
-import { MdCheck, MdChevronLeft } from 'react-icons/md';
 import {
   OnlyNumber,
   ToDecimal,
@@ -17,7 +16,7 @@ import {
   addPlanRequest,
   editPlanRequest,
 } from '~/store/modules/plan/actions';
-import { Container, Spinner } from './styles';
+import { Container, Button } from './styles';
 
 export default function Register({ match, history }) {
   const dispatch = useDispatch();
@@ -112,19 +111,14 @@ export default function Register({ match, history }) {
       <header>
         <strong>Cadastro de plano</strong>
         <div>
-          <button type="button" onClick={() => handleBack()}>
-            <MdChevronLeft size={20} />
-            VOLTAR
-          </button>
-          <button type="submit" form="plan_form">
-            {loading ? (
-              <Spinner />
-            ) : (
-              <>
-                <MdCheck size={20} /> SALVAR
-              </>
-            )}
-          </button>
+          <Button icon="MdChevronLeft" title="VOLTAR" onClick={handleBack} />
+          <Button
+            icon="MdCheck"
+            title="SALVAR"
+            loading={loading}
+            type="submit"
+            form="plan_form"
+          />
         </div>
       </header>
       <Form

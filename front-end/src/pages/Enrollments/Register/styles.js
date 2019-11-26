@@ -1,10 +1,11 @@
-import styled, { keyframes } from 'styled-components';
-import { MdRotateRight, MdKeyboardArrowDown } from 'react-icons/md';
+import styled from 'styled-components';
+import { MdKeyboardArrowDown } from 'react-icons/md';
 import { darken } from 'polished';
 import AsyncReactSelect from '~/components/Unform/AsyncReactSelect';
 import ReactSelect from '~/components/Unform/ReactSelect';
 import DatePicker from '~/components/Unform/DatePicker';
 import { customStyles } from '~/styles/ReactSelect';
+import TButton from '~/components/Button';
 
 export const TAsyncSelect = styled(AsyncReactSelect).attrs({
   styles: customStyles,
@@ -68,25 +69,8 @@ export const Container = styled.div`
       align-items: center;
     }
 
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 35px;
-      width: 110px;
-      border-radius: 4px;
-      background-color: #ccc;
-      transition: background-color 1s;
-      font-weight: bold;
-
-      svg {
-        margin-right: 15px;
-      }
-    }
-
     button + button {
       margin-left: 15px;
-      font-weight: bold;
       background-color: #ee4d64;
     }
 
@@ -176,19 +160,12 @@ export const Container = styled.div`
   }
 `;
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
+export const Button = styled(TButton)`
+  width: 110px;
+  background-color: #ccc;
+  transition: background-color 1s;
 
-  to {
-    transform: rotate(360deg);
+  svg {
+    margin-right: 15px;
   }
-`;
-
-export const Spinner = styled(MdRotateRight).attrs({
-  size: 20,
-  color: '#fff',
-})`
-  animation: ${rotate} 2s linear infinite;
 `;

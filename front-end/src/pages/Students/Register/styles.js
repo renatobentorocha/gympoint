@@ -1,6 +1,6 @@
-import styled, { keyframes } from 'styled-components';
-import { MdRotateRight } from 'react-icons/md';
+import styled from 'styled-components';
 import { darken } from 'polished';
+import TButton from '~/components/Button';
 
 export const Container = styled.div`
   min-width: 900px;
@@ -24,42 +24,17 @@ export const Container = styled.div`
       align-items: center;
     }
 
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 35px;
-      width: 110px;
-      border-radius: 4px;
-      background-color: #ccc;
-      transition: background-color 1s;
-      font-weight: bold;
-
-      svg {
-        margin-right: 15px;
-      }
-    }
-
     button:hover {
       background-color: ${darken(0.1, '#ccc')};
     }
 
     button + button {
       margin-left: 15px;
-      font-weight: bold;
       background-color: #ee4d64;
     }
 
     button + button:hover {
       background-color: ${darken(0.1, '#ee4d64')};
-    }
-
-    strong + button:hover {
-      background-color: ${darken(0.3, '#ccc')};
-    }
-
-    input::placeholder {
-      color: #999999;
     }
   }
 
@@ -121,19 +96,12 @@ export const Container = styled.div`
   }
 `;
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
+export const Button = styled(TButton)`
+  width: 110px;
+  background-color: #ccc;
+  transition: background-color 1s;
 
-  to {
-    transform: rotate(360deg);
+  svg {
+    margin-right: 15px;
   }
-`;
-
-export const Spinner = styled(MdRotateRight).attrs({
-  size: 20,
-  color: '#fff',
-})`
-  animation: ${rotate} 2s linear infinite;
 `;

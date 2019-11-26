@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
-import { MdCheck, MdChevronLeft } from 'react-icons/md';
-
 import {
   addStudentRequest,
   editStudentRequest,
@@ -14,7 +12,7 @@ import {
 import api from '~/services/api';
 
 import { ToDecimal, OnlyNumber } from '~/util/formatters/number';
-import { Container, Spinner } from './styles';
+import { Container, Button } from './styles';
 
 export default function Register({ match, history }) {
   const [student, setStudent] = useState(null);
@@ -102,19 +100,14 @@ export default function Register({ match, history }) {
       <header>
         <strong>{title}</strong>
         <div>
-          <button type="button" onClick={() => handleBack()}>
-            <MdChevronLeft size={20} />
-            VOLTAR
-          </button>
-          <button type="submit" form="student_form">
-            {loading ? (
-              <Spinner />
-            ) : (
-              <>
-                <MdCheck size={20} /> SALVAR
-              </>
-            )}
-          </button>
+          <Button icon="MdChevronLeft" title="VOLTAR" onClick={handleBack} />
+          <Button
+            type="submit"
+            icon="MdCheck"
+            loading={loading}
+            title="SALVAR"
+            form="student_form"
+          />
         </div>
       </header>
       <Form

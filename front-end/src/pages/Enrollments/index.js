@@ -10,6 +10,7 @@ import {
 } from '~/store/modules/enrollment/actions';
 
 import Paginate from '~/components/Paginate';
+import Button from '~/components/Button';
 
 import { Container, Content } from './styles';
 
@@ -52,11 +53,7 @@ export default function Enrollments({ history }) {
     <Container>
       <header>
         <strong>Gerenciando matrículas</strong>
-
-        <button type="button" onClick={() => handleRegister()}>
-          <MdAdd size={20} />
-          CADASTRAR
-        </button>
+        <Button icon="MdAdd" title="CADASTRAR" onClick={handleRegister} />
       </header>
       <Content>
         <table>

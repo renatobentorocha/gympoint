@@ -9,7 +9,6 @@ import addMonths from 'date-fns/addMonths';
 
 import { Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
-import { MdCheck, MdChevronLeft } from 'react-icons/md';
 
 import { DropdownIndicator } from '~/components/ReactSelect/DropdownIndicator';
 import {
@@ -24,7 +23,7 @@ import { CurrencyFormat, ToDecimal } from '~/util/formatters/number';
 
 import {
   Container,
-  Spinner,
+  Button,
   TAsyncSelect,
   TReactSelect,
   TDatePicker,
@@ -200,19 +199,14 @@ export default function Register({ match, history }) {
       <header>
         <strong>{title}</strong>
         <div>
-          <button type="button" onClick={() => handleBack()}>
-            <MdChevronLeft size={20} />
-            VOLTAR
-          </button>
-          <button type="submit" form="enrollment_form">
-            {loading ? (
-              <Spinner />
-            ) : (
-              <>
-                <MdCheck size={20} /> SALVAR
-              </>
-            )}
-          </button>
+          <Button icon="MdChevronLeft" title="VOLTAR" onClick={handleBack} />
+          <Button
+            loading={loading}
+            icon="MdCheck"
+            title="SALVAR"
+            type="submit"
+            form="enrollment_form"
+          />
         </div>
       </header>
 

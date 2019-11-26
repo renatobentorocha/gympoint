@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MdAdd, MdCheckCircle } from 'react-icons/md';
+import { MdCheckCircle } from 'react-icons/md';
 
 import {
   loadStudentsRequest,
@@ -10,6 +10,7 @@ import {
 } from '~/store/modules/student/actions';
 
 import Paginate from '~/components/Paginate';
+import Button from '~/components/Button';
 
 import { Container, SearchIcon, Content } from './styles';
 
@@ -58,10 +59,7 @@ export default function Students({ history }) {
       <header>
         <strong>Gerenciando alunos</strong>
         <div>
-          <button type="button" onClick={() => handleRegister()}>
-            <MdAdd size={20} />
-            CADASTRAR
-          </button>
+          <Button icon="MdAdd" title="CADASTRAR" onClick={handleRegister} />
           <div>
             <input
               value={filter}

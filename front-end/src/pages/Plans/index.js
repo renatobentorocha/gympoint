@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MdAdd } from 'react-icons/md';
 import PropTypes from 'prop-types';
 
 import {
@@ -10,6 +9,7 @@ import {
 } from '~/store/modules/plan/actions';
 
 import Paginate from '~/components/Paginate';
+import Button from '~/components/Button';
 
 import { Container, Content } from './styles';
 
@@ -51,12 +51,7 @@ export default function Plans({ history }) {
     <Container>
       <header>
         <strong>Gerenciando planos</strong>
-        <div>
-          <button type="button" onClick={() => handleRegister()}>
-            <MdAdd size={20} />
-            CADASTRAR
-          </button>
-        </div>
+        <Button icon="MdAdd" title="CADASTRAR" onClick={handleRegister} />
       </header>
       <Content>
         <table>
