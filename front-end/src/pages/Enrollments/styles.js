@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MdCheckCircle, MdSearch } from 'react-icons/md';
+import { MdSearch } from 'react-icons/md';
 
 export const Container = styled.div`
   min-width: 1100px;
@@ -14,11 +14,6 @@ export const SearchIcon = styled(MdSearch).attrs({
   position: absolute;
   left: 30px;
 `;
-
-export const CheckIcon = styled(MdCheckCircle).attrs({
-  size: 20,
-  color: '#42cb59',
-})``;
 
 export const Content = styled.section`
   background-color: #fff;
