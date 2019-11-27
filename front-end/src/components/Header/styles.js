@@ -58,13 +58,14 @@ export const Content = styled.div`
       color: #de3b3b;
       display: block;
       text-align: right;
-      transition: color 1s;
+      transition: font-weight 1s, color 1s;
       white-space: pre;
     }
   }
 
   > nav + a > span:hover {
     color: ${darken(0.2, '#de3b3b')};
+    font-weight: bold;
   }
 `;
 

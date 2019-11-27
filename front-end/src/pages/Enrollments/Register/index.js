@@ -17,13 +17,13 @@ import {
   editEnrollmentRequest,
 } from '~/store/modules/enrollment/actions';
 
+import Header from '~/pages/Header/Register';
 import api from '~/services/api';
 
 import { CurrencyFormat, ToDecimal } from '~/util/formatters/number';
 
 import {
   Container,
-  Button,
   TAsyncSelect,
   TReactSelect,
   TDatePicker,
@@ -166,10 +166,6 @@ export default function Register({ match, history }) {
     }
   }
 
-  function handleBack() {
-    history.push('/matriculas');
-  }
-
   async function loadOptions(input) {
     const response = await api.get(`/students?q=${input}&page_size=10`);
 
@@ -196,19 +192,12 @@ export default function Register({ match, history }) {
 
   return (
     <Container>
-      <header>
-        <strong>{title}</strong>
-        <div>
-          <Button icon="MdChevronLeft" title="VOLTAR" onClick={handleBack} />
-          <Button
-            loading={loading}
-            icon="MdCheck"
-            title="SALVAR"
-            type="submit"
-            form="enrollment_form"
-          />
-        </div>
-      </header>
+      <Header
+        form_id="enrollment_form"
+        title={title}
+        loading={loading}
+        history={history}
+      />
 
       <Form schema={schema} onSubmit={handleSubmit} id="enrollment_form">
         <div>

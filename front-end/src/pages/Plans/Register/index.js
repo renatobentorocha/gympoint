@@ -16,12 +16,16 @@ import {
   addPlanRequest,
   editPlanRequest,
 } from '~/store/modules/plan/actions';
-import { Container, Button } from './styles';
+
+import Header from '~/pages/Header/Register';
+
+import { Container } from './styles';
 
 export default function Register({ match, history }) {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState(0);
   const [price, setPrice] = useState(0);
+  const [title, setTitle] = useState('');
 
   const totalRef = useRef(null);
 
@@ -49,6 +53,9 @@ export default function Register({ match, history }) {
         setDuration(editing_data.duration);
         setPrice(editing_data.unformatted_price);
         totalRef.current.value = editing_data.total;
+        setTitle('Edição de plano');
+      } else {
+        setTitle('Cadastro de plano');
       }
     }
 
@@ -102,25 +109,15 @@ export default function Register({ match, history }) {
     resetForm();
   }
 
-  function handleBack() {
-    history.push('/planos');
-  }
-
   return (
     <Container>
-      <header>
-        <strong>Cadastro de plano</strong>
-        <div>
-          <Button icon="MdChevronLeft" title="VOLTAR" onClick={handleBack} />
-          <Button
-            icon="MdCheck"
-            title="SALVAR"
-            loading={loading}
-            type="submit"
-            form="plan_form"
-          />
-        </div>
-      </header>
+      <Header
+        form_id="plan_form"
+        title={title}
+        loading={loading}
+        history={history}
+      />
+
       <Form
         initialData={editing_data}
         schema={schema}
@@ -134,7 +131,7 @@ export default function Register({ match, history }) {
 
         <div>
           <label htmlFor="duration">
-            DURAÇÃO
+            DURAÇÃO (em meses)
             <Input name="duration" type="text" onChange={handleDuration} />
           </label>
           <label htmlFor="price">

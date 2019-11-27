@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { darken } from 'polished';
 import AsyncReactSelect from '~/components/Unform/AsyncReactSelect';
 import ReactSelect from '~/components/Unform/ReactSelect';
 import DatePicker from '~/components/Unform/DatePicker';
 import { customStyles } from '~/styles/ReactSelect';
-import TButton from '~/components/Button';
 
 export const TAsyncSelect = styled(AsyncReactSelect).attrs({
   styles: customStyles,
@@ -50,38 +48,6 @@ export const Container = styled.div`
   min-width: 900px;
   max-width: 900px;
   margin: 30px auto 0 auto;
-
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-
-    strong {
-      display: block;
-      font-size: 24px;
-      color: #444444;
-      font-weight: bold;
-    }
-
-    div {
-      display: flex;
-      align-items: center;
-    }
-
-    button + button {
-      margin-left: 15px;
-      background-color: #ee4d64;
-    }
-
-    button:hover {
-      background-color: ${darken(0.3, '#ccc')};
-    }
-
-    button + button:hover {
-      background-color: ${darken(0.1, '#ee4d64')};
-    }
-  }
 
   form {
     padding: 30px;
@@ -157,15 +123,5 @@ export const Container = styled.div`
 
   input::placeholder {
     color: #999999;
-  }
-`;
-
-export const Button = styled(TButton)`
-  width: 110px;
-  background-color: #ccc;
-  transition: background-color 1s;
-
-  svg {
-    margin-right: 15px;
   }
 `;

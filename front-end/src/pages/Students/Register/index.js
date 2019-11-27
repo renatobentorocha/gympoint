@@ -9,10 +9,11 @@ import {
   editStudentRequest,
 } from '~/store/modules/student/actions';
 
+import Header from '~/pages/Header/Register';
 import api from '~/services/api';
 
 import { ToDecimal, OnlyNumber } from '~/util/formatters/number';
-import { Container, Button } from './styles';
+import { Container } from './styles';
 
 export default function Register({ match, history }) {
   const [student, setStudent] = useState(null);
@@ -91,25 +92,15 @@ export default function Register({ match, history }) {
     }
   }
 
-  function handleBack() {
-    history.push('/alunos');
-  }
-
   return (
     <Container>
-      <header>
-        <strong>{title}</strong>
-        <div>
-          <Button icon="MdChevronLeft" title="VOLTAR" onClick={handleBack} />
-          <Button
-            type="submit"
-            icon="MdCheck"
-            loading={loading}
-            title="SALVAR"
-            form="student_form"
-          />
-        </div>
-      </header>
+      <Header
+        form_id="student_form"
+        title={title}
+        loading={loading}
+        history={history}
+      />
+
       <Form
         initialData={student}
         schema={schema}
@@ -159,7 +150,7 @@ export default function Register({ match, history }) {
 
 Register.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired,
   }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
