@@ -10,6 +10,7 @@ import {
 } from '~/store/modules/enrollment/actions';
 
 import Paginate from '~/components/Paginate';
+import Table from '~/components/Table';
 import Header from '~/pages/Header/List';
 
 import { Container, Content } from './styles';
@@ -53,7 +54,7 @@ export default function Enrollments({ history }) {
     <Container>
       <Header title="Gerenciando matrículas" handleRegister={handleRegister} />
       <Content>
-        <table>
+        <Table>
           <thead>
             <tr>
               <th>ALUNO</th>
@@ -95,7 +96,7 @@ export default function Enrollments({ history }) {
                 </tr>
               ))}
           </tbody>
-        </table>
+        </Table>
         {data.enrollments && (
           <Paginate
             pageCount={data.page_count}

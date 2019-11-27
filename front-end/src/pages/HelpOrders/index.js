@@ -9,6 +9,7 @@ import {
 } from '~/store/modules/help_order/actions';
 
 import Paginate from '~/components/Paginate';
+import Table from '~/components/Table';
 import Header from '~/pages/Header/List';
 
 import { Container, Content } from './styles';
@@ -50,7 +51,7 @@ export default function HelpOrders() {
     <Container>
       <Header title="Gerenciando matrículas" />
       <Content>
-        <table>
+        <Table>
           <thead>
             <tr>
               <th>ALUNO</th>
@@ -75,7 +76,7 @@ export default function HelpOrders() {
                 </tr>
               ))}
           </tbody>
-        </table>
+        </Table>
         {data && (
           <Paginate
             pageCount={data.page_count}

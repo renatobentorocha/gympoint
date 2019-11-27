@@ -10,6 +10,7 @@ import {
 
 import Paginate from '~/components/Paginate';
 import Header from '~/pages/Header/List';
+import Table from '~/components/Table';
 
 import { Container, Content } from './styles';
 
@@ -51,7 +52,7 @@ export default function Plans({ history }) {
     <Container>
       <Header title="Gerenciando planos" handleRegister={handleRegister} />
       <Content>
-        <table>
+        <Table>
           <thead>
             <tr>
               <th>TÍTULO</th>
@@ -77,7 +78,7 @@ export default function Plans({ history }) {
                 </tr>
               ))}
           </tbody>
-        </table>
+        </Table>
         {data && (
           <Paginate
             pageCount={data.page_count}

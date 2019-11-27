@@ -11,6 +11,7 @@ import {
 
 import Paginate from '~/components/Paginate';
 import Header from '~/pages/Header/List';
+import Table from '~/components/Table';
 
 import { Container, SearchIcon, Content } from './styles';
 
@@ -67,7 +68,7 @@ export default function Students({ history }) {
         </div>
       </Header>
       <Content>
-        <table>
+        <Table>
           <thead>
             <tr>
               <th>NOME</th>
@@ -109,7 +110,7 @@ export default function Students({ history }) {
                 </tr>
               ))}
           </tbody>
-        </table>
+        </Table>
         {data && (
           <Paginate
             pageCount={data.page_count}
