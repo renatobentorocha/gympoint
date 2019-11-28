@@ -5,10 +5,10 @@ export function loadCheckInsRequest(id, page) {
   };
 }
 
-export function loadCheckInsSuccess(data) {
+export function loadCheckInsSuccess(check_ins, page) {
   return {
     type: '@checkin/LOAD_CHECK_IN_SUCCESS',
-    payload: { data },
+    payload: { check_ins, page },
   };
 }
 

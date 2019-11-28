@@ -26,6 +26,7 @@ import {
 
 function AssistanceList({ navigation, isFocused }) {
   const [page, setPage] = useState(1);
+  const [refreshing, setRefreshing] = useState(false);
 
   const { data, loading, student } = useSelector(state => ({
     data: state.assistance.data,
@@ -45,10 +46,15 @@ function AssistanceList({ navigation, isFocused }) {
     if (isFocused) {
       loadAssistances();
     } else {
-      dispatch(clearAssitanceRequest());
       setPage(1);
     }
   }, [dispatch, isFocused, loadAssistances, page]);
+
+  useEffect(() => {
+    if (!loading) {
+      setRefreshing(loading);
+    }
+  }, [loading]);
 
   function HandleAssistanceRequest() {
     navigation.navigate('Assistance');
@@ -95,6 +101,13 @@ function AssistanceList({ navigation, isFocused }) {
     return loading ? <LoadIndicator /> : null;
   }
 
+  function handleRefresh() {
+    if (page !== 1) {
+      setRefreshing(true);
+      setPage(1);
+    }
+  }
+
   return (
     <Container>
       <Button onPress={HandleAssistanceRequest}>Novo pedido de auxílio</Button>
@@ -109,6 +122,8 @@ function AssistanceList({ navigation, isFocused }) {
           onEndReached={() => setPage(page + 1)}
           onEndReachedThreshold={0.5}
           ListFooterComponent={renderFooter}
+          onRefresh={handleRefresh}
+          refreshing={refreshing}
         />
       )}
     </Container>

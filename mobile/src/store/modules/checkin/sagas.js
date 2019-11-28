@@ -19,7 +19,7 @@ export function* loadCheckIn({ payload }) {
       date: distanceToNow(checkin.createdAt),
     }));
 
-    yield put(loadCheckInsSuccess(data));
+    yield put(loadCheckInsSuccess(data, page));
   } catch (err) {
     Alert.alert('Falha ao carregar os check-ins');
     yield put(checkInFailure());

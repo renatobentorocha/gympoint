@@ -23,6 +23,7 @@ import {
 
 function Checkins({ isFocused }) {
   const [page, setPage] = useState(1);
+  const [refreshing, setRefreshing] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -37,15 +38,21 @@ function Checkins({ isFocused }) {
     if (student) {
       dispatch(loadCheckInsRequest(student.id, page));
     }
-  }, [dispatch, page, student]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, student]);
 
   useEffect(() => {
     if (isFocused) {
       loadCheckIns();
-    } else {
-      dispatch(clearCheckInRequest());
     }
-  }, [dispatch, isFocused, loadCheckIns, page]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused, loadCheckIns, page]);
+
+  useEffect(() => {
+    if (!loading) {
+      setRefreshing(loading);
+    }
+  }, [loading]);
 
   function handleCheckInRequest() {
     dispatch(checkInRequest(student.id));
@@ -53,6 +60,13 @@ function Checkins({ isFocused }) {
 
   function renderFooter() {
     return loading ? <LoadIndicator /> : null;
+  }
+
+  function handleRefresh() {
+    if (page !== 1) {
+      setRefreshing(true);
+      setPage(1);
+    }
   }
 
   return (
@@ -78,7 +92,9 @@ function Checkins({ isFocused }) {
           )}
           onEndReached={() => setPage(page + 1)}
           ListFooterComponent={renderFooter}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.2}
+          onRefresh={handleRefresh}
+          refreshing={refreshing}
         />
       )}
     </Container>

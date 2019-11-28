@@ -5,10 +5,10 @@ export function loadAssitancesRequest(id, page) {
   };
 }
 
-export function loadAssitancesSuccess(data) {
+export function loadAssitancesSuccess(assistances, page) {
   return {
     type: '@assistance/LOAD_ASSISTANCE_SUCCESS',
-    payload: { data },
+    payload: { assistances, page },
   };
 }
 
@@ -18,17 +18,16 @@ export function clearAssitanceRequest() {
   };
 }
 
-export function assitanceRequest(id, question) {
+export function addAssitanceRequest(id, question) {
   return {
-    type: '@assistance/ASSISTANCE_REQUEST',
+    type: '@assistance/ADD_ASSISTANCE_REQUEST',
     payload: { id, question },
   };
 }
 
-export function assitanceSuccess(data) {
+export function addAssitanceSuccess() {
   return {
-    type: '@assistance/ASSISTANCE_SUCCESS',
-    payload: { data },
+    type: '@assistance/ADD_ASSISTANCE_SUCCESS',
   };
 }
 

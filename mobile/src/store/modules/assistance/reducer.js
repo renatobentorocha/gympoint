@@ -8,18 +8,21 @@ const INITIAL_STATE = {
 export default function assistance(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
-      case '@assistance/ASSISTANCE_REQUEST':
+      case '@assistance/ADD_ASSISTANCE_REQUEST':
       case '@assistance/LOAD_ASSISTANCE_REQUEST': {
         draft.loading = true;
         break;
       }
       case '@assistance/LOAD_ASSISTANCE_SUCCESS': {
-        draft.data = [...draft.data, ...action.payload.data];
+        if (action.payload.page === 1) {
+          draft.data = action.payload.assistances;
+        } else {
+          draft.data = [...draft.data, ...action.payload.assistances];
+        }
         draft.loading = false;
         break;
       }
-      case '@assistance/ASSISTANCE_SUCCESS': {
-        draft.data = [action.payload.data, ...draft.data];
+      case '@assistance/ADD_ASSISTANCE_SUCCESS': {
         draft.loading = false;
         break;
       }

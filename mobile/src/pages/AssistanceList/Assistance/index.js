@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '~/components/Button';
 
-import { assitanceRequest } from '~/store/modules/assistance/actions';
+import { addAssitanceRequest } from '~/store/modules/assistance/actions';
 
 import { Container, TextInput } from './styles';
 
@@ -17,7 +17,7 @@ export default function Assistance({ navigation }) {
   }));
 
   function handleAssistandeRequest() {
-    dispacth(assitanceRequest(student.id, question));
+    dispacth(addAssitanceRequest(student.id, question));
     navigation.goBack();
   }
 

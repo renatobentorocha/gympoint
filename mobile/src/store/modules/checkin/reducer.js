@@ -14,7 +14,11 @@ export default function checkin(state = INITIAL_STATE, action) {
         break;
       }
       case '@checkin/LOAD_CHECK_IN_SUCCESS': {
-        draft.data = [...draft.data, ...action.payload.data];
+        if (action.payload.page === 1) {
+          draft.data = action.payload.check_ins;
+        } else {
+          draft.data = [...draft.data, ...action.payload.check_ins];
+        }
         draft.loading = false;
         break;
       }

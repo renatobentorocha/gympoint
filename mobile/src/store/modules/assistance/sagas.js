@@ -6,7 +6,7 @@ import api from '~/services/api';
 
 import {
   loadAssitancesSuccess,
-  assitanceSuccess,
+  addAssitanceSuccess,
   assitanceFailure,
 } from './actions';
 
@@ -29,7 +29,7 @@ export function* loadAssistance({ payload }) {
       question: value.question,
     }));
 
-    yield put(loadAssitancesSuccess(data));
+    yield put(loadAssitancesSuccess(data, page));
   } catch (err) {
     Alert.alert('Falha ao carregar solicitações de ajuda');
     yield put(assitanceFailure());
@@ -40,23 +40,11 @@ export function* addAssistance({ payload }) {
   try {
     const { id, question } = payload;
 
-    const response = yield call(api.post, `/students/${id}/help_orders`, {
+    yield call(api.post, `/students/${id}/help_orders`, {
       question,
     });
 
-    const data = {
-      id: response.data.id,
-      answered: !!response.data.answer_at,
-      label: response.data.answer_at ? 'Respondido' : 'Sem resposta',
-      answerAt: distanceToNow(
-        response.data.answer_at
-          ? response.data.answer_at
-          : response.data.createdAt
-      ),
-      question: response.data.question,
-    };
-
-    yield put(assitanceSuccess(data));
+    yield put(addAssitanceSuccess());
   } catch (err) {
     Alert.alert('Falha ao solicitar de ajuda');
 
@@ -66,5 +54,5 @@ export function* addAssistance({ payload }) {
 
 export default all([
   takeLatest('@assistance/LOAD_ASSISTANCE_REQUEST', loadAssistance),
-  takeLatest('@assistance/ASSISTANCE_REQUEST', addAssistance),
+  takeLatest('@assistance/ADD_ASSISTANCE_REQUEST', addAssistance),
 ]);
