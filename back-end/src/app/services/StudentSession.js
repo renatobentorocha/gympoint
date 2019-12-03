@@ -23,7 +23,7 @@ class StudentSession {
 
     const { name, email } = student;
 
-    return res.status(200).json({
+    return res.status(201).json({
       student: {
         id,
         name,
