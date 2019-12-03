@@ -10,3 +10,9 @@ export default function truncate() {
     })
   );
 }
+
+export async function disable_foreign_keys_checkin_before(call) {
+  await database.connection.query('PRAGMA foreign_keys = OFF');
+  await call();
+  await database.connection.query('PRAGMA foreign_keys = ON');
+}

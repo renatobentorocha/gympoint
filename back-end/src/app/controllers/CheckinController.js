@@ -53,7 +53,7 @@ class CheckinController {
 
     const checkin = await Checkin.create({ student_id });
 
-    return res.json(checkin);
+    return res.status(201).json(checkin);
   }
 }
 
