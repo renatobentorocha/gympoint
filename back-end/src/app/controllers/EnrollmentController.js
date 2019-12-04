@@ -72,7 +72,7 @@ class EnrollmentController {
       return res.status(400).json({ error: 'Plan not found. ' });
     }
 
-    await Enrollment.create({
+    const enrollment = await Enrollment.create({
       student_id,
       plan_id,
       start_date,
@@ -88,13 +88,13 @@ class EnrollmentController {
       price,
     });
 
-    return res.status(200).json({
+    return res.status(201).json({
       id: plan_id,
       student,
       plan,
       start_date,
       end_date,
-      active: true,
+      active: enrollment.active,
     });
   }
 

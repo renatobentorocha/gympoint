@@ -3,6 +3,8 @@ import faker from 'faker';
 import User from '../src/app/models/User';
 import Student from '../src/app/models/Student';
 import Checkin from '../src/app/models/Checkin';
+import Enrollment from '../src/app/models/Enrollment';
+import Plan from '../src/app/models/Plan';
 
 factory.define('User', User, {
   name: faker.name.findName(),
@@ -21,6 +23,18 @@ factory.define('Student', Student, {
 
 factory.define('Checkin', Checkin, {
   student_id: faker.random.number(),
+});
+
+factory.define('Enrollment', Enrollment, {
+  start_date: faker.date.past(),
+  end_date: faker.date.future(),
+  price: faker.random.number({ min: 55, max: 1000, precision: 2 }),
+});
+
+factory.define('Plan', Plan, {
+  title: faker.name.jobArea(),
+  duration: faker.random.number({ min: 1, max: 6 }),
+  price: faker.random.number({ min: 55, max: 1000, precision: 2 }),
 });
 
 export default factory;

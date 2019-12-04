@@ -8,7 +8,10 @@ module.exports = {
   port: process.env.DB_PORT,
   dialect: process.env.DB_DIALECT || 'postgres',
   storage: './__tests__/database.sqlite',
-  logging: process.env.DB_LOGGING === 'true',
+  logging:
+    process.env.DB_LOGGING === 'true'
+      ? (...error) => console.log(error)
+      : false,
   operatorAliases: false,
   define: {
     timestamps: true,
