@@ -56,7 +56,7 @@ class HelpOrderController {
 
     const help_order = await HelpOrder.create({ student_id, question });
 
-    return res.json(help_order);
+    return res.status(201).json(help_order);
   }
 }
 

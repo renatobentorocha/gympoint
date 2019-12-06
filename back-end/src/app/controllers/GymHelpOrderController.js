@@ -65,7 +65,7 @@ class GymHelpOrderController {
 
     Queue.add(AnswerHelpOrder.key, { help_order, answer });
 
-    return res.json(help_order);
+    return res.status(201).json(help_order);
   }
 }
 

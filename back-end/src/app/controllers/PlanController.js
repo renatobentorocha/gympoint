@@ -40,7 +40,7 @@ class PlanController {
 
     const plan = await Plan.create({ ...req.body });
 
-    return res.json(plan);
+    return res.status(201).json(plan);
   }
 
   async update(req, res) {
@@ -69,7 +69,7 @@ class PlanController {
         price,
       });
 
-      return res.json({ id, title, duration, price });
+      return res.status(200).json({ id, title, duration, price });
     } catch (error) {
       return res.status(500).json(error);
     }
