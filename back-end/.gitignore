@@ -1,6 +1,6 @@
 node_modules/
 
-__tests__/covarege/
+__tests__/coverage/*
 
 # exclude everything
 tmp/sessions/*

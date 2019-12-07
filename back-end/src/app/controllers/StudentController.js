@@ -96,7 +96,7 @@ class StudentController {
 
     const student = await Student.create({ ...req.body });
 
-    return res.json(student);
+    return res.status(201).json(student);
   }
 
   async update(req, res) {

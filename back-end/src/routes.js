@@ -1,7 +1,6 @@
 import { Router } from 'express';
 
 import SessionController from './app/controllers/SessionController';
-import UserController from './app/controllers/UserController';
 import StudentController from './app/controllers/StudentController';
 import CheckinController from './app/controllers/CheckinController';
 import HelpOrderController from './app/controllers/HelpOrderController';
@@ -27,9 +26,6 @@ routes.get('/students/:student_id/help_orders/:id', HelpOrderController.show);
 routes.post('/students/:student_id/help_orders', HelpOrderController.store);
 
 routes.use(authAdminMiddleware);
-
-routes.post('/users', UserController.store);
-routes.put('/users', UserController.update);
 
 routes.get('/students', StudentController.index);
 routes.post('/students', StudentController.store);
