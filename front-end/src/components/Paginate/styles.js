@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.section`
+  margin-top: 2em;
   display: flex;
   align-items: center;
 
