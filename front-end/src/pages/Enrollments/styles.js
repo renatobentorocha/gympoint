@@ -2,9 +2,22 @@ import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 
 export const Container = styled.div`
-  min-width: 1100px;
   max-width: 1291px;
   margin: 30px auto 0 auto;
+
+  @media screen and (max-width: 996px) {
+    table {
+      th:nth-child(3),
+      tr td:nth-child(3) {
+        display: none;
+      }
+
+      th:nth-child(4),
+      tr td:nth-child(4) {
+        display: none;
+      }
+    }
+  }
 `;
 
 export const SearchIcon = styled(MdSearch).attrs({
