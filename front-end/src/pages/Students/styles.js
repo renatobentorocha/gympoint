@@ -2,9 +2,18 @@ import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 
 export const Container = styled.div`
-  min-width: 800px;
   max-width: 1200px;
   margin: 30px auto 0 auto;
+
+  @media screen and (max-width: 776px) {
+    header {
+      flex-direction: column;
+    }
+
+    header > strong {
+      margin-bottom: 1em;
+    }
+  }
 
   header {
     input {
@@ -40,6 +49,30 @@ export const Content = styled.section`
   padding: 30px;
   margin-bottom: 30px;
   border-radius: 4px;
+
+  @media screen and (max-width: 776px) {
+    table {
+      th:nth-child(3) {
+        display: none;
+      }
+
+      tr td:nth-child(3) {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 690px) {
+    table {
+      th:nth-child(2) {
+        display: none;
+      }
+
+      tr td:nth-child(2) {
+        display: none;
+      }
+    }
+  }
 
   table {
     th:nth-last-child(-n + 3) {
