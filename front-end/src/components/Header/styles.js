@@ -52,6 +52,14 @@ export const Content = styled.div`
         display: block;
         padding: 20px;
       }
+
+      ul > li > a {
+        color: #f5f5f5;
+      }
+
+      ul > li > a:hover {
+        color: ${darken(0.1, '#f5f5f5')};
+      }
     }
   }
 
