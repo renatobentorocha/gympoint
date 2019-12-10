@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 
 import Header from '~/components/Header';
 
-import { Wrapper } from './styles';
+import { WrapperHeader, WrapperContent } from './styles';
 
 export default function DefaultLayout({ children, ...rest }) {
   return (
-    <Wrapper>
-      <Header {...rest} />
-      {children}
-    </Wrapper>
+    <>
+      <WrapperHeader style={{ backgroundColor: '#fff' }}>
+        <Header {...rest} />
+      </WrapperHeader>
+
+      <WrapperContent>{children}</WrapperContent>
+    </>
   );
 }
 

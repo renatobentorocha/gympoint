@@ -4,15 +4,56 @@ import { darken } from 'polished';
 
 export const Container = styled.header`
   background-color: #fff;
+  max-width: 1300px;
+  margin: 0 auto;
 `;
 
 export const Content = styled.div`
-  max-width: 1291px;
-  min-width: 900px;
-  margin: 0 auto;
   height: 65px;
   display: flex;
   align-items: center;
+
+  .hambuger_container svg {
+    display: none;
+  }
+
+  @media screen and (max-width: 776px) {
+    & {
+      position: relative;
+      justify-content: space-between;
+    }
+
+    .hambuger_container svg {
+      display: block;
+    }
+
+    nav,
+    .sign_out {
+      display: none;
+    }
+
+    .hambuger_container:hover > div + nav {
+      background-color: rgba(238, 77, 100, 1);
+      z-index: 1;
+      display: block;
+      position: absolute;
+
+      padding: 0;
+
+      top: 50px;
+      right: 0px;
+
+      ul > li {
+        display: block;
+        margin: 0;
+      }
+
+      ul > li > a {
+        display: block;
+        padding: 20px;
+      }
+    }
+  }
 
   nav {
     padding-left: 30px;
@@ -44,29 +85,6 @@ export const Content = styled.div`
       }
     }
   }
-
-  > nav + a {
-    justify-self: flex-end;
-    margin-left: auto;
-
-    strong {
-      color: #666666;
-    }
-
-    span {
-      margin-top: 4px;
-      color: #de3b3b;
-      display: block;
-      text-align: right;
-      transition: font-weight 1s, color 1s;
-      white-space: pre;
-    }
-  }
-
-  > nav + a > span:hover {
-    color: ${darken(0.2, '#de3b3b')};
-    font-weight: bold;
-  }
 `;
 
 export const Logo = styled(Link)`
@@ -78,6 +96,29 @@ export const Logo = styled(Link)`
   span {
     font-size: 15px;
     color: #ee4d64;
+    font-weight: bold;
+  }
+`;
+
+export const SignOut = styled(Link)`
+  justify-self: flex-end;
+  margin-left: auto;
+
+  strong {
+    color: #666666;
+  }
+
+  span {
+    margin-top: 4px;
+    color: #de3b3b;
+    display: block;
+    text-align: right;
+    transition: font-weight 1s, color 1s;
+    white-space: pre;
+  }
+
+  span:hover {
+    color: ${darken(0.2, '#de3b3b')};
     font-weight: bold;
   }
 `;
