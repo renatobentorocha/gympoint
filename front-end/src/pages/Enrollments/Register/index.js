@@ -226,16 +226,18 @@ export default function Register({ match, history }) {
 
           <label htmlFor="start_date">
             DATA DE INÍCIO
-            <TDatePicker
-              locale={pt}
-              selected={selectedDate}
-              name="start_date"
-              placeholderText="Escolha a data"
-              onChange={handleEndDateChange}
-              dateFormat="dd/MM/yyyy"
-            />
-            <div data-picker-arrow>
-              <TMdArrowDropDown />
+            <div>
+              <TDatePicker
+                locale={pt}
+                selected={selectedDate}
+                name="start_date"
+                placeholderText="Escolha a data"
+                onChange={handleEndDateChange}
+                dateFormat="dd/MM/yyyy"
+              />
+              <div data-picker-arrow>
+                <TMdArrowDropDown />
+              </div>
             </div>
           </label>
 

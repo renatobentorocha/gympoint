@@ -45,9 +45,8 @@ export const TMdArrowDropDown = styled(MdKeyboardArrowDown).attrs({
 `;
 
 export const Container = styled.div`
-  min-width: 900px;
   max-width: 900px;
-  margin: 30px auto 0 auto;
+  margin: 30px auto 0;
 
   form {
     padding: 30px;
@@ -73,6 +72,11 @@ export const Container = styled.div`
     }
 
     label {
+      white-space: pre;
+
+      .react-datepicker-wrapper {
+        width: 100%;
+      }
       .data-picker-arrow {
         background-color: transparent;
       }
@@ -103,6 +107,17 @@ export const Container = styled.div`
 
     label:nth-child(-n + 3) {
       margin-right: 15px;
+    }
+
+    @media screen and (max-width: 742px) {
+      > div:nth-child(2) {
+        flex-wrap: wrap;
+        margin: 0;
+      }
+
+      label:nth-child(-n + 3) {
+        margin-right: 0;
+      }
     }
   }
 

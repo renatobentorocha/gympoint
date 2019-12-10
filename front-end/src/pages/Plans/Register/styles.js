@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  min-width: 900px;
   max-width: 900px;
-  margin: 30px auto 0 auto;
+  margin: 30px auto 0;
 
   form {
     padding: 30px;
@@ -50,6 +49,7 @@ export const Container = styled.div`
     text-align: start;
     color: #444444;
     font-weight: bold;
+    white-space: pre;
 
     input + span {
       display: block;
