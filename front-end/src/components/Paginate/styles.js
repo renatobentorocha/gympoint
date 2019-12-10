@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-export const Container = styled.section`
+export const Container = styled.div`
   margin-top: 2em;
   display: flex;
   align-items: center;
@@ -17,7 +17,6 @@ export const Container = styled.section`
     > li {
       display: inline-block;
       padding: 15px;
-      margin-left: 15px;
       transition: background-color 1s;
     }
 
@@ -30,9 +29,27 @@ export const Container = styled.section`
       cursor: pointer;
     }
 
+    > li > a {
+      padding: 10px;
+    }
+
     > .active_page {
       background-color: ${darken(0.3, '#ee4d64')};
       cursor: pointer;
+    }
+
+    @media screen and (max-width: 720px) {
+      > li {
+        display: none;
+      }
+
+      > li:first-child {
+        display: inline-block;
+      }
+
+      > li:last-child {
+        display: inline-block;
+      }
     }
   }
 
@@ -55,6 +72,15 @@ export const Container = styled.section`
       border: 1px solid #ddd;
       color: #999999;
       text-align: center;
+    }
+  }
+
+  @media screen and (max-width: 720px) {
+    flex-direction: column;
+
+    > div {
+      margin-left: 0;
+      margin-top: 15px;
     }
   }
 `;
