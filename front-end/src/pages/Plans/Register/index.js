@@ -52,7 +52,7 @@ export default function Register({ match, history }) {
       if (editing_data) {
         setDuration(editing_data.duration);
         setPrice(editing_data.unformatted_price);
-        totalRef.current.value = editing_data.total;
+        totalRef.current.value = editing_data.total ? editing_data.total : '';
         setTitle('Edição de plano');
       } else {
         setTitle('Cadastro de plano');
