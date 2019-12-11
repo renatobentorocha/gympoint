@@ -7,10 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from '~/components/Button';
 import LoadIndicator from '~/components/LoadIndicator';
 
-import {
-  loadAssitancesRequest,
-  clearAssitanceRequest,
-} from '~/store/modules/assistance/actions';
+import { loadAssitancesRequest } from '~/store/modules/assistance/actions';
 
 import {
   Container,

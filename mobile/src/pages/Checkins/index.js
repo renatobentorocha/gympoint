@@ -10,7 +10,6 @@ import LoadIndicator from '~/components/LoadIndicator';
 import {
   loadCheckInsRequest,
   checkInRequest,
-  clearCheckInRequest,
 } from '~/store/modules/checkin/actions';
 
 import {
