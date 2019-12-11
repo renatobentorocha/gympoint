@@ -124,6 +124,7 @@ function AssistanceList({ navigation, isFocused }) {
           ListFooterComponent={renderFooter}
           onRefresh={handleRefresh}
           refreshing={refreshing}
+          contentContainerStyle={{ flexGrow: 1 }}
         />
       )}
     </Container>

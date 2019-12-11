@@ -92,9 +92,10 @@ function Checkins({ isFocused }) {
           )}
           onEndReached={() => setPage(page + 1)}
           ListFooterComponent={renderFooter}
-          onEndReachedThreshold={0.2}
+          onEndReachedThreshold={0.4}
           onRefresh={handleRefresh}
           refreshing={refreshing}
+          contentContainerStyle={{ flexGrow: 1 }}
         />
       )}
     </Container>
