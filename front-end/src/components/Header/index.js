@@ -57,11 +57,11 @@ export default function Header({ location }) {
               </li>
             </ul>
           </nav>
+          <SignOut className="sign_out" to="/" onClick={handleSignout}>
+            <strong>{profile && profile.name}</strong>
+            <span>sair do sistema</span>
+          </SignOut>
         </div>
-        <SignOut className="sign_out" to="/" onClick={handleSignout}>
-          <strong>{profile && profile.name}</strong>
-          <span>sair do sistema</span>
-        </SignOut>
       </Content>
     </Container>
   );

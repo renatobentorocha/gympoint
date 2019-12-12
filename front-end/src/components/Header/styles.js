@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 
 export const Container = styled.header`
   background-color: #fff;
@@ -13,14 +13,29 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
 
+  .hambuger_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .hambuger_container svg {
     display: none;
   }
 
-  @media screen and (max-width: 776px) {
+  .hambuger_container svg:hover {
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 820px) {
     & {
       position: relative;
       justify-content: space-between;
+    }
+
+    .hambuger_container {
+      width: auto;
     }
 
     .hambuger_container svg {
@@ -38,6 +53,7 @@ export const Content = styled.div`
       display: block;
       position: absolute;
 
+      border-bottom: 1px solid ${lighten(0.2, '#ee4d64')};
       padding: 0;
 
       top: 50px;
@@ -60,6 +76,27 @@ export const Content = styled.div`
       ul > li > a:hover {
         color: ${darken(0.1, '#f5f5f5')};
       }
+    }
+
+    .hambuger_container:hover .sign_out {
+      display: block;
+      position: absolute;
+      background-color: #ee4d64;
+      top: 280px;
+      right: 0px;
+      padding: 20px 20px 20px 69px;
+    }
+
+    .sign_out > strong {
+      display: none;
+    }
+
+    .sign_out > span {
+      color: #fff;
+    }
+
+    .sign_out > span:hover {
+      color: ${darken(0.1, '#fff')};
     }
   }
 
@@ -127,6 +164,5 @@ export const SignOut = styled(Link)`
 
   span:hover {
     color: ${darken(0.2, '#de3b3b')};
-    font-weight: bold;
   }
 `;

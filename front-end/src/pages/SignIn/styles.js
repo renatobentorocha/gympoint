@@ -16,7 +16,7 @@ export const Container = styled.div`
     align-items: center;
 
     width: 100%;
-    max-width: 360px;
+    max-width: 350px;
     height: 100%;
     max-height: 450px;
     text-align: center;
