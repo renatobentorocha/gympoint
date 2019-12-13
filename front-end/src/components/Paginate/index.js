@@ -4,10 +4,18 @@ import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 
-export default function Paginate({ pageSize, handlePageSize, ...rest }) {
+export default function Paginate({
+  pageCount,
+  forcePage,
+  pageSize,
+  handlePageSize,
+  ...rest
+}) {
   return (
-    <Container>
+    <Container pageCount={pageCount} forcePage={forcePage + 1}>
       <ReactPaginate
+        pageCount={pageCount}
+        forcePage={forcePage}
         marginPagesDisplayed={2}
         pageRangeDisplayed={0}
         previousLabel="Anterior"
@@ -29,6 +37,8 @@ export default function Paginate({ pageSize, handlePageSize, ...rest }) {
 }
 
 Paginate.propTypes = {
+  pageCount: PropTypes.number.isRequired,
+  forcePage: PropTypes.number.isRequired,
   pageSize: PropTypes.number,
   handlePageSize: PropTypes.func.isRequired,
 };

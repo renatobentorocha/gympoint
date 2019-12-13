@@ -82,5 +82,9 @@ export const Container = styled.div`
       margin-left: 0;
       margin-top: 15px;
     }
+
+    .next::after {
+      content: '(${props => `${props.forcePage}/${props.pageCount}`})';
+    }
   }
 `;
