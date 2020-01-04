@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center">
-  Gympoint - Rocketseat Bootcamp 9.0 Final Challenge
+  Gympoint - Rocketseat GoStack 9.0 Final Challenge
 </h3>
 
 This repository consists of three applications, where together, they compose an application to assist a gym. Aiming for GoStack 9.0 bootcamp certification.
