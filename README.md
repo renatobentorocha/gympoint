@@ -30,6 +30,7 @@ This repository consists of three applications, where together, they compose an 
 
 * The application routes are listed below.
 
+**Note:** Redis installation required for email queue creation.
 
 ## Routes
 
