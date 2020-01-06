@@ -28,6 +28,8 @@ This repository consists of three applications, where together, they compose an 
 
 * Some application routes can only be accessed by admin users. The other users, students, will be registered by the wep application;
 
+* Inside the root application run: **yarn queue** and **yarn dev**
+
 * The application routes are listed below.
 
 **Note:** Redis installation required for email queue creation.
